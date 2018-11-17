@@ -55,7 +55,6 @@ public class DatabaseConnecter {
 		catalog = server.getRootCatalog();
 		if (!catalog.hasRepository(this.repositoryID)) {
 			myRepository = catalog.createRepository(this.repositoryID);
-			myRepository.setDuplicateSuppressionPolicy("spo");
 			myRepository.initialize();
 			conn = myRepository.getConnection();
 			conn.setNamespace("ent", Setting.ENTITY_PREFIX);

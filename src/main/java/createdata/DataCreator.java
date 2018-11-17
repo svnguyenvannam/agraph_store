@@ -4,10 +4,8 @@ import java.util.Random;
 
 import com.franz.agraph.repository.AGRepositoryConnection;
 
-import Struct.Dict;
 import connection.DataStoreder;
 import connection.DatabaseConnecter;
-import connection.Query;
 import connection.Setting;
 import entity.Country;
 import entity.Entity;
@@ -21,13 +19,16 @@ import entity.Time;
  * Class sinh dữ liệu từ dữ liệu đọc ở file data
  */
 public class DataCreator {
-	private String[][] entityData;
-	private String[][] descriptionData;
-	private String[][] relationshipData;
-	private String[][] dinhDanh = new String[6][Setting.DEFAULT_INDEX];
+	RawDataReader reader;
+	DatabaseConnecter databaseConnecter;
+	AGRepositoryConnection conn;
+	private String[] entityData;
+	private String[] descriptionData;
+	private String[] relationshipData;
+	private String[] dinhDanh = new String[6*Setting.DEFAULT_INDEX];
 
 	public DataCreator() {
-		RawDataReader reader = new RawDataReader();
+		reader = new RawDataReader();
 		reader.readRawData();
 		this.entityData = reader.getEntityData();
 		this.descriptionData = reader.getDescriptionData();
@@ -36,53 +37,67 @@ public class DataCreator {
 
 	/**
 	 * Sinh numberTriple Triplle vào repository mới tên là repositryName. Nếu
-	 * repository này đã tồn tại, làm mới nó rồi mới thêm triple
+	 * repository này đã tồn tại, làm mới nó rồi mới thêm triple.
+	 * Duyệt lần lượt từng phần tử trong entityData, do số phần tử của các thực thể 
+	 * là bằng nhau, lại được xắp xếp trước. Nên ta có thể tính được thực thể đang 
+	 * xét là dạng nào (Person, Time ...).
+	 * Thứ tự tập phần tử là { "Person", "Organization", "Location", "Event", "Country", "Time" }.
+	 * Mỗi tập phần tử có Setting.DEFAULT_INDEX phần tử.
+	 * Các phép toán như i < 5*Setting.DEFAULT_INDEX là dùng để xác định xem phần tử đang
+	 * xét hiện có dạng nào. Từ đó sinh định danh cho nó. Trong ví dụ trên, phần tử đang xét 
+	 * có thuộc tập phần tử Country
 	 * 
 	 * @param numberTriple   : Số triple mới
 	 * @param repositoryName : Tên repository mới
 	 */
 	public void createData(int numberTriple, String repositoryName) {
-		DatabaseConnecter databaseConnecter = DatabaseConnecter.getDatabaseConnecter();
+		databaseConnecter = DatabaseConnecter.getDatabaseConnecter();
 		databaseConnecter.setRepository(repositoryName);
-		AGRepositoryConnection conn = databaseConnecter.getConnection();
+		conn = databaseConnecter.getConnection();
 		conn.clear();
 		
 		// Duyệt từng phần tử, nối nó với miêu tả tương ứng rồi gọi hàm sinh dữ liệu của
 		// class Entity
 		// Hàm sinh sẽ gọi các phương thức của lớp con chứ không gọi hàm sinh của Entity
 		// : Upcasting
-		for (int i = 0; i < Setting.ENTITIES_ARRAY.length; i++) {
-			int count = 1;
-			for (int j = 0; j < Setting.DEFAULT_INDEX; j++) {
-				if (entityData[i][j] == null)
-					break;
-				Entity entity = null;
-				String dinhDanh = Setting.ENTITIES_ARRAY[i] + '_' + count;
-				if (i == 0)
-					entity = new Person(dinhDanh, entityData[i][j], descriptionData[i][j]);
-				if (i == 1)
-					entity = new Organization(dinhDanh, entityData[i][j], descriptionData[i][j]);
-				if (i == 2)
-					entity = new Location(dinhDanh, entityData[i][j], descriptionData[i][j]);
-				if (i == 3)
-					entity = new Event(dinhDanh, entityData[i][j], descriptionData[i][j]);
-				if (i == 4)
-					entity = new Country(dinhDanh, entityData[i][j], descriptionData[i][j]);
-				if (i == 5)
-					entity = new Time(dinhDanh, entityData[i][j], descriptionData[i][j]);
-				entity.createEntity();
-				entity.storeProperties(databaseConnecter);
-				this.dinhDanh[i][j] = dinhDanh;
-				count++;
+		for (int i = 0; i < 6*Setting.DEFAULT_INDEX; i++) {
+			Entity entity = null;
+			String dinhDanh;
+			if (i < Setting.DEFAULT_INDEX) {
+				dinhDanh = "Person"+i;
+				entity = new Person(dinhDanh, entityData[i], descriptionData[i]);
 			}
+			else if (i < 2*Setting.DEFAULT_INDEX) {
+				dinhDanh = "Organization"+(i-Setting.DEFAULT_INDEX);
+				entity = new Organization(dinhDanh, entityData[i], descriptionData[i]);
+			}
+			else if (i < 3*Setting.DEFAULT_INDEX) {
+				dinhDanh = "Location" + (i-2*Setting.DEFAULT_INDEX);
+				entity = new Location(dinhDanh, entityData[i], descriptionData[i]);
+			}
+			else if (i < 4*Setting.DEFAULT_INDEX) {
+				dinhDanh = "Even"+(i-3*Setting.DEFAULT_INDEX);
+				entity = new Event(dinhDanh, entityData[i], descriptionData[i]);
+			}
+			else if (i < 5*Setting.DEFAULT_INDEX) {
+				dinhDanh = "Country"+(i-4*Setting.DEFAULT_INDEX);
+				entity = new Country(dinhDanh, entityData[i], descriptionData[i]);
+			}
+			else {
+				dinhDanh = "Time"+(i-5*Setting.DEFAULT_INDEX);
+				entity = new Time(dinhDanh, entityData[i], descriptionData[i]);
+			}
+			
+			entity.createEntity();
+			entity.storeProperties(databaseConnecter);
+			this.dinhDanh[i] = dinhDanh;
 		}
 		createRelationship(numberTriple, repositoryName, databaseConnecter);
 	}
 
 	/**
-	 * Tạo tất cả các thực thể có thể tạo được, sử dụng 4 vòng for, có 1 biến xác
-	 * suất để xem triple tạo được có được đưa vào database hay không. Xác suất được
-	 * chọn là 85%.
+	 * Tạo ngẫu nhiên quan hệ bằng cách ghép lần lượt các thực thể với nhau. 
+	 * Có 1 biến xác suất để tạo sự ngẫu nhiên trong dữ liệu
 	 * 
 	 * @param numberTriple   : số lượng triple cần tạo
 	 * @param repositoryName : repository dùng để lưu dữ liệu
@@ -107,29 +122,49 @@ public class DataCreator {
 //			dataStoreder.storeRelationship(ent1, relationship, ent2);
 //			count++;
 //			System.out.println(count);
+		
+//		
+//		Random rand = new Random();
+//		DataStoreder storder = new DataStoreder(databaseConnecter);
+//		int count = 0;
+//		for (int ent1_index = 0; ent1_index < 5; ent1_index++) {
+//			for (int ent1_index_dd = 0; ent1_index_dd < 10; ent1_index_dd++) {
+//				if (dinhDanh[ent1_index][ent1_index_dd] == null) break;
+//				for (int ent2_index = ent1_index + 1; ent2_index < 5; ent2_index++) {
+//					for (int ent2_index_dd = 0; ent2_index_dd < 10; ent2_index_dd++) {
+//						if (dinhDanh[ent2_index][ent2_index_dd] == null) break;
+//						for (int rel_index = 0; rel_index < 10; rel_index++) {
+//							if (relationshipData[ent2_index][rel_index] == null) break;
+//							if (rand.nextInt(1000) > 850) continue;
+//							String ent1 = dinhDanh[ent1_index][ent1_index_dd];
+//							String ent2 = dinhDanh[ent2_index][ent2_index_dd];
+//							String rel = relationshipData[ent2_index][rel_index];
+//							storder.storeRelationship(dinhDanh[ent1_index][ent1_index_dd], 
+//									dinhDanh[ent2_index][ent2_index_dd], 
+//									relationshipData[ent2_index][rel_index]);
+//							count++;
+//							System.out.println(count);
+//							if (count >= numberTriple) return;
+//						}
+//					}
+//				}
+//			}
+//		}
+		DataStoreder storeder = new DataStoreder(databaseConnecter);
 		Random rand = new Random();
-		DataStoreder storder = new DataStoreder(databaseConnecter);
 		int count = 0;
-		for (int ent1_index = 0; ent1_index < Setting.ENTITIES_ARRAY.length - 1; ent1_index++) {
-			for (int ent1_index_dd = 0; ent1_index_dd < Setting.DEFAULT_INDEX; ent1_index_dd++) {
-				if (dinhDanh[ent1_index][ent1_index_dd] == null) break;
-				for (int ent2_index = ent1_index + 1; ent2_index < Setting.ENTITIES_ARRAY.length; ent2_index++) {
-					for (int ent2_index_dd = 0; ent2_index_dd < Setting.DEFAULT_INDEX; ent2_index_dd++) {
-						if (dinhDanh[ent2_index][ent2_index_dd] == null) break;
-						for (int rel_index = 0; rel_index < Setting.DEFAULT_INDEX; rel_index++) {
-							if (relationshipData[ent2_index][rel_index] == null) break;
-							if (rand.nextInt(1000) > 850) continue;
-							String ent1 = dinhDanh[ent1_index][ent1_index_dd];
-							String ent2 = dinhDanh[ent2_index][ent2_index_dd];
-							String rel = relationshipData[ent2_index][rel_index];
-							storder.storeRelationship(ent1, rel, ent2);
-							count++;
-							System.out.println(count);
-							if (count >= numberTriple) return;
-						}
-					}
+		
+		int Max = 6*Setting.DEFAULT_INDEX;
+		int MaxRel = relationshipData.length;
+		label1:
+		for (int i = 0; i < Max; i++) 
+			for (int j = 0; j < Max; j++) 
+				for (int k = 0; k < MaxRel; k++) {
+//					if (rand.nextInt(100)  > 75) continue;
+					storeder.storeRelationship(entityData[i], relationshipData[k], entityData[j]);
+					count ++;
+					System.out.println(count);
+					if (count == numberTriple) break label1;
 				}
-			}
-		}
 	}
 }

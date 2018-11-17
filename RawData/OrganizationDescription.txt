@@ -8,5 +8,3 @@ OrganizationCC7
 OrganizationCC8
 OrganizationCC9
 OrganizationCC10
-OrganizationCC11
-OrganizationCC12

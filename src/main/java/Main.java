@@ -12,14 +12,14 @@ import entity.Time;
 
 public class Main {
 	public static void main(String[] args) {
-		DatabaseConnecter databaseConnecter = DatabaseConnecter.getDatabaseConnecter("OOP_400");
-//		DataCreator d = new DataCreator();
-//		d.createData(400,"OOP_400");
-//		databaseConnecter.setRepository("OOP_400");
+		DatabaseConnecter databaseConnecter = DatabaseConnecter.getDatabaseConnecter("OOP_5000");
+		DataCreator d = new DataCreator();
+		d.createData(5000,"OOP_5000");
+		databaseConnecter.setRepository("OOP_5000");
 		AGRepositoryConnection conn = databaseConnecter.getConnection();
 		
 		Query query = new Query(databaseConnecter);
 //		query.printResultQuery0();
-		query.printResultQuery1();
+		query.printResultQuery6();
 	}
 }
