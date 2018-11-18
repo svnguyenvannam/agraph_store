@@ -1,9 +1,5 @@
 package createdata;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-
 import com.google.common.collect.ObjectArrays;
 
 import connection.Setting;
@@ -23,7 +19,6 @@ public class RawDataReader {
 	private String[] descriptionPathFile = new String[6];
 	private FileReader reader;
 	
-	
 	/**
 	 * Đọc dữ liệu vào các mảng tương ứng.
 	 */
@@ -32,15 +27,15 @@ public class RawDataReader {
 		String pathFile;
 		for (int i = 0; i < 6; i++) {
 			pathFile = entityPathFile[i];
-			reader = new FileReader(pathFile);
+			reader = new FileReader(pathFile, Setting.DEFAULT_INDEX);
 			entityData = ObjectArrays.concat(entityData, reader.readFile(), String.class);
 			
 			pathFile = descriptionPathFile[i];
-			reader = new FileReader(pathFile);
+			reader = new FileReader(pathFile, Setting.DEFAULT_INDEX);
 			descriptionData = ObjectArrays.concat(descriptionData,reader.readFile(), String.class);
 		}
 		
-		reader = new FileReader(Setting.DIR_DATA_PATH+"/relationship.txt");
+		reader = new FileReader(Setting.DIR_DATA_PATH+"/relationship.txt", 6*10);
 		relationshipData = reader.readFile();
 	}
 

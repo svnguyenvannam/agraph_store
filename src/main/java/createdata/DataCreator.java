@@ -92,6 +92,10 @@ public class DataCreator {
 			entity.storeProperties(databaseConnecter);
 			this.dinhDanh[i] = dinhDanh;
 		}
+		for (String string : dinhDanh) {
+			System.out.println(string);
+		}
+//		if (this.dinhDanh.length < 2000) return;
 		createRelationship(numberTriple, repositoryName, databaseConnecter);
 	}
 
@@ -158,13 +162,17 @@ public class DataCreator {
 		int MaxRel = relationshipData.length;
 		label1:
 		for (int i = 0; i < Max; i++) 
-			for (int j = 0; j < Max; j++) 
+			label2:
+			for (int j = 0; j < Max; j++) {
+				if (i == j) continue label2;
+				label3:
 				for (int k = 0; k < MaxRel; k++) {
-//					if (rand.nextInt(100)  > 75) continue;
-					storeder.storeRelationship(entityData[i], relationshipData[k], entityData[j]);
+					if (rand.nextInt(100)  > 75) continue label3;
+					storeder.storeRelationship(dinhDanh[i], relationshipData[k], dinhDanh[j]);
 					count ++;
 					System.out.println(count);
 					if (count == numberTriple) break label1;
 				}
+			}
 	}
 }

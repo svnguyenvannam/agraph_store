@@ -9,10 +9,12 @@ import connection.Setting;
 public class FileReader {
 	private String pathFile;
 	private File file;
+	private int number;
 	private Scanner scanner;
 	
-	public FileReader(String pathFile) {
+	public FileReader(String pathFile, int number) {
 		this.pathFile = pathFile;
+		this.number = number;
 	}
 	
 	/**
@@ -28,15 +30,14 @@ public class FileReader {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		String[] listData = new String[Setting.DEFAULT_INDEX];
+		String[] listData = new String[number];
 		int count = 0;
 
 		// Đọc đến khi nào hết file relationship
 		try {
-			while (scanner.hasNextLine()) {
+			while (scanner.hasNextLine() && count < number) {
 				listData[count] = scanner.nextLine().replace(" ", "_");
 				count++;
-				if (count == 10) return listData;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

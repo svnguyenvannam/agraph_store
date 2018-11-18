@@ -14,7 +14,7 @@ public class Setting {
 	public static String DIR_PATH = System.getProperty("user.dir");
 	public static String DIR_DATA_PATH = DIR_PATH + "/RawData";
 	
-	public static int DEFAULT_INDEX = 10;
+	public static int DEFAULT_INDEX = 7;
 	
 	public static String DEFAULT_LINK = "https://vi.wikipedia.org/wiki/";
 }
