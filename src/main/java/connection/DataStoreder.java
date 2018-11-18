@@ -15,10 +15,12 @@ import Struct.Dict;
 public class DataStoreder {
 	DatabaseConnecter databaseConnecter;
 	AGRepositoryConnection conn;
+	ValueFactory vf;
 	
 	public DataStoreder(DatabaseConnecter databaseConnecter) {
 		this.databaseConnecter = DatabaseConnecter.getDatabaseConnecter();
 		this.conn = databaseConnecter.getConnection();
+		this.vf = conn.getValueFactory();
 	}
 
 	/**
@@ -48,7 +50,6 @@ public class DataStoreder {
 	}
 
 	public void storeRelationship(String ent1, String relationship, String ent2) {
-		ValueFactory vf = conn.getValueFactory();
 		IRI s = vf.createIRI(Setting.ENTITY_PREFIX, ent1);
 		IRI p = vf.createIRI(Setting.RELATIONSHIP_PREFIX, relationship);
 		IRI o = vf.createIRI(Setting.ENTITY_PREFIX, ent2);

@@ -43,12 +43,12 @@ public class Entity {
 	 */
 	protected Dict[] getListProperties() {
 		Dict properties[] = new Dict[Setting.DEFAULT_INDEX];
-		properties[0] = new Dict("Định_Danh", dinhDanh);
-		properties[1] = new Dict("Tên_Hiển_Thị", tenHienThi);
-		properties[2] = new Dict("Thực_Thể", this.getClass().getName().replaceAll("entity.", ""));
-		properties[3] = new Dict("Mô_Tả", moTa);
-		properties[4] = new Dict("Link_Nhận_Dữ_Liệu", link);
-		properties[5] = new Dict("Ngày_Nhận_Dữ_Liệu", ngayThang);
+		properties[0] = new Dict("định_danh", dinhDanh);
+		properties[1] = new Dict("tên_hiển_thị", tenHienThi);
+		properties[2] = new Dict("thực_thể", this.getClass().getName().replace("entity.", ""));
+		properties[3] = new Dict("mô_tả", moTa);
+		properties[4] = new Dict("link_nhận_dữ_liệu", link);
+		properties[5] = new Dict("ngày_nhận_dữ_liệu", ngayThang);
 //		for (Dict dict : properties) {
 //			if (dict == null) break;
 //			System.out.println(dict.K);

@@ -1,7 +1,8 @@
 package entity;
 
-public class Person extends Entity {
+import Struct.Dict;
 
+public class Person extends Entity {
 	// Constructor
 	public Person(String dinhDanh, String tenHienThi, String moTa, String link, String ngayThang) {
 		super(dinhDanh, tenHienThi, moTa, link, ngayThang);
