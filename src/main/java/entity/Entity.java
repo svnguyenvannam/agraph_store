@@ -34,7 +34,6 @@ public class Entity {
 		this.dinhDanh = dinhDanh;
 		this.tenHienThi = tenHienThi;
 		this.moTa = moTa;
-		createEntity();
 	}
 	
 	/**
@@ -42,7 +41,7 @@ public class Entity {
 	 * Các lớp thực thể khác muốn thêm các thuộc tính mới có thể kế thừa phương thức này
 	 */
 	protected Dict[] getListProperties() {
-		Dict properties[] = new Dict[Setting.DEFAULT_INDEX];
+		Dict properties[] = new Dict[30];
 		properties[0] = new Dict("định_danh", dinhDanh);
 		properties[1] = new Dict("tên_hiển_thị", tenHienThi);
 		properties[2] = new Dict("thực_thể", this.getClass().getName().replace("entity.", ""));
