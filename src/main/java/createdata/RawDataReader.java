@@ -14,7 +14,7 @@ import connection.Setting;
 public class RawDataReader {
 	private String[] entityData = new String[6*Setting.DEFAULT_INDEX];
 	private String[] descriptionData = new String[6*Setting.DEFAULT_INDEX];
-	private String[] relationshipData = new String[6*10];
+	private String[] relationshipData = new String[Setting.REL_INDEX];
 	private String[] entityPathFile = new String[6];
 	private String[] descriptionPathFile = new String[6];
 	private FileReader reader;
@@ -35,7 +35,7 @@ public class RawDataReader {
 			descriptionData = ObjectArrays.concat(descriptionData,reader.readFile(), String.class);
 		}
 		
-		reader = new FileReader(Setting.DIR_DATA_PATH+"/relationship.txt", 6*10);
+		reader = new FileReader(Setting.DIR_DATA_PATH+"/relationship.txt", Setting.REL_INDEX);
 		relationshipData = reader.readFile();
 	}
 
