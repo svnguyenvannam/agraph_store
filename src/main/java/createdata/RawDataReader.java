@@ -1,5 +1,7 @@
 package createdata;
 
+import org.eclipse.rdf4j.spin.function.spif.ForEach;
+
 import com.google.common.collect.ObjectArrays;
 
 import connection.Setting;
@@ -12,7 +14,7 @@ import connection.Setting;
  * @author toanloi
  */
 public class RawDataReader {
-	private String[] entityData = new String[6*Setting.DEFAULT_INDEX];
+	private String[] entityData = new String[0];
 	private String[] descriptionData = new String[6*Setting.DEFAULT_INDEX];
 	private String[] relationshipData = new String[Setting.REL_INDEX];
 	private String[] entityPathFile = new String[6];
@@ -29,6 +31,9 @@ public class RawDataReader {
 			pathFile = entityPathFile[i];
 			reader = new FileReader(pathFile, Setting.DEFAULT_INDEX);
 			entityData = ObjectArrays.concat(entityData, reader.readFile(), String.class);
+			for (String string : entityData) {
+				System.out.println(string);
+			}
 			
 			pathFile = descriptionPathFile[i];
 			reader = new FileReader(pathFile, Setting.DEFAULT_INDEX);
