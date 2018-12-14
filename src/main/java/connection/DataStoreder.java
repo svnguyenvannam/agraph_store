@@ -39,11 +39,10 @@ public class DataStoreder {
 
 		// Tạo các thuộc tính và nối với thực thể
 		int i = 1;
-		System.out.println(properties[1].V);
 		while (properties[i] != null) {
 			if (properties[i].V != null) {
-				IRI p = vf.createIRI(Setting.PROPERTIES_PREFIX, (String) properties[i].K);
-				Literal o = vf.createLiteral((String) properties[i].V);
+				IRI p = vf.createIRI(Setting.PROPERTIES_PREFIX, properties[i].K.toString());
+				Literal o = vf.createLiteral(properties[i].V.toString());
 				conn.add(dinhDanh, p, o);
 			}
 			i++;

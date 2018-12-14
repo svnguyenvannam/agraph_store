@@ -1,11 +1,11 @@
 package entity;
 
-import java.util.Set;
+import java.time.LocalDate;
 
 import Struct.Dict;
+import Struct.RandomProperties;
 import connection.DataStoreder;
 import connection.DatabaseConnecter;
-import connection.Setting;
 
 public class Entity {
 	private String dinhDanh = null;
@@ -48,11 +48,6 @@ public class Entity {
 		properties[3] = new Dict("mô_tả", moTa);
 		properties[4] = new Dict("link_nhận_dữ_liệu", link);
 		properties[5] = new Dict("ngày_nhận_dữ_liệu", ngayThang);
-//		for (Dict dict : properties) {
-//			if (dict == null) break;
-//			System.out.println(dict.K);
-//			System.out.println(dict.V);
-//		}
 		return properties;
 	}
 	
@@ -63,14 +58,6 @@ public class Entity {
 	public void storeProperties(DatabaseConnecter databaseConnecter) {
 		DataStoreder dataStoreder = new DataStoreder(databaseConnecter);
 		dataStoreder.storeEntity(this.getListProperties());
-	}
-	
-	/**
-	 * Tạo ngẫu nhiên ra một thực thể 
-	 */
-	public void createEntity() {
-		link = Setting.DEFAULT_LINK + dinhDanh;
-		ngayThang = java.time.LocalDate.now().toString();
 	}
 	
 	public String getDinhDanh() {

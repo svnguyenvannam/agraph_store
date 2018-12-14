@@ -1,5 +1,6 @@
 package connection;
 
+import org.eclipse.rdf4j.model.IRI;
 import org.eclipse.rdf4j.model.Value;
 import org.eclipse.rdf4j.query.BindingSet;
 import org.eclipse.rdf4j.query.QueryLanguage;
@@ -32,7 +33,7 @@ public class Query {
 				+ "where {"
 				+ "?s ?p ?o"
 				+ "}";
-		printRows_3(query, conn);
+		printRows(query, conn);
 	}
 	
 	/**
@@ -44,40 +45,42 @@ public class Query {
 				+ "?s rdf:type ent:Person . "
 				+ "?s prs:tên_hiển_thị \"Sơn_Tùng_M-TP\" . "
 				+ "?s ?p ?o . "
-				+ "filter (?p != rdf:type && ?p != rel:)"
+				+ "filter (strstarts(str(?p), \"http://btl/properties/\" ))"
 				+ "}";
-		printRows_3(query, conn);
+		printRows(query, conn);
 	}
 	
 	/**
-	 * In ra thông tin của Person Kim Đồng
+	 * In ra thông tin các thực thể Kim Đồng
 	 */
 	public void printResultQuery2() {
 		query = "select ?s ?p ?o "
 				+ "where {"
-				+ "?s rdf:type ent:Person . "
 				+ "?s prs:tên_hiển_thị \"Kim_Đồng\" . "
 				+ "?s ?p ?o . "
-				+ "filter (?p != rdf:type && ?p != rel:)"
+				+ "filter (strstarts(str(?p), \"http://btl/properties/\" ))"
 				+ "}";
-		printRows_3(query, conn);
+		printRows(query, conn);
 	}
 	
 	/**
-	 * In ra thông tin các thực thể tên là Kim Đồng 
+	 * In thông tin những người không đến Location Quảng Trường Ba Đình
 	 */
 	public void printResultQuery3() {
 		query = "select ?s ?p ?o "
 				+ "where {"
-				+ "?s prs:tên_hiển_thị \"Kim_Đồng\" . "
-				+ "?s ?p ?o . "
-				+ "filter (?p != rdf:type && ?p != rel:)"
+				+ "?idx rdf:type ent:Location."
+				+ "?idx prs:tên_hiển_thị \"Quảng_trường_Ba_Đình\"."
+				+ "?s rdf:type ent:Person."
+				+ "?s rel:không_đến ?idx."
+				+ "?s ?p ?o."
+				+ "filter (strstarts(str(?p), \"http://btl/properties/\" ))"
 				+ "}";
-		printRows_3(query, conn);
+		printRows(query, conn);
 	}
 	
 	/**
-	 * In ra nơi mà Nguyễn Phú Trọng đã đến 
+	 * In ra nơi mà Nguyễn Phú Trọng không đến
 	 */
 	public void printResultQuery4() {
 		query = "select ?s ?p ?o "
@@ -87,30 +90,30 @@ public class Query {
 				+ "?idy ?p ?idx . "
 				+ "?idy rdf:type ent:Person . "
 				+ "?idy prs:tên_hiển_thị ?s. "
-				+ "filter (?s = \"Nguyễn_Phú_Trọng\" && ?p = rel:đã_đến)"
+				+ "filter (?s = \"Nguyễn_Phú_Trọng\" && ?p = rel:không_đến)"
 				+ "}";
-		printRows_3(query, conn);
+		printRows(query, conn);
 	}
 	
 	/**
-	 * In ra số người đã đến Location Vịnh Hạ Long
+	 * In ra số người không đến Location Vịnh Hạ Long
 	 */
 	public void printResultQuery5() {
-		query = "select (count(?idy) as ?x)"
+		query = "select (count(?idy) as ?s)"
 				+ "where {"
 				+ "?idx rdf:type ent:Location . "
 				+ "?idx prs:tên_hiển_thị \"Vịnh_Hạ_Long\" . "
-				+ "?idy rel:đã_đến ?idx . "
+				+ "?idy rel:không_đến ?idx . "
 				+ "?idy rdf:type ent:Person . "
 				+ "}";
-		printRows_1(query, conn);
+		printRows(query, conn);
 	}
 	
 	/**
-	 * In ra những người Liên Kết 12 cả nước Pháp và Đức
+	 * In ra những người đã đến cả nước Pháp và Đức
 	 */
 	public void printResultQuery6() {
-		query = "select ?x "
+		query = "select ?s "
 				+ "where {"
 				+ "?idx rdf:type ent:Country . "
 				+ "?idx prs:tên_hiển_thị \"Pháp\" . "
@@ -119,23 +122,41 @@ public class Query {
 				+ "?idz rel:đã_đến ?idx . "
 				+ "?idz rel:đã_đến ?idy ."
 				+ "?idz rdf:type ent:Person . "
-				+ "?idz prs:tên_hiển_thị ?x"
+				+ "?idz prs:tên_hiển_thị ?s"
 				+ "}";
-		printRows_1(query, conn);
+		printRows(query, conn);
 	}
 	
 	/**
-	 * 
+	 * In ra những người liên kết 12 ở việt nam nhưng lại liên kết 11 ở Mỹ 
 	 */
 	public void printResultQuery7() {
-		
+		query =  "select ?s"
+				+ "where {"
+				+ "?idx rdf:type ent:Country."
+				+ "?idx prs:tên_hiển_thị \"Việt_Nam\"."
+				+ "?idy rdf:type ent:Country."
+				+ "?idy prs:tên_hiển_thị \"Mỹ\"."
+				+ "?idz rel:liên_kết_12 ?idx."
+				+ "?idz rel:liên_kết_11 ?idy."
+				+ "?idz prs:tên_hiển_thị ?s."
+				+ "}";
+		printRows(query, conn);
 	}
 	
 	/**
-	 * 
+	 * In ra thông tin những nước có dân số thấp hơn 17000000 nhưng có GPD cao hơn 50000 
 	 */
 	public void printResultQuery8() {
-		
+		query = "select ?s ?p ?o"
+				+ "where {"
+				+ "?s rdf:type ent:Country."
+				+ "?s prs:dân_số ?ds."
+				+ "?s prs:gdp ?gdp."
+				+ "?s ?p ?o."
+				+ "filter (?ds < 17000000 && ?gdp > 50000)"
+				+ "}";
+		printRows(query, conn);
 	}
 	
 	/**
@@ -152,37 +173,48 @@ public class Query {
 		
 	}
 	
+	public void printResultQuery(int x) {
+		if (x == 1) {
+			printResultQuery1();
+		} else if (x == 2) {
+			printResultQuery2();
+		}
+	}
+	
 	/**
 	 * In ra kết quả trong truy vấn ?s ?p ?o
 	 * @param query : Truy vấn truyền vào, phải là truy vấn dạng select ?s ?p ?o 
 	 * @param conn : Đối tượng AGRepositoryConnection dùng để kết nối với Repository 
 	 */
-	private void printRows_3(String query, AGRepositoryConnection conn) {
+	private void printRows(String query, AGRepositoryConnection conn) {
 		TupleQuery tupleQuery = conn.prepareTupleQuery(QueryLanguage.SPARQL, query);
 		TupleQueryResult result = tupleQuery.evaluate();
+		Value x = null;
 		while (result.hasNext()) {
 			BindingSet bind = result.next();
 			Value s = bind.getValue("s");
 			Value p = bind.getValue("p");
 			Value o = bind.getValue("o");
+			if (!s.equals(x)) System.out.println("------------------------------------------"); 
 			System.out.format("%s %s %s\n", removePrefix(s), removePrefix(p), removePrefix(o));
+			x = s;
 		}
 	}
 	
-	/**
-	 * In ra kết quả trong truy vấn ?x 
-	 * @param query :  Truy vấn truyền vào, phải là truy vấn dạng select ?x
-	 * @param conn : Đối tượng AGRepositoryConnection dùng để kết nối với Repository 
-	 */
-	private void printRows_1(String query, AGRepositoryConnection conn) {
-		TupleQuery tupleQuery = conn.prepareTupleQuery(QueryLanguage.SPARQL, query);
-		TupleQueryResult result = tupleQuery.evaluate();
-		while (result.hasNext()) {
-			BindingSet bind = result.next();
-			Value x = bind.getValue("x");
-			System.out.format("%s\n", removePrefix(x));
-		}
-	}
+//	/**
+//	 * In ra kết quả trong truy vấn ?x 
+//	 * @param query :  Truy vấn truyền vào, phải là truy vấn dạng select ?x
+//	 * @param conn : Đối tượng AGRepositoryConnection dùng để kết nối với Repository 
+//	 */
+//	private void printRows_1(String query, AGRepositoryConnection conn) {
+//		TupleQuery tupleQuery = conn.prepareTupleQuery(QueryLanguage.SPARQL, query);
+//		TupleQueryResult result = tupleQuery.evaluate();
+//		while (result.hasNext()) {
+//			BindingSet bind = result.next();
+//			Value x = bind.getValue("x");
+//			System.out.format("%s\n", removePrefix(x));
+//		}
+//	}
 	
 	/**
 	 * Xóa các prefix của các URI trước khi in ra 
@@ -190,6 +222,7 @@ public class Query {
 	 * @return String URI sau khi đã làm sạch các prefix 
 	 */
 	private static String removePrefix(Value uri_) {
+		if (uri_ == null) return "";
 		String uri = uri_.toString();
 		uri = uri.replace(Setting.ENTITY_PREFIX, "");
 		uri = uri.replace(Setting.PROPERTIES_PREFIX, "");

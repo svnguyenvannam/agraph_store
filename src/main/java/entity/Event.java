@@ -1,5 +1,7 @@
 package entity;
 
+import java.time.LocalDate;
+
 public class Event extends Entity {
 
 	// Constructor

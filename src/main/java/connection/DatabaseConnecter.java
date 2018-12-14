@@ -1,5 +1,7 @@
 package connection;
 
+import org.eclipse.rdf4j.model.util.ModelBuilder;
+
 import com.franz.agraph.repository.AGCatalog;
 import com.franz.agraph.repository.AGRepository;
 import com.franz.agraph.repository.AGRepositoryConnection;

@@ -1,5 +1,7 @@
 package entity;
 
+import java.time.LocalDate;
+
 public class Time extends Entity {
 
 	// Constructor
