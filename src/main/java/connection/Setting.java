@@ -14,7 +14,7 @@ public class Setting {
 	public static String DIR_PATH = System.getProperty("user.dir");
 	public static String DIR_DATA_PATH = DIR_PATH + "/RawData";
 	
-	public static int nEnt = 120;
+	public static int nEnt = 220;
 	public static int nDes = 20;
 	public static int nRel = 10;
 	

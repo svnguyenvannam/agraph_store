@@ -118,3 +118,103 @@ Trenton, United States
 Matsue, Japan
 Multan, Pakistan
 Oslo, Norway
+New Orleans, United States
+Santo Domingo, Dominican Republic
+Bhisho, South Africa
+Kōbe, Japan
+Nara, Japan
+Puerto Montt, Chile
+Petropavlovsk-Kamchatsky, Russia
+Sevilla, Spain
+Kuching, Malaysia
+Tapachula, Mexico
+Sault Ste. Marie, Canada
+Moroni, Comoros
+Port Harcourt, Nigeria
+Newcastle, Australia
+Inverness, United Kingdom
+Kelowna, Canada
+Okayama, Japan
+Novosibirsk, Russia
+Gaza, Palestine
+Stuttgart, Germany
+Copiapó, Chile
+Miri, Malaysia
+Cheyenne, United States
+North Bay, Canada
+Boulder, United States
+Houston, United States
+Ufa, Russia
+Rockhampton, Australia
+Culiacán, Mexico
+Kandahar, Afghanistan
+Wilmington, United States
+Mumbai, India
+Gdynia, Poland
+Maebashi, Japan
+Adelaide, Australia
+Chongjin, North Korea
+Nukuʻalofa, Tonga
+Brikama, Gambia
+San José, Costa Rica
+Hanoi, Vietnam
+Patna, India
+Phoenix, United States
+Tainan,Taiwan
+Gloucester, United Kingdom
+Mosul, Iraq
+Trujillo, Peru
+Ōita, Japan
+Phuket, Thailand
+Seattle, United States
+Fukui, Japan
+Kemijärvi, Finland
+Vantaa, Finland
+Uberlândia, Brazil
+Khon Kaen, Thailand
+Polokwane, South Africa
+Campina Grande, Brazil
+Dover, United States
+Durban, South Africa
+Deadhorse, United States
+Serekunda, Gambia
+Raleigh, United States
+Augusta, United States
+Pudasjärvi, Finland
+Mandurah, Australia
+Addis Ababa, Ethiopia
+Querétaro, Mexico
+Asunción, Paraguay
+Jacksonville, United States
+Petrolina, Brazil
+Enugu, Nigeria
+Naypyidaw, Burma
+Zagreb, Croatia
+Sukhumi, Georgia
+Budapest, Hungary
+Kiruna, Sweden
+San Luis Potosí, Mexico
+Gangtok, India
+Canberra, Australia
+Edmonton, Canada
+Vaduz, Liechtenstein
+Teresina, Brazil
+Pittsburgh, United States
+Bangkok, Thailand
+La Serena, Chile
+Pretoria, South Africa
+Puerto Aisén, Chile
+Espoo, Finland
+Miami, United States
+Gaziantep, Turkey
+Bratislava, Slovakia
+Windsor, Canada
+Yokohama, Japan
+Port Vila, Vanuatu
+Buffalo, United States
+Luanda, Angola
+Chuí, Brazil
+Abidjan, Ivory Coast
+Nicosia, Cyprus
+Eskisehir, Turkey
+Poznań, Poland

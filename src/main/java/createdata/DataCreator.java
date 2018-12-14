@@ -74,15 +74,20 @@ public class DataCreator {
 				String label2 = str[j]+ent2;
 				if (label1.equals(label2)) continue;
 				for (String rel : relationshipData[i][j]) {
-					if (r.nextInt(100) > 60) continue;
-					storeder.storeRelationship(label1, rel, label2);
-					count++;
-					System.out.println(i + " " + j + " " + ent1 + " " + ent2 + " " + count);
-					if (count % 500000 == 0) {
-						print();
-						conn.add(model);
-						model.clear();
-						print();
+					if (r.nextInt(100) <= 35) {
+						storeder.storeRelationship(label1, rel, label2);
+						count++;
+						if (count % 250000 != model.size()) {
+							System.out.println(String.format("%d %d %d %d %d %d",	 i, j, ent1, ent2, count, model.size()));
+						}
+						if (count % 250000 == 0) {
+							print();
+							System.out.println(count);
+							conn.add(model);
+							model.clear();
+							print();
+							System.out.println("__________________________________________");
+						}
 					}
 				}
 			}
@@ -96,5 +101,11 @@ public class DataCreator {
 	void print() {
 		System.out.println(conn.size());
 		System.out.println(model.size());
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

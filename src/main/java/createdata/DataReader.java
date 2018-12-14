@@ -46,7 +46,7 @@ public class DataReader {
 			reader.setPath(Setting.DIR_DATA_PATH + "/Relationship/" + str[i]+str[j] + ".txt");
 			if (reader.exists()) {
 				relationshipData[i][j] = reader.readFile(Setting.nRel);
-			}
+			} else relationshipData[i][j] = null;
 		}
 	}
 	

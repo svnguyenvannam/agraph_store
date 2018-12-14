@@ -29,7 +29,6 @@ public class DataStoreder {
 	public void storeEntity(Dict[] properties) {
 		// Tạo thực thể định danh, tạo 2 triple để kết nối chúng 2 chiều
 		// Tạo type của thực thể, kết nối thực thể với type
-		ValueFactory vf = model.getValueFactory();
 		IRI dinhDanh = vf.createIRI(Setting.ENTITY_PREFIX, (String) properties[0].V);
 		IRI type = vf.createIRI(Setting.ENTITY_PREFIX, (String) properties[2].V);
 		model.add(dinhDanh, RDF.TYPE, type);
