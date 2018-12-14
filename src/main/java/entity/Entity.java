@@ -1,11 +1,9 @@
 package entity;
 
-import java.time.LocalDate;
+import org.eclipse.rdf4j.model.impl.TreeModel;
 
 import Struct.Dict;
-import Struct.RandomProperties;
 import connection.DataStoreder;
-import connection.DatabaseConnecter;
 
 public class Entity {
 	private String dinhDanh = null;
@@ -40,7 +38,7 @@ public class Entity {
 	 * Lưu các thuộc tính của Entity vào list.
 	 * Các lớp thực thể khác muốn thêm các thuộc tính mới có thể kế thừa phương thức này
 	 */
-	protected Dict[] getListProperties() {
+	public Dict[] getListProperties() {
 		Dict properties[] = new Dict[30];
 		properties[0] = new Dict("định_danh", dinhDanh);
 		properties[1] = new Dict("tên_hiển_thị", tenHienThi);
@@ -55,8 +53,8 @@ public class Entity {
 	 * Store List các thuộc tính vào database
 	 * type dùng để xác định kiểu dữ liệu khi store vào DB (person, time ...)
 	 */
-	public void storeProperties(DatabaseConnecter databaseConnecter) {
-		DataStoreder dataStoreder = new DataStoreder(databaseConnecter);
+	public void storeProperties(TreeModel model) {
+		DataStoreder dataStoreder = new DataStoreder(model);
 		dataStoreder.storeEntity(this.getListProperties());
 	}
 	

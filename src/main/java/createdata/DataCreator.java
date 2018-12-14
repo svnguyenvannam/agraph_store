@@ -16,7 +16,8 @@ import entity.Entity;
 public class DataCreator {
 	private DatabaseConnecter databaseConnecter;
 	private AGRepositoryConnection conn;
-	private TreeModel model;
+	private TreeModel model = new TreeModel();
+	private DataStoreder storeder = new DataStoreder(model);
 	private DataReader reader = new DataReader();
 	private String[][] entityData = reader.getEntityData();
 	private String[][] descriptionData = reader.getDescriptionData();
@@ -25,6 +26,7 @@ public class DataCreator {
 
 	public DataCreator(DatabaseConnecter databaseConnecter) {
 		this.databaseConnecter = databaseConnecter;
+		this.conn = databaseConnecter.getConnection();
 	}
 
 	/**
@@ -34,21 +36,21 @@ public class DataCreator {
 	 * để sinh dữ liệu tương ứng.
 	 * Mỗi dữ liệu sau khi sinh được đưa luôn lên server
 	 */
-	public void createData(String repositoryName) {
-		EntityCreator creator = new EntityCreator();
-		databaseConnecter = DatabaseConnecter.getDatabaseConnecter();
-		databaseConnecter.setRepository(repositoryName);
-		conn = databaseConnecter.getConnection();
-		conn.clear();
-		
+	public void createData(){
+		EntityCreator creator = new EntityCreator();		
 		Random rand = new Random();
 		for (int i = 0; i < 6; i++) 
 		for (int j = 0; j < Setting.nEnt; j ++) {
 			int r = rand.nextInt(Setting.nDes);
 			String label = str[i] + j;
 			Entity e = creator.creatEntity(label, entityData[i][j], descriptionData[i][r]);
-			e.storeProperties(databaseConnecter);
+			storeder.storeEntity(e.getListProperties());
+			e.storeProperties(model);
 		}
+		print();
+		conn.add(model);
+		model.clear();
+		print();
 	}
 	
 	/**
@@ -58,9 +60,8 @@ public class DataCreator {
 	 * @param numberTriple   : số lượng triple cần tạo
 	 * @param repositoryName : repository dùng để lưu dữ liệu
 	 */
-	public void createRelationship(int numberTriple, String repositoryName) {
+	public void createRelationship(int numberTriple) {
 		Random r = new Random();
-		DataStoreder storeder = new DataStoreder(databaseConnecter);
 		int count = 0;
 		label: 
 		for (int i = 0; i < 6; i++)
@@ -73,10 +74,27 @@ public class DataCreator {
 				String label2 = str[j]+ent2;
 				if (label1.equals(label2)) continue;
 				for (String rel : relationshipData[i][j]) {
-					if (r.nextInt(100) > 3) continue;
+					if (r.nextInt(100) > 60) continue;
 					storeder.storeRelationship(label1, rel, label2);
+					count++;
+					System.out.println(i + " " + j + " " + ent1 + " " + ent2 + " " + count);
+					if (count % 500000 == 0) {
+						print();
+						conn.add(model);
+						model.clear();
+						print();
+					}
 				}
 			}
 		}
+		print();
+		conn.add(model);
+		model.clear();
+		print();
+	}
+	
+	void print() {
+		System.out.println(conn.size());
+		System.out.println(model.size());
 	}
 }

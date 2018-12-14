@@ -1,12 +1,15 @@
-import Struct.RandomProperties;
+import com.franz.agraph.repository.AGRepositoryConnection;
+
 import connection.DatabaseConnecter;
 import connection.Query;
 import createdata.DataCreator;
-import createdata.DataReader;
 
 public class Main {
 	public static void main(String[] args) {
-		DatabaseConnecter databaseConnecter = DatabaseConnecter.getDatabaseConnecter("OOP_5000");
+		DatabaseConnecter databaseConnecter = DatabaseConnecter.getDatabaseConnecter("OOP_5000000");
+		databaseConnecter.setRepository("OOP_5000000");
+		AGRepositoryConnection conn = databaseConnecter.getConnection();
+		conn.clear();
 //		DataCreator d = new DataCreator();
 //		d.createData(15000,"OOP_15000");
 //		databaseConnecter.setRepository("OOP_15000");
@@ -22,9 +25,12 @@ public class Main {
 //		long runTime=(endTime-startTime);
 //		
 //		System.out.print(runTime + "ms");
-		new DataCreator(databaseConnecter).createRelationship(5000,"OOP_5000");
-		Query q = new Query(databaseConnecter);
-		q.printResultQuery0();
+		DataCreator creator = new DataCreator(databaseConnecter);
+		creator.createData();
+		creator.createRelationship(1000000);
+		System.out.println(conn.size());
+//		Query q = new Query(databaseConnecter);
+//		q.printResultQuery0();
 	}
 	
 	public static void calTime(int x, Query query) {

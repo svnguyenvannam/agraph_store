@@ -2,6 +2,8 @@ package entity;
 
 import java.time.LocalDate;
 
+import Struct.Dict;
+
 public class Organization extends Entity {
 	private String ngayThanhLap;
 
@@ -26,5 +28,11 @@ public class Organization extends Entity {
 	// Constructor
 	public Organization(String dinhDanh, String tenHienThi, String moTa) {
 		super(dinhDanh, tenHienThi, moTa);
+	}
+	
+	public Dict[] getListProperties() {
+		Dict properties[] = super.getListProperties();
+		properties[6] = new Dict ("ngày_thành_lập", ngayThanhLap);
+		return properties;
 	}
 }

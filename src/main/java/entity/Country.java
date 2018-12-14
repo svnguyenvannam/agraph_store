@@ -1,9 +1,6 @@
 package entity;
 
-import java.time.LocalDate;
-
 import Struct.Dict;
-import Struct.RandomProperties;
 
 public class Country extends Entity{
 	private int danSo, gdp, dienTich;
@@ -47,7 +44,7 @@ public class Country extends Entity{
 		super(dinhDanh, tenHienThi, moTa);
 	}
 	
-	protected Dict[] getListProperties() {
+	public Dict[] getListProperties() {
 		Dict properties[] = super.getListProperties();
 		properties[6] = new Dict("dân_số", danSo);
 		properties[7] = new Dict("GDP", gdp);

@@ -1,6 +1,6 @@
 package entity;
 
-import java.time.LocalDate;
+import Struct.Dict;
 
 public class Location extends Entity {
 	private String toaDo;
@@ -26,6 +26,12 @@ public class Location extends Entity {
 	// Constructor
 	public Location(String dinhDanh, String tenHienThi, String moTa) {
 		super(dinhDanh, tenHienThi, moTa);
+	}
+	
+	public Dict[] getListProperties() {
+		Dict properties[] = super.getListProperties();
+		properties[6] = new Dict ("tọa_độ", toaDo);
+		return properties;
 	}
 	
 	

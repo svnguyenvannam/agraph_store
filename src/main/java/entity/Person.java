@@ -1,10 +1,6 @@
 package entity;
 
-import java.time.LocalDate;
-import java.util.Random;
-
 import Struct.Dict;
-import Struct.RandomProperties;
 
 public class Person extends Entity {
 	private int tuoi;
@@ -50,7 +46,7 @@ public class Person extends Entity {
 		super(dinhDanh, tenHienThi, moTa);
 	}
 	
-	protected Dict[] getListProperties() {
+	public Dict[] getListProperties() {
 		Dict properties[] = super.getListProperties();
 		properties[6] = new Dict ("tuổi", tuoi);
 		properties[7] = new Dict ("ngày_sinh", ngaySinh);
