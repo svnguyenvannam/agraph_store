@@ -1,6 +1,7 @@
 package filereader;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileReader {
@@ -13,14 +14,13 @@ public class FileReader {
 	 * 
 	 * @return String[] gồm dữ liệu đọc được
 	 */
-	public String[] readFile(int number) {
+	public ArrayList<String> readFile() {
 		file = new File(path);
-		int count = 0;
-		String[] listData = new String[number];
+		ArrayList<String> listData = new ArrayList<String>();
 		try {
 			scanner = new Scanner(file);
-			while (scanner.hasNextLine() && count < number) {
-				listData[count++] = scanner.nextLine().replace(" ", "_");
+			while (scanner.hasNextLine())  {
+				listData.add(scanner.nextLine().replace(" ", "_"));
 			}
 		} catch (Exception e) { e.printStackTrace(); }
 		return listData;

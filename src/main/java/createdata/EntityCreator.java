@@ -15,7 +15,7 @@ public class EntityCreator {
 	private String name;
 	private RandomProperties r = new RandomProperties();
 	
-	public Entity creatEntity(String label, String name, String description) {
+	public Entity createEntity(String label, String name, String description) {
 		this.label = label;
 		this.name = name;
 		this.description = description;

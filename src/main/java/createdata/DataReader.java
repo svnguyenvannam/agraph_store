@@ -1,5 +1,8 @@
 package createdata;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import connection.Setting;
 import filereader.FileReader;
 
@@ -9,11 +12,11 @@ import filereader.FileReader;
  * miêu tả của chúng.
  */
 public class DataReader {
-	private String[][] entityData = new String[6][Setting.nEnt];
-	private String[][] descriptionData = new String[6][Setting.nDes];
-	private String[][][] relationshipData = new String[6][6][Setting.nRel];
+	private ArrayList<String>[] entityData = new ArrayList[6];
+	private ArrayList<String>[] descriptionData = new ArrayList[6];
+	private ArrayList<String>[][] relationshipData = new ArrayList[6][6];
 	private FileReader reader = new FileReader();
-	private String[] str = { "Person", "Organization", "Location", "Event", "Country", "Time" };
+	private String[] str = Setting.str;
 	
 	public DataReader() {
 		this.readEntity();
@@ -29,9 +32,9 @@ public class DataReader {
 	private void readEntity() {
 		for (int i = 0; i < 6; i++) {
 			reader.setPath(Setting.DIR_DATA_PATH + "/Entity/" + str[i] + ".txt");
-			entityData[i] = reader.readFile(Setting.nEnt);
+			entityData[i] = reader.readFile();
 			reader.setPath(Setting.DIR_DATA_PATH + "/Description/" + str[i] + ".txt"); 
-			descriptionData[i] = reader.readFile(Setting.nDes);
+			descriptionData[i] = reader.readFile();
 		}
 	}
 
@@ -45,12 +48,13 @@ public class DataReader {
 		for (int j = 0; j < 6; j++) {
 			reader.setPath(Setting.DIR_DATA_PATH + "/Relationship/" + str[i]+str[j] + ".txt");
 			if (reader.exists()) {
-				relationshipData[i][j] = reader.readFile(Setting.nRel);
+				relationshipData[i][j] = reader.readFile();
 			} else relationshipData[i][j] = null;
 		}
 	}
 	
-	public String[][] getEntityData() {return entityData;}
-	public String[][][] getRelationshipData() {return relationshipData;}
-	public String[][] getDescriptionData() {return descriptionData;}
+	public ArrayList<String>[] getEntityData() {return entityData;}
+	public ArrayList<String>[] getDescriptionData() {return descriptionData;}
+	public ArrayList<String>[][] getRelationshipData() {return relationshipData;}
 }
+	

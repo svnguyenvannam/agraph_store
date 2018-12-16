@@ -14,9 +14,8 @@ public class Setting {
 	public static String DIR_PATH = System.getProperty("user.dir");
 	public static String DIR_DATA_PATH = DIR_PATH + "/RawData";
 	
-	public static int nEnt = 220;
-	public static int nDes = 20;
-	public static int nRel = 10;
+	public static String[] str = { "Time", "Organization", "Location", "Event", "Country", "Person"};
+	public static int[] numberStr = {220, 220, 220, 220, 220, 5000};
 	
 	public static String DEFAULT_LINK = "https://vi.wikipedia.org/wiki/";
 }

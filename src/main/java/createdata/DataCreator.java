@@ -1,5 +1,8 @@
 package createdata;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import org.eclipse.rdf4j.model.impl.TreeModel;
 
@@ -19,10 +22,11 @@ public class DataCreator {
 	private TreeModel model = new TreeModel();
 	private DataStoreder storeder = new DataStoreder(model);
 	private DataReader reader = new DataReader();
-	private String[][] entityData = reader.getEntityData();
-	private String[][] descriptionData = reader.getDescriptionData();
-	private String[][][] relationshipData = reader.getRelationshipData();
-	private String[] str = { "Person", "Organization", "Location", "Event", "Country", "Time" };
+	private ArrayList<String>[] entityData = reader.getEntityData();
+	private ArrayList<String>[] descriptionData = reader.getDescriptionData();
+	private ArrayList<String>[][] relationshipData = reader.getRelationshipData();
+	private String[] str = Setting.str;
+	private int[] numberStr = Setting.numberStr;
 
 	public DataCreator(DatabaseConnecter databaseConnecter) {
 		this.databaseConnecter = databaseConnecter;
@@ -39,14 +43,29 @@ public class DataCreator {
 	public void createData(){
 		EntityCreator creator = new EntityCreator();		
 		Random rand = new Random();
-		for (int i = 0; i < 6; i++) 
-		for (int j = 0; j < Setting.nEnt; j ++) {
-			int r = rand.nextInt(Setting.nDes);
-			String label = str[i] + j;
-			Entity e = creator.creatEntity(label, entityData[i][j], descriptionData[i][r]);
-			storeder.storeEntity(e.getListProperties());
-			e.storeProperties(model);
+		for (int i = 0; i < 6; i++) {
+//		for (int j = 0; j < entityData[i].size(); j ++) {
+//			int r = rand.nextInt(descriptionData[i].size());
+//			String label = str[i] + j;
+//			Entity e = creator.creatEntity(label, entityData[i].get(j), descriptionData[i].get(r));
+//			storeder.storeEntity(e.getListProperties());
+//			e.storeProperties(model);
+//			if (model.size() >= 50000*count) {
+//				print();
+//				conn.add(model);
+//				model.clear();
+//				count++;
+//				print();
+//			}
+//		}
+			for (int count = 0; count < numberStr[i]; count++) {
+				String id = str[i] + count++;
+				String name = entityData[i].get(rand.nextInt(entityData[i].size()));
+				String description = descriptionData[i].get(rand.nextInt(descriptionData[i].size()));
+				Entity e = creator.createEntity(id, name, description);
+			}
 		}
+		entityData[5] = new ArrayList<String>(entityData[5].subList(0, 5000));;
 		print();
 		conn.add(model);
 		model.clear();
@@ -61,33 +80,31 @@ public class DataCreator {
 	 * @param repositoryName : repository dùng để lưu dữ liệu
 	 */
 	public void createRelationship(int numberTriple) {
+		int coefDiv = (int)Math.sqrt(5000000/numberTriple);
 		Random r = new Random();
 		int count = 0;
 		label: 
 		for (int i = 0; i < 6; i++)
 		for (int j = 0; j < 6; j++) {
 			if (relationshipData[i][j] == null) continue;
-			for (int ent1 = 0; ent1 < Setting.nEnt; ent1++) 
-			for (int ent2 = 0; ent2 < Setting.nEnt; ent2++) {
+			for (int ent1 = 0; ent1 < entityData[i].size()/coefDiv; ent1++) 
+			for (int ent2 = 0; ent2 < entityData[j].size()/coefDiv; ent2++) {
 				if (count > numberTriple) break label;
 				String label1 = str[i]+ent1;
 				String label2 = str[j]+ent2;
 				if (label1.equals(label2)) continue;
 				for (String rel : relationshipData[i][j]) {
-					if (r.nextInt(100) <= 35) {
-						storeder.storeRelationship(label1, rel, label2);
-						count++;
-						if (count % 250000 != model.size()) {
-							System.out.println(String.format("%d %d %d %d %d %d",	 i, j, ent1, ent2, count, model.size()));
-						}
-						if (count % 250000 == 0) {
-							print();
-							System.out.println(count);
-							conn.add(model);
-							model.clear();
-							print();
-							System.out.println("__________________________________________");
-						}
+					if ((i == 5 || j == 5) && r.nextInt(100) > 2) continue;
+					if (r.nextInt(100) > 15) continue;
+					storeder.storeRelationship(label1, rel, label2);
+					count++;
+					if (count % 500000 == 0) {
+						print();
+						System.out.println(i + " " + j);
+						conn.add(model);
+						model.clear();
+						print();
+						System.out.println("__________________________________________");
 					}
 				}
 			}
@@ -101,11 +118,5 @@ public class DataCreator {
 	void print() {
 		System.out.println(conn.size());
 		System.out.println(model.size());
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 }
