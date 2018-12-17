@@ -11,6 +11,7 @@ import filereader.FileReader;
  * Dữ liệu tất cả các thực thể được đặt vào 1 file riêng, tương tự đối với 
  * miêu tả của chúng.
  */
+
 public class DataReader {
 	private ArrayList<String>[] entityData = new ArrayList[6];
 	private ArrayList<String>[] descriptionData = new ArrayList[6];
