@@ -1,8 +1,6 @@
 package entity;
 
-import java.time.LocalDate;
-
-import Struct.Dict;
+import java.util.HashMap;
 
 public class Organization extends Entity {
 	private String ngayThanhLap;
@@ -30,9 +28,9 @@ public class Organization extends Entity {
 		super(dinhDanh, tenHienThi, moTa);
 	}
 	
-	public Dict[] getListProperties() {
-		Dict properties[] = super.getListProperties();
-		properties[6] = new Dict ("ngày_thành_lập", ngayThanhLap);
+	public HashMap<Object, Object> getListProperties() {
+		HashMap<Object, Object> properties = super.getListProperties();
+		properties.put("ngày_thành_lập", ngayThanhLap);
 		return properties;
 	}
 }

@@ -1,6 +1,6 @@
 package entity;
 
-import Struct.Dict;
+import java.util.HashMap;
 
 public class Country extends Entity{
 	private int danSo, gdp, dienTich;
@@ -44,11 +44,11 @@ public class Country extends Entity{
 		super(dinhDanh, tenHienThi, moTa);
 	}
 	
-	public Dict[] getListProperties() {
-		Dict properties[] = super.getListProperties();
-		properties[6] = new Dict("dân_số", danSo);
-		properties[7] = new Dict("GDP", gdp);
-		properties[8] = new Dict("diện_tích", dienTich);
+	public HashMap<Object, Object> getListProperties() {
+		HashMap<Object, Object> properties = super.getListProperties();
+		properties.put("dân_số", danSo);
+		properties.put("GDP", gdp);
+		properties.put("diện_tích", dienTich);
 		return properties;
 	}
 }

@@ -7,6 +7,7 @@ public class Setting {
 	static final String USERNAME = "toanloi";
 	static final String PASSWORD = "20162569";
 	
+	public static String CLASS_PREFIX = "http://btl/class/";
 	public static String ENTITY_PREFIX = "http://btl/entity/";
 	public static String PROPERTIES_PREFIX = "http://btl/properties/";
 	public static String RELATIONSHIP_PREFIX  = "http://btl/relationship/";

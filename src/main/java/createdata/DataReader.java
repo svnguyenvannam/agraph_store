@@ -1,7 +1,6 @@
 package createdata;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import connection.Setting;
 import filereader.FileReader;

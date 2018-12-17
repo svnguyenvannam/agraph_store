@@ -1,4 +1,4 @@
-package Struct;
+package randomproperties;
 
 import java.time.LocalDate;
 import java.util.Random;

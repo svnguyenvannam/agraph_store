@@ -37,13 +37,13 @@ public class Query {
 	}
 	
 	/**
-	 * In ra thông tin của Person Sơn_Tùng_M-TP
+	 * In ra thông tin của person "Rose_Somchai_Lock"
 	 */
 	public void printResultQuery1(){
 		query = "select ?s ?p ?o "
 				+ "where {"
-				+ "?s rdf:type ent:Person . "
-				+ "?s prs:tên_hiển_thị \"Sơn_Tùng_M-TP\" . "
+				+ "?s rdf:type class:Person . "
+				+ "?s prs:tên_hiển_thị \"Rose_Somchai_Lock\" . "
 				+ "?s ?p ?o . "
 				+ "filter (strstarts(str(?p), \"http://btl/properties/\" ))"
 				+ "}";
@@ -51,77 +51,82 @@ public class Query {
 	}
 	
 	/**
-	 * In ra thông tin các thực thể Kim Đồng
+	 * In ra thông tin các sự kiện "Vietnam_Tour_Ho_Chi_Minh_City" 
+	 * sẽ được tổ chức tại France
 	 */
 	public void printResultQuery2() {
 		query = "select ?s ?p ?o "
 				+ "where {"
-				+ "?s prs:tên_hiển_thị \"Kim_Đồng\" . "
-				+ "?s ?p ?o . "
-				+ "filter (strstarts(str(?p), \"http://btl/properties/\" ))"
+				+ "?s rdf:type class:Event."
+				+ "?s prs:tên_hiển_thị \"Vietnam_Tour_Ho_Chi_Minh_City\"."
+				+ "?idx rdf:type class:Country."
+				+ "?idx prs:tên_hiển_thị \"France\"."
+				+ "?s rel:sẽ_được_tổ_chức_tại ?idx."
+				+ "?s ?p ?o ."
+				+ "filter (strstarts(str(?p), \"http://btl/properties/\"))"
 				+ "}";
 		printRows(query, conn);
 	}
 	
 	/**
-	 * In thông tin những người không đến Location Quảng Trường Ba Đình
+	 * In thông tin người đầu tiên tìm thấy sống ở Location 	"Okayama,_Japan"
 	 */
 	public void printResultQuery3() {
 		query = "select ?s ?p ?o "
 				+ "where {"
-				+ "?idx rdf:type ent:Location."
-				+ "?idx prs:tên_hiển_thị \"Quảng_trường_Ba_Đình\"."
-				+ "?s rdf:type ent:Person."
-				+ "?s rel:không_đến ?idx."
+				+ "?idx rdf:type class:Location."
+				+ "?idx prs:tên_hiển_thị \"Okayama,_Japan\"."
+				+ "?s rdf:type class:Person."
+				+ "?s rel:sống_ở ?idx."
 				+ "?s ?p ?o."
 				+ "filter (strstarts(str(?p), \"http://btl/properties/\" ))"
-				+ "}";
+				+ "}"
+				+ "limit 8";
 		printRows(query, conn);
 	}
 	
 	/**
-	 * In ra nơi mà Nguyễn Phú Trọng không đến
+	 * In ra số nơi mà công ty "Nintendo" phá sản
 	 */
 	public void printResultQuery4() {
-		query = "select ?s ?p ?o "
+		query = "select (count(?o) as ?s) "
 				+ "where {"
-				+ "?idx rdf:type ent:Location . "
+				+ "?idy rdf:type class:Organization . "
+				+ "?idy prs:tên_hiển_thị \"Nintendo\". "
+				+ "?idy rel:phá_sản_tại ?idx . "
+				+ "?idx rdf:type class:Location . "
 				+ "?idx prs:tên_hiển_thị ?o . "
-				+ "?idy ?p ?idx . "
-				+ "?idy rdf:type ent:Person . "
-				+ "?idy prs:tên_hiển_thị ?s. "
-				+ "filter (?s = \"Nguyễn_Phú_Trọng\" && ?p = rel:không_đến)"
 				+ "}";
 		printRows(query, conn);
 	}
 	
 	/**
-	 * In ra số người không đến Location Vịnh Hạ Long
+	 * In ra số người sống ở Location "Toronto,_Canada"
 	 */
 	public void printResultQuery5() {
 		query = "select (count(?idy) as ?s)"
 				+ "where {"
-				+ "?idx rdf:type ent:Location . "
-				+ "?idx prs:tên_hiển_thị \"Vịnh_Hạ_Long\" . "
-				+ "?idy rel:không_đến ?idx . "
-				+ "?idy rdf:type ent:Person . "
+				+ "?idx rdf:type class:Location . "
+				+ "?idx prs:tên_hiển_thị \"Toronto,_Canada\" . "
+				+ "?idy rel:sống_ở ?idx . "
+				+ "?idy rdf:type class:Person . "
 				+ "}";
 		printRows(query, conn);
 	}
 	
 	/**
-	 * In ra những người đã đến cả nước Pháp và Đức
+	 * In ra tên những người đã đến cả nước Grenada và Liberia
 	 */
 	public void printResultQuery6() {
 		query = "select ?s "
 				+ "where {"
-				+ "?idx rdf:type ent:Country . "
-				+ "?idx prs:tên_hiển_thị \"Pháp\" . "
-				+ "?idy rdf:type ent:Country . "
-				+ "?idy prs:tên_hiển_thị \"Đức\" . "
-				+ "?idz rel:đã_đến ?idx . "
-				+ "?idz rel:đã_đến ?idy ."
-				+ "?idz rdf:type ent:Person . "
+				+ "?idx rdf:type class:Country . "
+				+ "?idx prs:tên_hiển_thị \"Grenada\" . "
+				+ "?idy rdf:type class:Country . "
+				+ "?idy prs:tên_hiển_thị \"Liberia\" . "
+				+ "?idz rel:sống_ở ?idx . "
+				+ "?idz rel:sống_ở ?idy ."
+				+ "?idz rdf:type class:Person . "
 				+ "?idz prs:tên_hiển_thị ?s"
 				+ "}";
 		printRows(query, conn);
@@ -145,16 +150,16 @@ public class Query {
 	}
 	
 	/**
-	 * In ra thông tin những nước có dân số thấp hơn 17000000 nhưng có GPD cao hơn 50000 
+	 * In ra thông tin những nước có dân số thấp hơn 100000 nhưng có GPD cao hơn 5000 
 	 */
 	public void printResultQuery8() {
-		query = "select ?s ?p ?o"
+		query = "select ?s ?p ?o "
 				+ "where {"
-				+ "?s rdf:type ent:Country."
+				+ "?s rdf:type class:Country."
 				+ "?s prs:dân_số ?ds."
-				+ "?s prs:gdp ?gdp."
+				+ "?s prs:GDP ?gdp."
 				+ "?s ?p ?o."
-				+ "filter (?ds < 17000000 && ?gdp > 50000)"
+				+ "filter (?ds < 100000 && ?gdp > 5000 && strstarts(str(?p),\"http://btl/properties/\"))"
 				+ "}";
 		printRows(query, conn);
 	}

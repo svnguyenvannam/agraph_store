@@ -1,6 +1,6 @@
 package entity;
 
-import Struct.Dict;
+import java.util.HashMap;
 
 public class Location extends Entity {
 	private String toaDo;
@@ -28,9 +28,9 @@ public class Location extends Entity {
 		super(dinhDanh, tenHienThi, moTa);
 	}
 	
-	public Dict[] getListProperties() {
-		Dict properties[] = super.getListProperties();
-		properties[6] = new Dict ("tọa_độ", toaDo);
+	public HashMap<Object, Object> getListProperties() {
+		HashMap<Object, Object> properties = super.getListProperties();
+		properties.put("tọa_độ", toaDo);
 		return properties;
 	}
 	

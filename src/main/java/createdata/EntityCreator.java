@@ -1,6 +1,5 @@
 package createdata;
 
-import Struct.RandomProperties;
 import entity.Country;
 import entity.Entity;
 import entity.Event;
@@ -8,6 +7,7 @@ import entity.Location;
 import entity.Organization;
 import entity.Person;
 import entity.Time;
+import randomproperties.RandomProperties;
 
 public class EntityCreator {
 	private String label;
@@ -90,6 +90,7 @@ public class EntityCreator {
 	 */
 	private Country createConutry() {
 		Country p = new Country(label, name, description);
+		p = (Country) create(p);
 		p.setDanSo(r.getRandomInt(9000000));
 		p.setGdp(r.getRandomInt(50000));
 		p.setDienTich(r.getRandomInt(1000000));

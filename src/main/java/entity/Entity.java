@@ -1,8 +1,9 @@
 package entity;
 
+import java.util.HashMap;
+
 import org.eclipse.rdf4j.model.impl.TreeModel;
 
-import Struct.Dict;
 import connection.DataStoreder;
 
 public class Entity {
@@ -38,14 +39,14 @@ public class Entity {
 	 * Lưu các thuộc tính của Entity vào list.
 	 * Các lớp thực thể khác muốn thêm các thuộc tính mới có thể kế thừa phương thức này
 	 */
-	public Dict[] getListProperties() {
-		Dict properties[] = new Dict[30];
-		properties[0] = new Dict("định_danh", dinhDanh);
-		properties[1] = new Dict("tên_hiển_thị", tenHienThi);
-		properties[2] = new Dict("thực_thể", this.getClass().getName().replace("entity.", ""));
-		properties[3] = new Dict("mô_tả", moTa);
-		properties[4] = new Dict("link_nhận_dữ_liệu", link);
-		properties[5] = new Dict("ngày_nhận_dữ_liệu", ngayThang);
+	public HashMap<Object, Object> getListProperties() {
+		HashMap<Object, Object> properties = new HashMap<Object, Object>();
+		properties.put("định_danh", dinhDanh);
+		properties.put("tên_hiển_thị", tenHienThi);
+		properties.put("thực_thể", this.getClass().getName().replace("entity.", ""));
+		properties.put("mô_tả", moTa);
+		properties.put("link_nhận_dữ_liệu", link);
+		properties.put("ngày_nhận_dữ_liệu", ngayThang);
 		return properties;
 	}
 	

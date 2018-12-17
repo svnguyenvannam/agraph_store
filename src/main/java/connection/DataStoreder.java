@@ -1,12 +1,12 @@
 package connection;
 
+import java.util.HashMap;
+
 import org.eclipse.rdf4j.model.IRI;
 import org.eclipse.rdf4j.model.Literal;
 import org.eclipse.rdf4j.model.ValueFactory;
 import org.eclipse.rdf4j.model.impl.TreeModel;
 import org.eclipse.rdf4j.model.vocabulary.RDF;
-
-import Struct.Dict;
 
 /**
  * Dùng để thực hiện riêng các truy vấn store dữ liệu vào database.
@@ -26,23 +26,24 @@ public class DataStoreder {
 	 * @param properties : List các thuộc tính cần lưu trữ lấy từ dữ liệu thực thể .
 	 *                   Phần tử nào trong mảng là null sẽ không được lưu
 	 */
-	public void storeEntity(Dict[] properties) {
+	public void storeEntity(HashMap<Object, Object> properties) {
 		// Tạo thực thể định danh, tạo 2 triple để kết nối chúng 2 chiều
 		// Tạo type của thực thể, kết nối thực thể với type
-		IRI dinhDanh = vf.createIRI(Setting.ENTITY_PREFIX, (String) properties[0].V);
-		IRI type = vf.createIRI(Setting.ENTITY_PREFIX, (String) properties[2].V);
+		IRI dinhDanh = vf.createIRI(Setting.ENTITY_PREFIX, (String) properties.get("định_danh"));
+		IRI type = vf.createIRI(Setting.CLASS_PREFIX, (String) properties.get("thực_thể"));
 		model.add(dinhDanh, RDF.TYPE, type);
 
 		// Tạo các thuộc tính và nối với thực thể
-		int i = 1;
-		while (properties[i] != null) {
-			if (properties[i].V != null) {
-				IRI p = vf.createIRI(Setting.PROPERTIES_PREFIX, properties[i].K.toString());
-				Literal o = vf.createLiteral(properties[i].V.toString());
-				model.add(dinhDanh, p, o);
-			}
-			i++;
-		}
+		properties.remove("định_danh");
+		properties.forEach((key, value) -> {
+			System.out.println(key);
+			System.out.println(value);
+			Literal o;
+			IRI p = vf.createIRI(Setting.PROPERTIES_PREFIX, (String) key);
+			if (value instanceof String) o = vf.createLiteral((String) value);
+			else o = vf.createLiteral((Integer) value);
+			model.add(dinhDanh, p, o);
+		});
 	}
 
 	public void storeRelationship(String ent1, String relationship, String ent2) {

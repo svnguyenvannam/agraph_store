@@ -57,6 +57,7 @@ public class DatabaseConnecter {
 			myRepository = catalog.createRepository(this.repositoryID);
 			myRepository.initialize();
 			conn = myRepository.getConnection();
+			conn.setNamespace("class", Setting.CLASS_PREFIX);
 			conn.setNamespace("ent", Setting.ENTITY_PREFIX);
 			conn.setNamespace("prs", Setting.PROPERTIES_PREFIX);
 			conn.setNamespace("rel", Setting.RELATIONSHIP_PREFIX);
@@ -100,7 +101,7 @@ public class DatabaseConnecter {
 	 * 
 	 * @param repositoryName : Tên repository
 	 */
-	public void setRepository(String repositoryName) {
+	public void createRepository(String repositoryName) {
 		databaseConnecter.closeConnection();
 		myRepository = catalog.createRepository(repositoryName);
 		myRepository.setDuplicateSuppressionPolicy("spo");
