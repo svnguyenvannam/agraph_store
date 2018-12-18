@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import connection.Setting;
+import main.Setting;
 import main.StructQuery;
 
 public class QueryReader extends FileReader {
@@ -32,8 +32,8 @@ public class QueryReader extends FileReader {
 				String quer = "";
 				while (true) {
 					String line = scanner.nextLine();
-					if (line.equals("***")) break;
-					quer += line;
+					if (line.replaceAll(" ", "").replaceAll("\t", "").equals("***")) break;
+					quer += line+"\n";
 				}
 				listData.add(new StructQuery(des, quer));
 			}

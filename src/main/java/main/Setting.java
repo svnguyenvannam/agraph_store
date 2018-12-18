@@ -1,11 +1,11 @@
-package connection;
+package main;
 
 public class Setting {
-	static final String SERVER_URL = "http://localhost:10035";
-	static final String CATALOG_ID = "java-catalog";
-	static final String REPOSITORY_ID = "BTL_OOP";
-	static final String USERNAME = "toanloi";
-	static final String PASSWORD = "20162569";
+	public static final String SERVER_URL = "http://localhost:10035";
+	public static final String CATALOG_ID = "java-catalog";
+	public static final String REPOSITORY_ID = "BTL_OOP";
+	public static final String USERNAME = "toanloi";
+	public static final String PASSWORD = "20162569";
 	
 	public static String CLASS_PREFIX = "http://btl/class/";
 	public static String ENTITY_PREFIX = "http://btl/entity/";

@@ -8,6 +8,8 @@ import org.eclipse.rdf4j.model.ValueFactory;
 import org.eclipse.rdf4j.model.impl.TreeModel;
 import org.eclipse.rdf4j.model.vocabulary.RDF;
 
+import main.Setting;
+
 /**
  * Dùng để thực hiện riêng các truy vấn store dữ liệu vào database.
  */

@@ -3,7 +3,7 @@ package randomproperties;
 import java.time.LocalDate;
 import java.util.Random;
 
-import connection.Setting;
+import main.Setting;
 
 public class RandomProperties {
 	Random random;

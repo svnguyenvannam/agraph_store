@@ -1,25 +1,20 @@
 package createdata;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
 import org.eclipse.rdf4j.model.impl.TreeModel;
 
 import com.franz.agraph.repository.AGRepositoryConnection;
 
 import connection.DataStoreder;
-import connection.DatabaseConnecter;
-import connection.Setting;
-import entity.Entity;
 import filereader.DataReader;
+import main.Setting;
 
 /**
  * Class sinh dữ liệu từ dữ liệu đọc ở file data
  */
 public class DataCreator {
-	private DatabaseConnecter databaseConnecter;
 	private AGRepositoryConnection conn;
 	private TreeModel model = new TreeModel();
 	private DataReader reader = new DataReader();
@@ -29,9 +24,8 @@ public class DataCreator {
 	private String[] str = Setting.str;
 	private int[] numberStr = Setting.numberStr;
 
-	public DataCreator(DatabaseConnecter databaseConnecter) {
-		this.databaseConnecter = databaseConnecter;
-		this.conn = databaseConnecter.getConnection();
+	public DataCreator(AGRepositoryConnection conn) {
+		this.conn = conn;
 	}
 
 	/**

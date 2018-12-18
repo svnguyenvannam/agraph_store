@@ -1,0 +1,42 @@
+In ra tên các chương trình được tài trợ bởi "Paige_Saifali_Barton" nhưng bị tạm hoãn tại "France"
+select ?s ?lk1 ?p ?lk2 ?o  
+where {
+  ?idx rdf:type class:Country.
+  ?idy rdf:type class:Event.
+  ?idz rdf:type class:Person.
+  ?idx ?lk1 ?idy.
+  ?idy ?lk2 ?idz.
+  ?idx prs:tên_hiển_thị ?s.
+  ?idy prs:tên_hiển_thị ?p.
+  ?idz prs:tên_hiển_thị ?o.
+  filter (?s = "France" && ?o = "Paige_Saifali_Barton" && ?lk1 = rel:tạm_hoãn && ?lk2 = rel:được_tài_trợ_bởi)
+}
+***
+In ra 10 người trong tên có từ "San"
+select ?s ?p ?o
+where {
+  ?s ?p ?o.
+  ?s rdf:type class:Person.
+  filter (regex(?o, "San") && ?p = prs:tên_hiển_thị) 
+}
+limit 10
+***
+In ra 10 người tên bắt đầu bằng "Rose" và kết thúc là "Black"
+select ?s ?p ?o
+where {
+	?s rdf:type class:Person.
+	?s ?p ?o.
+	filter (?p = prs:tên_hiển_thị && regex(?o, "^(Rose)[\\w\\d\\s]*(Black)$"))
+}
+***
+In ra tên của 5 nước có GDP cao nhất và GDP của nước đó
+select ?s ?p ?o
+where {
+  ?id rdf:type class:Country.
+  ?id prs:tên_hiển_thị ?s.
+  ?id ?p ?o.
+  filter (?p = prs:GDP)
+}
+ order by desc (?o) 
+ limit 5
+***

@@ -5,56 +5,45 @@ import com.franz.agraph.repository.AGRepository;
 import com.franz.agraph.repository.AGRepositoryConnection;
 import com.franz.agraph.repository.AGServer;
 
+import main.Setting;
+
 /**
  * Kết nối với server theo server, repository, user, password đã cho trước. Nếu
  * chưa tồn tại repository sẽ tự động tạo repository
  */
 public class DatabaseConnecter {
-	private String serverURL, catalogID, repositoryID, user, password;
-	private static AGServer server;
-	private static AGCatalog catalog;
-	private static AGRepository myRepository;
+	private String serverURL, user, password;
+	private AGServer server;
+	private AGCatalog catalog;
+	private AGRepository myRepository;
+	private AGRepositoryConnection conn;
 	private static DatabaseConnecter databaseConnecter;
-	private static AGRepositoryConnection conn;
 
 	// Constructor
-	private DatabaseConnecter(String severURL, String repositoryID, String user, String password) {
+	private DatabaseConnecter(String severURL, String user, String password) {
 		this.serverURL = severURL;
-		this.repositoryID = repositoryID;
 		this.user = user;
 		this.password = password;
-		this.createConnection();
-	}
-
-	// Constructor
-	private DatabaseConnecter(String repository) {
-		this.serverURL = Setting.SERVER_URL;
-		this.catalogID = Setting.CATALOG_ID;
-		this.repositoryID = repository;
-		this.user = Setting.USERNAME;
-		this.password = Setting.PASSWORD;
-		this.createConnection();
+		this.server = new AGServer(this.serverURL, this.user, this.password);
+		this.catalog = this.server.getRootCatalog();
 	}
 
 	// Constructor
 	private DatabaseConnecter() {
 		this.serverURL = Setting.SERVER_URL;
-		this.catalogID = Setting.CATALOG_ID;
-		this.repositoryID = Setting.REPOSITORY_ID;
 		this.user = Setting.USERNAME;
 		this.password = Setting.PASSWORD;
-		this.createConnection();
+		this.server = new AGServer(Setting.SERVER_URL, Setting.USERNAME, Setting.PASSWORD);
+		this.catalog = this.server.getRootCatalog();
 	}
 
 	/**
 	 * Kết nối với sever. Nếu chưa tồn tại repository sẽ tự động tạo repository mới.
 	 * Tạo kết nối với repository.
 	 */
-	private void createConnection() {
-		server = new AGServer(this.serverURL, this.user, this.password);
-		catalog = server.getRootCatalog();
-		if (!catalog.hasRepository(this.repositoryID)) {
-			myRepository = catalog.createRepository(this.repositoryID);
+	public AGRepositoryConnection getConnection (String repositoryName) {
+		if (!catalog.hasRepository(repositoryName)) {
+			myRepository = catalog.createRepository(repositoryName);
 			myRepository.initialize();
 			conn = myRepository.getConnection();
 			conn.setNamespace("class", Setting.CLASS_PREFIX);
@@ -63,46 +52,38 @@ public class DatabaseConnecter {
 			conn.setNamespace("rel", Setting.RELATIONSHIP_PREFIX);
 		}
 		else {
-			myRepository = catalog.openRepository(this.repositoryID);
+			myRepository = catalog.openRepository(repositoryName);
 			conn = myRepository.getConnection();
 		}
-	}
-
-	public static DatabaseConnecter getDatabaseConnecter(String severURL, String repositoryID, String user,
-			String password) {
-		if (databaseConnecter == null) {
-			databaseConnecter = new DatabaseConnecter(severURL, repositoryID, user, password);
-		}
-		return databaseConnecter;
-	}
-
-	public static DatabaseConnecter getDatabaseConnecter() {
-		databaseConnecter = getDatabaseConnecter(Setting.SERVER_URL, Setting.REPOSITORY_ID, Setting.USERNAME,
-				Setting.PASSWORD);
-		return databaseConnecter;
-	}
-
-	public static DatabaseConnecter getDatabaseConnecter(String repositoryID) {
-		if (databaseConnecter == null) {
-			databaseConnecter = new DatabaseConnecter(repositoryID);
-		}
-		return databaseConnecter;
-	}
-
-	/**
-	 * @return Đối tượng kết nối với DB
-	 */
-	public AGRepositoryConnection getConnection() {
 		return conn;
 	}
+ 
+	/**
+	 * Tạo một kết nối với repository tương ứng nhập vào. Nếu repository này chưa tồn tại,
+	 * tự động tạo 1 repository có tên tương ứng và trả ra kết nối
+	 * @param repositoryID Tên của repository muốn kết nối
+	 * @return Đối tượng databaseConnecter dùng để kết nối với repository vừa nhập
+	 */
+	public static DatabaseConnecter getDatabaseConnecter(String ServerURL, String user, String password) {
+		if (databaseConnecter == null) {
+			databaseConnecter = new DatabaseConnecter(ServerURL, user, password);
+		} 
+		if (!ServerURL.equals(databaseConnecter.serverURL) || !user.equals(databaseConnecter.user) ||
+				!password.equals(databaseConnecter.password)) {
+			databaseConnecter.server.close();
+			databaseConnecter = new DatabaseConnecter(ServerURL, user, password);
+		}
+		return databaseConnecter;
+	}
 
 	/**
-	 * Đặt lại repository. Dùng để tạo nhiều repository ứng với nhiều bộ truy vấn
-	 * 
+	 * Đặt mới lại repository. Dùng để tạo nhiều repository ứng với nhiều bộ truy vấn.
+	 * Nếu repository đã tồn tại thì sẽ xóa repository cũ và ghi đè repository mới
 	 * @param repositoryName : Tên repository
 	 */
 	public void createRepository(String repositoryName) {
 		databaseConnecter.closeConnection();
+		catalog.deleteRepository(repositoryName);
 		myRepository = catalog.createRepository(repositoryName);
 		myRepository.setDuplicateSuppressionPolicy("spo");
 		myRepository.initialize();
@@ -112,10 +93,10 @@ public class DatabaseConnecter {
 
 	/**
 	 * Thoát khỏi phiên làm việc, đồng thời đóng repository
-	 * 
 	 * @param conn : Kết nối với DB hiện tại
 	 */
 	public void closeConnection() {
+		if (conn == null) return;
 		conn.close();
 		myRepository.shutDown();
 	}

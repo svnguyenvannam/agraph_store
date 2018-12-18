@@ -11,6 +11,7 @@ import org.eclipse.rdf4j.query.TupleQueryResult;
 import com.franz.agraph.repository.AGRepositoryConnection;
 
 import filereader.QueryReader;
+import main.Setting;
 import main.StructQuery;
 
 /**
@@ -18,32 +19,58 @@ import main.StructQuery;
  * @author toanloi
  */
 public class Query {
-	private DatabaseConnecter databaseConnecter;
 	private AGRepositoryConnection conn;
 	private ArrayList<StructQuery> listNormalQuery;
 	private ArrayList<StructQuery> listAdvancedQuery;
 	
-	public Query(DatabaseConnecter databaseConnecter) {
-		this.databaseConnecter = databaseConnecter;
-		this.conn = databaseConnecter.getConnection();
+	public Query(AGRepositoryConnection conn) {
+		this.conn = conn;
 		this.getListQuery();
 	}
 	
 	/**
 	 * Đọc query từ file text bằng đối tượng QueryReader
 	 */
-	public void getListQuery() {
+	private void getListQuery() {
 		QueryReader reader = new QueryReader();
 		this.listNormalQuery = reader.getListNormalQuery();
 		this.listAdvancedQuery = reader.getListAdvancedQuery();
 	}
 	
 	/**
-	 * Nhận vào số i và in ra kết quả câu truy vấn thứ i
+	 * Nhận vào số i và in ra kết quả câu truy vấn đơn giản thứ i
 	 * @param number Số thứ tự câu truy vấn
 	 */
-	public void getResultQuery(int number) {
-		
+	public void getResultNormalQuery(int number) {
+		listNormalQuery.get(number).printDescriptionQuery();
+		printRows(listNormalQuery.get(number).Query, conn);
+	}
+	
+	public void getResultAdvancedQuery(int number) {
+		listAdvancedQuery.get(number).printDescriptionQuery();
+		printRows(listAdvancedQuery.get(number).Query, conn);
+	}
+	/**
+	 * In ra kết quả trong truy vấn ?s ?p ?o
+	 * @param query : Truy vấn truyền vào, phải là truy vấn dạng select ?s ?p ?o 
+	 * @param conn : Đối tượng AGRepositoryConnection dùng để kết nối với Repository 
+	 */
+	private void printRows(String query, AGRepositoryConnection conn) {
+		TupleQuery tupleQuery = conn.prepareTupleQuery(QueryLanguage.SPARQL, query);
+		TupleQueryResult result = tupleQuery.evaluate();
+		Value x = null;
+		while (result.hasNext()) {
+			BindingSet bind = result.next();
+			Value s = bind.getValue("s");
+			Value lk1 = bind.getValue("lk1");
+			Value p = bind.getValue("p");
+			Value lk2 = bind.getValue("lk2");
+			Value o = bind.getValue("o");
+			if (!s.equals(x)) System.out.println("------------------"); 
+			System.out.format("%s %s %s %s %s \n", removePrefix(s), removePrefix(lk1), removePrefix(p), 
+					removePrefix(lk2), removePrefix(o));
+			x = s;
+		}
 	}
 	
 	/**

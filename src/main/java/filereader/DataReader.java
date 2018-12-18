@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import connection.Setting;
+import main.Setting;
 
 /**
  * Đọc các Raw Data từ file text.Trả ra các Data đọc được dạng String[]
