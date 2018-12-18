@@ -13,6 +13,7 @@ import connection.DataStoreder;
 import connection.DatabaseConnecter;
 import connection.Setting;
 import entity.Entity;
+import filereader.DataReader;
 
 /**
  * Class sinh dữ liệu từ dữ liệu đọc ở file data
@@ -22,9 +23,9 @@ public class DataCreator {
 	private AGRepositoryConnection conn;
 	private TreeModel model = new TreeModel();
 	private DataReader reader = new DataReader();
-	private ArrayList<String>[] entityData = reader.getEntityData();
-	private ArrayList<String>[] descriptionData = reader.getDescriptionData();
-	private ArrayList<String>[][] relationshipData = reader.getRelationshipData();
+	private ArrayList<String>[] listEntity = reader.getListEntity();
+	private ArrayList<String>[] listDescription = reader.getListDescriptionData();
+	private ArrayList<String>[][] listRelationship = reader.getListRelationshipData();
 	private String[] str = Setting.str;
 	private int[] numberStr = Setting.numberStr;
 
@@ -45,8 +46,8 @@ public class DataCreator {
 		for (int i = 0; i < 6; i++)
 		for (int count = 0; count < numberStr[i]; count++) {
 			String id = str[i] + count;
-			String name = entityData[i].get(rand.nextInt(entityData[i].size()));
-			String description = descriptionData[i].get(rand.nextInt(descriptionData[i].size()));
+			String name = listEntity[i].get(rand.nextInt(listEntity[i].size()));
+			String description = listDescription[i].get(rand.nextInt(listDescription[i].size()));
 			creator.createEntity(id, name, description).storeProperties(model);
 			if (model.size() > 250000) store_model();
 		}
@@ -70,16 +71,16 @@ public class DataCreator {
 			// Nếu không tồn tại liên kết giữa 2 thực thể thì bỏ qua
 			int rand_1 = rand.nextInt(6);
 			int rand_2 = rand.nextInt(6);
-			if (relationshipData[rand_1][rand_2] == null) continue;
+			if (listRelationship[rand_1][rand_2] == null) continue;
 			
 			// Chọn ngẫu nhiên thực thể trong các thực thể đã chọn để ghép nối
 			// Chọn ngẫu nhiên relationship giữa 2 thực thể để ghép nối
 			int ent_1 = rand.nextInt(numberStr[rand_1]);
 			int ent_2 = rand.nextInt(numberStr[rand_2]);
-			int rel_index = rand.nextInt(relationshipData[rand_1][rand_2].size());
+			int rel_index = rand.nextInt(listRelationship[rand_1][rand_2].size());
 			String id1 = str[rand_1] + ent_1;
 			String id2 = str[rand_2] + ent_2;
-			String rel = relationshipData[rand_1][rand_2].get(rel_index);
+			String rel = listRelationship[rand_1][rand_2].get(rel_index);
 			storeder.storeRelationship(id1, rel, id2);
 			
 			// Kiểm tra nếu model vướt quá 50000 hoặc bằng số triple cần thêm thì add vào repository

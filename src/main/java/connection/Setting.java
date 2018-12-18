@@ -14,6 +14,7 @@ public class Setting {
 	
 	public static String DIR_PATH = System.getProperty("user.dir");
 	public static String DIR_DATA_PATH = DIR_PATH + "/RawData";
+	public static String DIR_QUERY_PATH = DIR_PATH + "/Query";
 	
 	public static String[] str = { "Time", "Organization", "Location", "Event", "Country", "Person"};
 	public static int[] numberStr = {220, 220, 220, 220, 220, 5000};

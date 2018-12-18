@@ -1,3 +1,4 @@
+package main;
 import com.franz.agraph.repository.AGRepositoryConnection;
 
 import connection.DatabaseConnecter;
@@ -31,13 +32,10 @@ public class Main {
 //		creator.createData();
 //		creator.createRelationship(5000000);
 		Query q = new Query(databaseConnecter);
-		q.printResultQuery8();
+//		q.printResultQuery10();
 		long endTime=System.currentTimeMillis();
 		long runTime=(endTime-startTime);
 		System.out.print(runTime + "ms");
-//		RandomProperties p = new RandomProperties();
-//		for (int i = 0; i < 220; i++)
-//			System.out.println(p.getRandomDate());
 	}
 	
 	public static void calTime(int x, Query query) {
