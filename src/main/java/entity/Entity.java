@@ -42,8 +42,8 @@ public class Entity {
 	public HashMap<Object, Object> getListProperties() {
 		HashMap<Object, Object> properties = new HashMap<Object, Object>();
 		properties.put("định_danh", dinhDanh);
-		properties.put("tên_hiển_thị", tenHienThi);
 		properties.put("thực_thể", this.getClass().getName().replace("entity.", ""));
+		properties.put("tên_hiển_thị", tenHienThi);
 		properties.put("mô_tả", moTa);
 		properties.put("link_nhận_dữ_liệu", link);
 		properties.put("ngày_nhận_dữ_liệu", ngayThang);

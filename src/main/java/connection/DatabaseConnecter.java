@@ -43,13 +43,7 @@ public class DatabaseConnecter {
 	 */
 	public AGRepositoryConnection getConnection (String repositoryName) {
 		if (!catalog.hasRepository(repositoryName)) {
-			myRepository = catalog.createRepository(repositoryName);
-			myRepository.initialize();
-			conn = myRepository.getConnection();
-			conn.setNamespace("class", Setting.CLASS_PREFIX);
-			conn.setNamespace("ent", Setting.ENTITY_PREFIX);
-			conn.setNamespace("prs", Setting.PROPERTIES_PREFIX);
-			conn.setNamespace("rel", Setting.RELATIONSHIP_PREFIX);
+			createRepository(repositoryName);
 		}
 		else {
 			myRepository = catalog.openRepository(repositoryName);
@@ -87,8 +81,11 @@ public class DatabaseConnecter {
 		myRepository = catalog.createRepository(repositoryName);
 		myRepository.setDuplicateSuppressionPolicy("spo");
 		myRepository.initialize();
-
 		conn = myRepository.getConnection();
+		conn.setNamespace("class", Setting.CLASS_PREFIX);
+		conn.setNamespace("ent", Setting.ENTITY_PREFIX);
+		conn.setNamespace("prs", Setting.PROPERTIES_PREFIX);
+		conn.setNamespace("rel", Setting.RELATIONSHIP_PREFIX);
 	}
 
 	/**

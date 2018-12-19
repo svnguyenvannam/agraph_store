@@ -42,22 +42,29 @@ public class Query {
 	 * @param number Số thứ tự câu truy vấn
 	 */
 	public void getResultNormalQuery(int number) {
-		listNormalQuery.get(number).printDescriptionQuery();
-		printRows(listNormalQuery.get(number).Query, conn);
+//		listNormalQuery.get(number).printDescriptionQuery();
+		TupleQueryResult result = getResult(listNormalQuery.get(number).Query, conn);
+//		printRows(result);
 	}
 	
 	public void getResultAdvancedQuery(int number) {
-		listAdvancedQuery.get(number).printDescriptionQuery();
-		printRows(listAdvancedQuery.get(number).Query, conn);
+//		listAdvancedQuery.get(number).printDescriptionQuery();
+		TupleQueryResult result = getResult(listAdvancedQuery.get(number).Query, conn);
+//		printRows(result);
 	}
+	
+	public TupleQueryResult getResult(String query, AGRepositoryConnection conn) {
+		TupleQuery tupleQuery = conn.prepareTupleQuery(QueryLanguage.SPARQL, query);
+		TupleQueryResult result = tupleQuery.evaluate();
+		return result;
+	}
+	
 	/**
 	 * In ra kết quả trong truy vấn ?s ?p ?o
 	 * @param query : Truy vấn truyền vào, phải là truy vấn dạng select ?s ?p ?o 
 	 * @param conn : Đối tượng AGRepositoryConnection dùng để kết nối với Repository 
 	 */
-	private void printRows(String query, AGRepositoryConnection conn) {
-		TupleQuery tupleQuery = conn.prepareTupleQuery(QueryLanguage.SPARQL, query);
-		TupleQueryResult result = tupleQuery.evaluate();
+	private void printRows(TupleQueryResult result) {
 		Value x = null;
 		while (result.hasNext()) {
 			BindingSet bind = result.next();
@@ -68,7 +75,7 @@ public class Query {
 			Value o = bind.getValue("o");
 			Value lk3 = bind.getValue("lk3");
 			Value t = bind.getValue("t");
-			if (!s.equals(x)) System.out.println("------------------"); 
+			if (s != null && !s.equals(x)) System.out.println("------------------"); 
 			System.out.format("%s %s %s %s %s %s %s \n", removePrefix(s), removePrefix(lk1), removePrefix(p), 
 					removePrefix(lk2), removePrefix(o), removePrefix(lk3), removePrefix(t));
 			x = s;

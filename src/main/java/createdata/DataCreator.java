@@ -1,6 +1,7 @@
 package createdata;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 import org.eclipse.rdf4j.model.impl.TreeModel;
@@ -22,10 +23,13 @@ public class DataCreator {
 	private ArrayList<String>[] listDescription = reader.getListDescriptionData();
 	private ArrayList<String>[][] listRelationship = reader.getListRelationshipData();
 	private String[] str = Setting.str;
-	private int[] numberStr = Setting.numberStr;
+	private HashMap<Integer, int[]> numberStr = Setting.numberStr;
+	private int numberRelationship, numberEntity;
 
-	public DataCreator(AGRepositoryConnection conn) {
+	public DataCreator(AGRepositoryConnection conn, int numberEntity, int numberRelationship) {
 		this.conn = conn;
+		this.numberRelationship = numberRelationship;
+		this.numberEntity = numberEntity;
 	}
 
 	/**
@@ -38,7 +42,7 @@ public class DataCreator {
 		EntityCreator creator = new EntityCreator();
 		Random rand = new Random();
 		for (int i = 0; i < 6; i++)
-		for (int count = 0; count < numberStr[i]; count++) {
+		for (int count = 0; count < numberStr.get(numberEntity)[i]; count++) {
 			String id = str[i] + count;
 			String name = listEntity[i].get(rand.nextInt(listEntity[i].size()));
 			String description = listDescription[i].get(rand.nextInt(listDescription[i].size()));
@@ -51,14 +55,14 @@ public class DataCreator {
 	/**
 	 * Tạo ngẫu nhiên quan hệ bằng cách chọn ngẫu nhiên các thực thể và liên kết 
 	 * giữa chúng để tiến hành ghép nối
-	 * 
 	 * @param numberTriple   : số lượng triple cần tạo
 	 * @param repositoryName : repository dùng để lưu dữ liệu
 	 */
-	public void createRelationship(int numberTriple) {
+	public void createRelationship() {
 		DataStoreder storeder = new DataStoreder(model);
 		Random rand = new Random();
-		int incomplete = numberTriple - (int) conn.size();
+		if (numberRelationship + conn.size() > 5000000) numberRelationship = 5000000 - (int) conn.size(); 
+		int incomplete = numberRelationship - (int) conn.size();
 		while (incomplete > 0) {
 			
 			// Chọn 2 loại thực thể để tiến hành ghép nối
@@ -69,8 +73,8 @@ public class DataCreator {
 			
 			// Chọn ngẫu nhiên thực thể trong các thực thể đã chọn để ghép nối
 			// Chọn ngẫu nhiên relationship giữa 2 thực thể để ghép nối
-			int ent_1 = rand.nextInt(numberStr[rand_1]);
-			int ent_2 = rand.nextInt(numberStr[rand_2]);
+			int ent_1 = rand.nextInt(numberStr.get(numberEntity)[rand_1]);
+			int ent_2 = rand.nextInt(numberStr.get(numberEntity)[rand_2]);
 			int rel_index = rand.nextInt(listRelationship[rand_1][rand_2].size());
 			String id1 = str[rand_1] + ent_1;
 			String id2 = str[rand_2] + ent_2;
@@ -81,7 +85,7 @@ public class DataCreator {
 			// Cập nhật lại số triple cần thêm
 			if (model.size() >= 250000 || model.size() >= incomplete) {
 				store_model();
-				incomplete = numberTriple - (int) conn.size();	
+				incomplete = numberRelationship - (int) conn.size();	
 			}
 		}
 	}

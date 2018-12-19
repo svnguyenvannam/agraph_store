@@ -1,3 +1,15 @@
+In ra những người sinh ra tại Austria nhưng lại sống ở Grenada
+select ?s 
+where {
+	?idx rdf:type class:Country.
+	?idx prs:tên_hiển_thị "Austria".
+	?idy rdf:type class:Country.
+	?idy prs:tên_hiển_thị "Grenada".
+	?idz rel:sinh_ra_tại ?idx.
+	?idz rel:sống_ở ?idy.
+	?idz prs:tên_hiển_thị ?s.
+}
+***
 In ra tên các chương trình được tài trợ bởi "Paige_Saifali_Barton" nhưng bị tạm hoãn tại "France"
 select ?s ?lk1 ?p ?lk2 ?o  
 where {
@@ -12,24 +24,38 @@ where {
   filter (?s = "France" && ?o = "Paige_Saifali_Barton" && ?lk1 = rel:tạm_hoãn && ?lk2 = rel:được_tài_trợ_bởi)
 }
 ***
-In ra 10 người trong tên có từ "San"
+In ra tên vầ ngày mất của những người đã đến cả nước Grenada và Liberia, mất năm 2005
 select ?s ?p ?o
 where {
-  ?s ?p ?o.
-  ?s rdf:type class:Person.
-  filter (regex(?o, "San") && ?p = prs:tên_hiển_thị) 
+	?idx a class:Country;
+		prs:tên_hiển_thị "Morocco".
+	?idy a class:Country; 
+		prs:tên_hiển_thị "Sweden".
+ 	?idt a class:Time;
+        prs:tên_hiển_thị ?o.
+	?idz a class:Person;
+		rel:sống_ở ?idy; 
+        rel:sống_ở ?idx;
+		prs:tên_hiển_thị ?s;
+        ?p ?idt.
+  	filter (?p = rel:mất_ngày && regex(?o, "^2005"))
 }
-limit 10
 ***
-In ra những người tên bắt đầu bằng "Rose" và kết thúc là "Black"
+In ra những người trong tên có chữ "San", sinh ra tại là Spain mất ngày tại 2007-10-04
 select ?s ?p ?o
 where {
-	?s rdf:type class:Person.
-	?s ?p ?o.
-	filter (?p = prs:tên_hiển_thị && regex(?o, "^(Rose)[\\w\\d\\s]*(Black)$"))
+  ?s ?p ?o;
+     a class:Person;
+     rel:sinh_ra_tại ?idx;
+     rel:mất_ngày ?idy.
+  ?idx a class:Country;
+     prs:tên_hiển_thị "Spain".
+  ?idy a class:Time;
+     prs:tên_hiển_thị "2007-10-04".
+  filter (regex(?o, "San") && ?p = prs:tên_hiển_thị)
 }
 ***
-In ra tên của 5 nước có GDP cao nhất và GDP của nước đó
+In ra tên của 50 nước có GDP cao nhất và GDP của nước đó
 select ?s ?p ?o
 where {
   ?id rdf:type class:Country.
@@ -38,7 +64,7 @@ where {
   filter (?p = prs:GDP)
 }
  order by desc (?o) 
- limit 5
+ limit 50
 ***
 In ra mô tả của nơi mà cạnh tranh với Sault_Ste._Marie,_Canada; là nơi làm việc của Josie_(Fifi)_Shunichi_Murray; và đã hủy bỏ sự kiện International_Congress_of_the_Asia_Pacific_Society_of_Infection_Control_(ICAPSIC) 
 select ?s ?p ?o 
@@ -57,17 +83,6 @@ where {
   ?idx ?p ?o.
   filter (?p = prs:mô_tả)
 }
-***
-In ra tên hiển thị của những người có số lượng relationship < 300 cùng với số lượng relationship của người đó
-select ?s (count(?_p) as ?p)
-where {
-  ?o a class:Person;
-       ?_p ?id;
-       prs:tên_hiển_thị ?s.
-  filter (strstarts(str(?_p), "http://btl/relationship/"))
-  }
-group by ?s 
-having (count(?_p) < 300)
 ***
 In ra thông tin 3 người đầu tiên tìm thấy mà đá bóng cho câu lạc bộ ở cả 2 nước là Sweden và Italy nhưng không đá bóng tại Ivory_Coast
 select ?s ?p ?o

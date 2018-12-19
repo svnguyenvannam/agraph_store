@@ -53,31 +53,6 @@ select (count(?idy) as ?s)
 	?idy rdf:type class:Person . 
 }
 ***
-In ra tên những người đã đến cả nước Grenada và Liberia
-select ?s 
-where {
-	?idx rdf:type class:Country . 
-	?idx prs:tên_hiển_thị "Grenada" . 
-	?idy rdf:type class:Country . 
-	?idy prs:tên_hiển_thị "Liberia" . 
-	?idz rel:sống_ở ?idx . 
-	?idz rel:sống_ở ?idy .
-	?idz rdf:type class:Person . 
-	?idz prs:tên_hiển_thị ?s
-}
-***
-In ra những người sinh ra tại Austria nhưng lại sống ở Grenada
-select ?s 
-where {
-	?idx rdf:type class:Country.
-	?idx prs:tên_hiển_thị "Austria".
-	?idy rdf:type class:Country.
-	?idy prs:tên_hiển_thị "Grenada".
-	?idz rel:sinh_ra_tại ?idx.
-	?idz rel:sống_ở ?idy.
-	?idz prs:tên_hiển_thị ?s.
-}
-***
 In ra thông tin những nước có dân số thấp hơn 100000 nhưng có GPD cao hơn 5000 
 select ?s ?p ?o 
 where {
@@ -86,6 +61,14 @@ where {
 	?s prs:GDP ?gdp.
 	?s ?p ?o.
 	filter (?ds < 100000 && ?gdp > 5000 && strstarts(str(?p),"http://btl/properties/"))
+}
+***
+In ra những người tên bắt đầu bằng "Rose" và kết thúc là "Black"
+select ?s ?p ?o
+where {
+	?s rdf:type class:Person.
+	?s ?p ?o.
+	filter (?p = prs:tên_hiển_thị && regex(?o, "^(Rose)[\\w\\d\\s]*(Black)$"))
 }
 ***
 In ra thông tin 5 sự kiện đầu tiên tìm thấy bị hoãn vào 2017-01-31
@@ -109,4 +92,15 @@ select (count(?idx) as ?s)
 where {
 	?idx rdf:type class:Event.
 }
+***
+In ra tên hiển thị của những người có số lượng relationship < 300 cùng với số lượng relationship của người đó
+select ?s (count(?_p) as ?p)
+where {
+  ?o a class:Person;
+       ?_p ?id;
+       prs:tên_hiển_thị ?s.
+  filter (strstarts(str(?_p), "http://btl/relationship/"))
+  }
+group by ?s 
+having (count(?_p) < 300)
 ***

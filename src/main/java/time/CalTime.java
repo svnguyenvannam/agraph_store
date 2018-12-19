@@ -21,7 +21,7 @@ public class CalTime {
 		long endTime = System.currentTimeMillis();
 		
 		long runTime = endTime - startTime;
-		System.out.format("Runtime = %l\n", runTime);
+		System.out.format("Runtime = %d\n", runTime);
 	}
 	
 	public void calTimeAdvancedQuery(int number) {
@@ -30,6 +30,6 @@ public class CalTime {
 		long endTime = System.currentTimeMillis();
 		
 		long runtime = endTime - startTime;
-		System.out.format("Runtime = %l\n", runtime);
+		System.out.format("Runtime = %d\n", runtime);
 	}
 }

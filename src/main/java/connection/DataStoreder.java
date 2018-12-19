@@ -24,9 +24,8 @@ public class DataStoreder {
 
 	/**
 	 * Lưu trữ thực thể vào DB.
-	 * 
 	 * @param properties : List các thuộc tính cần lưu trữ lấy từ dữ liệu thực thể .
-	 *                   Phần tử nào trong mảng là null sẽ không được lưu
+	 * Phần tử nào trong mảng là null sẽ không được lưu
 	 */
 	public void storeEntity(HashMap<Object, Object> properties) {
 		// Tạo thực thể định danh, tạo 2 triple để kết nối chúng 2 chiều
@@ -37,9 +36,8 @@ public class DataStoreder {
 
 		// Tạo các thuộc tính và nối với thực thể
 		properties.remove("định_danh");
+		properties.remove("thực_thể");
 		properties.forEach((key, value) -> {
-			System.out.println(key);
-			System.out.println(value);
 			Literal o;
 			IRI p = vf.createIRI(Setting.PROPERTIES_PREFIX, (String) key);
 			if (value instanceof String) o = vf.createLiteral((String) value);
