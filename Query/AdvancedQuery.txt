@@ -21,7 +21,7 @@ where {
 }
 limit 10
 ***
-In ra 10 người tên bắt đầu bằng "Rose" và kết thúc là "Black"
+In ra những người tên bắt đầu bằng "Rose" và kết thúc là "Black"
 select ?s ?p ?o
 where {
 	?s rdf:type class:Person.
@@ -39,4 +39,127 @@ where {
 }
  order by desc (?o) 
  limit 5
+***
+In ra mô tả của nơi mà cạnh tranh với Sault_Ste._Marie,_Canada; là nơi làm việc của Josie_(Fifi)_Shunichi_Murray; và đã hủy bỏ sự kiện International_Congress_of_the_Asia_Pacific_Society_of_Infection_Control_(ICAPSIC) 
+select ?s ?p ?o 
+where {
+  ?idx rdf:type class:Location.
+  ?idy rdf:type class:Location.
+  ?idz rdf:type class:Person.
+  ?idt rdf:type class:Event.
+  ?idx rel:cạnh_trạnh_với ?idy.
+  ?idx rel:là_nơi_làm_việc_của ?idz.
+  ?idx rel:huỷ_bỏ ?idt.
+  ?idx prs:tên_hiển_thị ?s.
+  ?idy prs:tên_hiển_thị 	"Sault_Ste._Marie,_Canada".
+  ?idz prs:tên_hiển_thị 	"Josie_(Fifi)_Shunichi_Murray".
+  ?idt prs:tên_hiển_thị "International_Congress_of_the_Asia_Pacific_Society_of_Infection_Control_(ICAPSIC)".
+  ?idx ?p ?o.
+  filter (?p = prs:mô_tả)
+}
+***
+In ra tên hiển thị của những người có số lượng relationship < 300 cùng với số lượng relationship của người đó
+select ?s (count(?_p) as ?p)
+where {
+  ?o a class:Person;
+       ?_p ?id;
+       prs:tên_hiển_thị ?s.
+  filter (strstarts(str(?_p), "http://btl/relationship/"))
+  }
+group by ?s 
+having (count(?_p) < 300)
+***
+In ra thông tin 3 người đầu tiên tìm thấy mà đá bóng cho câu lạc bộ ở cả 2 nước là Sweden và Italy nhưng không đá bóng tại Ivory_Coast
+select ?s ?p ?o
+where {
+  {
+  	select ?s where {
+  		{
+ 	 		?s a class:Person;
+     	  		rel:đá_bóng_cho_CLB_ở ?idx;
+          		rel:đá_bóng_cho_CLB_ở ?idy.
+ 			?idx a class:Country;
+       	  		prs:tên_hiển_thị "Sweden".
+ 	 		?idy a class:Country;
+       	  		prs:tên_hiển_thị "Italy".
+       	}
+  		minus 
+  		{
+      		?s a class:Person;
+           		rel:đá_bóng_cho_CLB_ở ?idz.
+      		?idz a class:Country;
+           		prs:tên_hiển_thị "Ivory_Coast".
+    	}
+    }
+    limit 3
+  }
+  ?s ?p ?o.
+  filter (strstarts(str(?p), "http://btl/properties/"))
+}
+***
+In ra 3 người có tuổi cao nhất cùng với tuổi của họ, yêu quý nước Bhutan nhưng lại sống ở location Augusta,_United_States
+select ?s ?o
+where {
+  ?id a class:Person;
+        rel:yêu_quý ?idx;
+        rel:sống_ở ?idy;
+        prs:tên_hiển_thị ?s;
+        prs:tuổi ?o.
+  ?idx a class:Country;
+         prs:tên_hiển_thị "Bhutan".
+  ?idy a class:Location;
+         prs:tên_hiển_thị "Augusta,_United_States".
+}
+order by desc (?o)
+limit 3
+***
+In ra tên của những người đã sống ở nhiều hơn 5 quốc gia nhưng lại tham gia ít hơn 100 event
+select ?s ?p ?o
+where {
+  {
+  	select ?s
+  	where {
+    	?s a class:Person;
+          rel:sống_ở ?idx.
+    	?idx a class:Country.
+    	}
+  	group by ?s 
+  	having (count(?idx) > 5)
+  	}
+  minus
+  {
+    select ?s
+  	where {
+    	?s a class:Person;
+          rel:tham_gia ?idx.
+    	?idx a class:Event.
+    	}
+  	group by ?s 
+  	having (count(?idx) < 100)
+    }
+  ?s ?p ?o.
+  filter ( ?p = prs:tên_hiển_thị )
+  }
+***
+In ra 3 nước đầu tiên tìm thấy cùng tham dự 1 sự kiện bất kỳ và cùng hợp tác với Sweden, trong đó GDP của nước thứ nhất lớn hơn nước thứ hai nhưng dân số lại nhỏ hơn nước thứ hai
+select ?s ?o
+where {
+  ?idx a class:Country;
+         rel:tham_dự ?k1;
+         rel:hợp_tác_với ?k2;
+         prs:GDP ?gdp1;
+         prs:dân_số ?ds1;
+         prs:tên_hiển_thị ?s.
+  ?idy a class:Country;
+         rel:tham_dự ?k1;
+         rel:hợp_tác_với ?k2;
+         prs:GDP ?gdp2;
+         prs:dân_số ?ds2;
+         prs:tên_hiển_thị ?o.
+  ?k1 a class:Event.
+  ?k2 a class:Country;
+        prs:tên_hiển_thị "Sweden".
+  filter (?gdp1 > ?gdp2 && ?ds1 < ?ds2 && ?s != "Sweden" && ?o != "Sweden")
+  }
+limit 3
 ***

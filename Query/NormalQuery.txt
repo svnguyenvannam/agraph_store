@@ -19,17 +19,20 @@ where {
 	filter (strstarts(str(?p), "http://btl/properties/"))
 }
 ***
-In thông tin người đầu tiên tìm thấy sống ở Location "Okayama,_Japan"
+In thông tin 2 người đầu tiên tìm thấy sống ở Location "Okayama,_Japan"
 select ?s ?p ?o 
 where {
-	?idx rdf:type class:Location.
-	?idx prs:tên_hiển_thị "Okayama,_Japan".
-	?s rdf:type class:Person.
-	?s rel:sống_ở ?idx.
+  	{ 
+		select ?s where {
+			?idx rdf:type class:Location.
+			?idx prs:tên_hiển_thị "Okayama,_Japan".
+			?s rdf:type class:Person.
+			?s rel:sống_ở ?idx.
+		} limit 2
+	}
 	?s ?p ?o.
 	filter (strstarts(str(?p), "http://btl/properties/" ))
 } 
-limit 8
 ***
 In ra số nơi mà công ty "Nintendo" phá sản
 select (count(?o) as ?s) 
@@ -85,17 +88,21 @@ where {
 	filter (?ds < 100000 && ?gdp > 5000 && strstarts(str(?p),"http://btl/properties/"))
 }
 ***
-In ra thông tin 10 sự kiện đầu tiên tìm thấy bị hoãn vào 2017-01-31
+In ra thông tin 5 sự kiện đầu tiên tìm thấy bị hoãn vào 2017-01-31
 select ?s ?p ?o 
 where {
-	?s rdf:type class:Event.
-	?s rel:bị_hoãn_vào ?idx.
-	?idx rdf:type class:Time.
-	?idx prs:tên_hiển_thị "2017-01-31".
+	{
+		select ?s where {	
+			?s rdf:type class:Event.
+			?s rel:bị_hoãn_vào ?idx.
+			?idx rdf:type class:Time.
+			?idx prs:tên_hiển_thị "2017-01-31".
+		}
+		limit 5
+	}
 	?s ?p ?o.
 	filter (strstarts(str(?p), "http://btl/properties"))
 } 
-limit 25
 ***
 In ra số lượng các sự kiện được lưu trong csdl
 select (count(?idx) as ?s) 

@@ -66,9 +66,11 @@ public class Query {
 			Value p = bind.getValue("p");
 			Value lk2 = bind.getValue("lk2");
 			Value o = bind.getValue("o");
+			Value lk3 = bind.getValue("lk3");
+			Value t = bind.getValue("t");
 			if (!s.equals(x)) System.out.println("------------------"); 
-			System.out.format("%s %s %s %s %s \n", removePrefix(s), removePrefix(lk1), removePrefix(p), 
-					removePrefix(lk2), removePrefix(o));
+			System.out.format("%s %s %s %s %s %s %s \n", removePrefix(s), removePrefix(lk1), removePrefix(p), 
+					removePrefix(lk2), removePrefix(o), removePrefix(lk3), removePrefix(t));
 			x = s;
 		}
 	}

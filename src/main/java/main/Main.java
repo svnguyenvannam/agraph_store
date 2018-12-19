@@ -38,6 +38,9 @@ public class Main {
 		for (int i = 0; i < 10; i++) {
 			q.getResultNormalQuery(i);
 		}
+		for (int i = 0; i < 10; i++) {
+			q.getResultAdvancedQuery(i);
+		}
 		long endTime=System.currentTimeMillis();
 		long runTime=(endTime-startTime);
 		System.out.print(runTime + "ms");
