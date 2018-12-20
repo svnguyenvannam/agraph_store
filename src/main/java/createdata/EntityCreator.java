@@ -1,13 +1,13 @@
 package createdata;
 
 import entity.Country;
-import entity.Entity;
+import entity.AEntity;
 import entity.Event;
 import entity.Location;
 import entity.Organization;
 import entity.Person;
 import entity.Time;
-import randomproperties.RandomProperties;
+import setting.RandomProperties;
 
 public class EntityCreator {
 	private String label;
@@ -15,15 +15,15 @@ public class EntityCreator {
 	private String name;
 	private RandomProperties r = new RandomProperties();
 	
-	public Entity createEntity(String label, String name, String description) {
+	public AEntity createEntity(String label, String name, String description) {
 		this.label = label;
 		this.name = name;
 		this.description = description;
 		return (createEntity());
 	}
 	
-	public Entity createEntity() {
-		Entity ent;
+	public AEntity createEntity() {
+		AEntity ent;
 		if (label.startsWith("Person")) {
 			ent = createPerson();
 		} else
@@ -47,7 +47,7 @@ public class EntityCreator {
 	 * Tạo ngẫu nhiên ngày tháng và link nhận dữ liệu của thực thể
 	 * @param p: 1 thưc thể bất kỳ
 	 */
-	private Entity create(Entity p) {
+	private AEntity create(AEntity p) {
 		p.setNgayThang(r.getRandomDate()); 
 		p.setLink(r.getRandomLink(p.getDinhDanh()));
 		return p;

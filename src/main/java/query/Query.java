@@ -1,4 +1,4 @@
-package connection;
+package query;
 
 import java.util.ArrayList;
 
@@ -11,8 +11,8 @@ import org.eclipse.rdf4j.query.TupleQueryResult;
 import com.franz.agraph.repository.AGRepositoryConnection;
 
 import filereader.QueryReader;
-import main.Setting;
-import main.StructQuery;
+import setting.Setting;
+import setting.StructQuery;
 
 /**
  * Cài đặt các query cơ bản và nâng cao theo yêu cầu 
@@ -33,8 +33,8 @@ public class Query {
 	 */
 	private void getListQuery() {
 		QueryReader reader = new QueryReader();
-		this.listNormalQuery = reader.getListNormalQuery();
-		this.listAdvancedQuery = reader.getListAdvancedQuery();
+		listNormalQuery = reader.getListNormalQuery();
+		listAdvancedQuery = reader.getListAdvancedQuery();
 	}
 	
 	/**

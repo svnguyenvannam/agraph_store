@@ -4,10 +4,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import main.Setting;
-import main.StructQuery;
+import setting.Setting;
+import setting.StructQuery;
 
-public class QueryReader extends FileReader {
+public class QueryReader extends AFileReader {
 	private ArrayList<StructQuery> listNormalQuery = new ArrayList<StructQuery>(10);
 	private ArrayList<StructQuery> listAdvancedQuery = new ArrayList<StructQuery>(10);
 	

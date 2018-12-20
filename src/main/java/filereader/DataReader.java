@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import main.Setting;
+import setting.Setting;
 
 /**
  * Đọc các Raw Data từ file text.Trả ra các Data đọc được dạng String[]
@@ -12,11 +12,10 @@ import main.Setting;
  * miêu tả của chúng.
  */
 
-public class DataReader extends FileReader{
+public class DataReader extends AFileReader{
 	private ArrayList<String>[] listEntity = new ArrayList[6];
 	private ArrayList<String>[] listDescription = new ArrayList[6];
 	private ArrayList<String>[][] listRelationship = new ArrayList[6][6];
-	private FileReader reader = new FileReader();
 	private String[] str = Setting.str;
 	
 	public DataReader() {
@@ -48,7 +47,7 @@ public class DataReader extends FileReader{
 		for (int i = 0; i < 6; i++)
 		for (int j = 0; j < 6; j++) {
 			String pathRelationship = Setting.DIR_DATA_PATH + "/Relationship/" + str[i]+str[j] + ".txt";
-			if (reader.exists(pathRelationship)) {
+			if (exists(pathRelationship)) {
 				listRelationship[i][j] = readEntityOrDescriptionOrRelationship(pathRelationship);
 			} else listRelationship[i][j] = null;
 		}

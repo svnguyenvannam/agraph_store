@@ -2,7 +2,7 @@ package entity;
 
 import java.util.HashMap;
 
-public class Country extends Entity{
+public class Country extends AEntity{
 	private int danSo, gdp, dienTich;
 	
 	// Constructor

@@ -1,6 +1,6 @@
 package entity;
 
-public class Event extends Entity {
+public class Event extends AEntity {
 
 	// Constructor
 	public Event(String dinhDanh, String tenHienThi, String moTa, String link, String ngayThang) {

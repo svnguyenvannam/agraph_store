@@ -1,6 +1,6 @@
 package entity;
 
-public class Time extends Entity {
+public class Time extends AEntity {
 
 	// Constructor
 	public Time(String dinhDanh, String tenHienThi, String moTa, String link, String ngayThang) {

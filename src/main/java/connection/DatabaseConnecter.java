@@ -5,7 +5,7 @@ import com.franz.agraph.repository.AGRepository;
 import com.franz.agraph.repository.AGRepositoryConnection;
 import com.franz.agraph.repository.AGServer;
 
-import main.Setting;
+import setting.Setting;
 
 /**
  * Kết nối với server theo server, repository, user, password đã cho trước. Nếu

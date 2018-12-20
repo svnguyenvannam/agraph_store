@@ -2,7 +2,7 @@ package entity;
 
 import java.util.HashMap;
 
-public class Location extends Entity {
+public class Location extends AEntity {
 	private String toaDo;
 
 	public String getToaDo() {

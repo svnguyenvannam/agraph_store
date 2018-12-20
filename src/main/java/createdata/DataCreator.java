@@ -8,9 +8,9 @@ import org.eclipse.rdf4j.model.impl.TreeModel;
 
 import com.franz.agraph.repository.AGRepositoryConnection;
 
-import connection.DataStoreder;
+import entity.AEntity;
 import filereader.DataReader;
-import main.Setting;
+import setting.Setting;
 
 /**
  * Class sinh dữ liệu từ dữ liệu đọc ở file data
@@ -18,10 +18,12 @@ import main.Setting;
 public class DataCreator {
 	private AGRepositoryConnection conn;
 	private TreeModel model = new TreeModel();
-	private DataReader reader = new DataReader();
-	private ArrayList<String>[] listEntity = reader.getListEntity();
-	private ArrayList<String>[] listDescription = reader.getListDescriptionData();
-	private ArrayList<String>[][] listRelationship = reader.getListRelationshipData();
+	private DataStoreder storeder = new DataStoreder(model);
+	
+	private ArrayList<String>[] listEntity;
+	private ArrayList<String>[] listDescription;
+	private ArrayList<String>[][] listRelationship;
+	
 	private String[] str = Setting.str;
 	private HashMap<Integer, int[]> numberStr = Setting.numberStr;
 	private int numberRelationship, numberEntity;
@@ -30,6 +32,7 @@ public class DataCreator {
 		this.conn = conn;
 		this.numberRelationship = numberRelationship;
 		this.numberEntity = numberEntity;
+		this.getListData();
 	}
 
 	/**
@@ -46,7 +49,8 @@ public class DataCreator {
 			String id = str[i] + count;
 			String name = listEntity[i].get(rand.nextInt(listEntity[i].size()));
 			String description = listDescription[i].get(rand.nextInt(listDescription[i].size()));
-			creator.createEntity(id, name, description).storeProperties(model);
+			AEntity newEntity = creator.createEntity(id, name, description);
+			storeder.storeEntity(newEntity.getListProperties());
 			if (model.size() > 250000) store_model();
 		}
 		store_model();
@@ -88,6 +92,13 @@ public class DataCreator {
 				incomplete = numberRelationship - (int) conn.size();	
 			}
 		}
+	}
+	
+	private void getListData() {
+		DataReader reader = new DataReader();
+		listEntity = reader.getListEntity();
+		listDescription = reader.getListDescriptionData();
+		listRelationship = reader.getListRelationshipData();
 	}
 	
 	private void store_model() {

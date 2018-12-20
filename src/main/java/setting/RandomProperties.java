@@ -1,9 +1,7 @@
-package randomproperties;
+package setting;
 
 import java.time.LocalDate;
 import java.util.Random;
-
-import main.Setting;
 
 public class RandomProperties {
 	Random random;

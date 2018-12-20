@@ -2,11 +2,7 @@ package entity;
 
 import java.util.HashMap;
 
-import org.eclipse.rdf4j.model.impl.TreeModel;
-
-import connection.DataStoreder;
-
-public class Entity {
+public abstract class AEntity {
 	private String dinhDanh = null;
 	private String tenHienThi = null;
 	private String moTa = null;
@@ -14,7 +10,7 @@ public class Entity {
 	private String ngayThang = null;
 	
 	// Constructor
-	public Entity(String dinhDanh, String tenHienThi, String moTa, String link, String ngayThang) {
+	public AEntity(String dinhDanh, String tenHienThi, String moTa, String link, String ngayThang) {
 		this.dinhDanh = dinhDanh;
 		this.tenHienThi = tenHienThi;
 		this.moTa = moTa;
@@ -23,13 +19,13 @@ public class Entity {
 	}
 	
 	// Constructor 
-	public Entity(String dinhDanh, String tenHienThi) {
+	public AEntity(String dinhDanh, String tenHienThi) {
 		this.dinhDanh = dinhDanh;
 		this.tenHienThi = tenHienThi;
 	}
 	
 	// Constructor 
-	public Entity(String dinhDanh, String tenHienThi, String moTa) {
+	public AEntity(String dinhDanh, String tenHienThi, String moTa) {
 		this.dinhDanh = dinhDanh;
 		this.tenHienThi = tenHienThi;
 		this.moTa = moTa;
@@ -48,15 +44,6 @@ public class Entity {
 		properties.put("link_nhận_dữ_liệu", link);
 		properties.put("ngày_nhận_dữ_liệu", ngayThang);
 		return properties;
-	}
-	
-	/**
-	 * Store List các thuộc tính vào database
-	 * type dùng để xác định kiểu dữ liệu khi store vào DB (person, time ...)
-	 */
-	public void storeProperties(TreeModel model) {
-		DataStoreder dataStoreder = new DataStoreder(model);
-		dataStoreder.storeEntity(this.getListProperties());
 	}
 	
 	public String getDinhDanh() {

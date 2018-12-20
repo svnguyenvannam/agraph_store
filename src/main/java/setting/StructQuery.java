@@ -1,4 +1,4 @@
-package main;
+package setting;
 public class StructQuery {
 	public String Query;
 	public String Description;

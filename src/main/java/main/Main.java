@@ -2,8 +2,8 @@ package main;
 import com.franz.agraph.repository.AGRepositoryConnection;
 
 import connection.DatabaseConnecter;
-import connection.Query;
 import createdata.DataCreator;
+import setting.Setting;
 import time.CalTime;
 
 public class Main {
@@ -13,18 +13,18 @@ public class Main {
 	public static DatabaseConnecter databaseConnecter = DatabaseConnecter.getDatabaseConnecter(severURL, user, password);
 	public static AGRepositoryConnection conn;
 	public static void main(String[] args) {	
+		createAndGetQuery();
+	}
+	
+	public static void createAndGetQuery() {
 		conn = creatRepository("OOP_100", 100, 200);
 		calTime(conn);
-		
 		conn = creatRepository("OOP_5000", 5000, 7000);
 		calTime(conn);
-		
 		conn = creatRepository("OOP_60000", 60000, 80000);
 		calTime(conn);
-		
 		conn = creatRepository("OOP_100000", 100000, 200000);
 		calTime(conn);
-		
 		conn = creatRepository("OOP_500000", 500000, 3000000);
 		calTime(conn);
 	}
@@ -34,12 +34,9 @@ public class Main {
 		AGRepositoryConnection conn = databaseConnecter.getConnection(repositoryName);
 		DataCreator creator = new DataCreator(conn, numberEntity, numberRelationship);
 		
-		long startTime = System.currentTimeMillis();
 		creator.createData();
 		creator.createRelationship();
-		long endTime = System.currentTimeMillis();
-		long runtime = endTime - startTime;
-		System.out.format("Thoi gian tao repository %s la %d ms\n", repositoryName, runtime);
+		System.out.format("Da tao xong repostisoty %s\n", repositoryName);
 		return conn;
 	}
 	

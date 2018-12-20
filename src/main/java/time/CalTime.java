@@ -2,7 +2,7 @@ package time;
 
 import com.franz.agraph.repository.AGRepositoryConnection;
 
-import connection.Query;
+import query.Query;
 
 public class CalTime {
 	private Query query;

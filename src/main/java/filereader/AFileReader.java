@@ -3,7 +3,7 @@ package filereader;
 import java.io.File;
 import java.util.Scanner;
 
-public class FileReader {
+public abstract class AFileReader {
 	protected File file;
 	protected Scanner scanner = null;
 	
