@@ -6,7 +6,7 @@ where {
 		?p ?o . 
 	filter (strstarts(str(?p), "http://btl/properties/" ))
 }
-***   
+***        
 In ra thông tin các sự kiện "International_Conference_on_Petroleum_and_Petrochemical_Engineering_(ICPPE)" sẽ được tổ chức tại "India"
 select ?s ?p ?o
 where {

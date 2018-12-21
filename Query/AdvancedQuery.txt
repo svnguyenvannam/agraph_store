@@ -2,9 +2,9 @@ In ra những người sinh ra tại "Chile" nhưng lại sống ở "Cook_Islan
 select ?s
 where {
 	?idx a class:Country;
-           prs:tên_hiển_thị "Chile".
+           prs:tên_hiển_thị "Philippines".
 	?idy a class:Country;
-           prs:tên_hiển_thị "Cook_Islands".
+           prs:tên_hiển_thị "Serbia".
   	?idz a class:Person;
            rel:sinh_ra_tại ?idx;
            rel:sống_ở ?idy;
@@ -39,7 +39,7 @@ where {
         rel:sống_ở ?idx;
 		prs:tên_hiển_thị ?s;
         ?p ?idt.
-  	filter (?p = rel:mất_ngày && regex(?o, "^2008"))
+  	filter (?p = rel:mất_ngày && regex(?o, "^(2008)"))
 }
 ***
 In ra những Event trong tên có từ Vietnam, được tổ chức tại "Kiribati" và diễn ra vào sau năm 2009
@@ -67,18 +67,18 @@ where {
  order by desc (?o) 
  limit 20
 ***
-In ra mô tả của nơi tiếp giáp với "Pittsburgh,_United_States", quê hương của "Holly_Sadi_Ferguson", và là nời kết thúc của chùm sự kiện "Vietnam_Medi-Pharm_Expo_(MediPharm_Expo)"
-select ?s ?p ?o 
+In ra mô tả của nơi tiếp giáp với "Pittsburgh,_United_States", trực thuộc "Georgetown,_Guyana", và là nời kết thúc của chùm sự kiện "Vietnam_Medi-Pharm_Expo_(MediPharm_Expo)"
+select ?s ?p ?o
 where {
   ?idy rdf:type class:Location;
        prs:tên_hiển_thị "Pittsburgh,_United_States".
-  ?idz rdf:type class:Person;
-       prs:tên_hiển_thị "Holly_Sadi_Ferguson".
+  ?idz rdf:type class:Location;
+       prs:tên_hiển_thị "Georgetown,_Guyana".
   ?idt rdf:type class:Event;
        prs:tên_hiển_thị "Vietnam_Medi-Pharm_Expo_(MediPharm_Expo)".
   ?idx rdf:type class:Location;
        rel:tiếp_giáp_với ?idy;
-       rel:là_quê_hương_của ?idz;
+       rel:trực_thuộc ?idz;
        rel:là_nơi_kết_thúc_của ?idt;
        prs:tên_hiển_thị ?s;
        ?p ?o.

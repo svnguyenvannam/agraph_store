@@ -13,28 +13,27 @@ public class Main {
 	public static DatabaseConnecter databaseConnecter = DatabaseConnecter.getDatabaseConnecter(severURL, user, password);
 	public static AGRepositoryConnection conn;
 	public static void main(String[] args) {
-		conn = databaseConnecter.getConnection("OOP_500000");
-		calTime(conn);
+		createAndGetQuery();
 	}
 	
 	public static void createAndGetQuery() {
-		conn = creatRepository("OOP_100", 100, 200);
+		conn = creatRepository("100_entity_200_relation", 100, 200);
 		calTime(conn);
 		databaseConnecter.closeConnection();
 		
-		conn = creatRepository("OOP_5000", 5000, 7000);
+		conn = creatRepository("5000_entity_7000_relation", 5000, 7000);
 		calTime(conn);
 		databaseConnecter.closeConnection();
 		
-		conn = creatRepository("OOP_60000", 60000, 80000);
+		conn = creatRepository("60000_entity_80000_relation", 60000, 80000);
 		calTime(conn);
 		databaseConnecter.closeConnection();
 		
-		conn = creatRepository("OOP_100000", 100000, 200000);
+		conn = creatRepository("100000_entity_200000_relation", 100000, 200000);
 		calTime(conn);
 		databaseConnecter.closeConnection();
 		
-		conn = creatRepository("OOP_500000", 500000, 3000000);
+		conn = creatRepository("500000_entity_1000000_relation", 500000, 3000000);
 		calTime(conn);
 		databaseConnecter.closeConnection();
 	}

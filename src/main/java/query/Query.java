@@ -42,15 +42,15 @@ public class Query {
 	 * @param number Số thứ tự câu truy vấn
 	 */
 	public void getResultNormalQuery(int number) {
-		listNormalQuery.get(number).printDescriptionQuery();
+//		listNormalQuery.get(number).printDescriptionQuery();
 		TupleQueryResult result = getResult(listNormalQuery.get(number).Query, conn);
-		printRows(result);
+//		printRows(result);
 	}
 	
 	public void getResultAdvancedQuery(int number) {
-		listAdvancedQuery.get(number).printDescriptionQuery();
+//		listAdvancedQuery.get(number).printDescriptionQuery();
 		TupleQueryResult result = getResult(listAdvancedQuery.get(number).Query, conn);
-		printRows(result);
+//		printRows(result);
 	}
 	
 	public TupleQueryResult getResult(String query, AGRepositoryConnection conn) {

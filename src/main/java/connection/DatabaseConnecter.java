@@ -77,7 +77,8 @@ public class DatabaseConnecter {
 	 */
 	public void createRepository(String repositoryName) {
 		databaseConnecter.closeConnection();
-		catalog.deleteRepository(repositoryName);
+		if (catalog.hasRepository(repositoryName))
+			catalog.deleteRepository(repositoryName);
 		myRepository = catalog.createRepository(repositoryName);
 		myRepository.setDuplicateSuppressionPolicy("spo");
 		myRepository.initialize();
