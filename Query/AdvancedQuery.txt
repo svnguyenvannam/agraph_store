@@ -11,10 +11,10 @@ where {
            prs:tên_hiển_thị ?s.
 }
 ***
-In ra tên các chương trình được tài trợ bởi "Liberty_Sitki_Figueroa" nhưng bị tạm hoãn tại "Chile"
+In ra tên các chương trình bị "Chile" tạm hoãn và đã gây thiệt hại lớn cho "Apple_Inc."
 select ?s ?lk1 ?p ?lk2 ?o  
 where {
-  ?idz a class:Person;
+  ?idz a class:Organization;
          prs:tên_hiển_thị ?o.
   ?idy a class:Event;
          ?lk2 ?idz;
@@ -22,7 +22,7 @@ where {
   ?idx a class:Country;
          prs:tên_hiển_thị ?s;
          ?lk1 ?idy.
-  filter (?s = "Chile" && ?o = "Liberty_Sitki_Figueroa" && ?lk1 = rel:tạm_hoãn && ?lk2 = rel:được_tài_trợ_bởi)
+  filter (?s = "Chile" && ?o = "Apple_Inc." && ?lk1 = rel:tạm_hoãn && ?lk2 = rel:gây_thiệt_hải_lớn_cho)
 }
 ***
 In ra tên vầ ngày mất của những người đã đến cả nước "Cook_Islands" và "Bulgaria", mất năm 2008
@@ -39,21 +39,21 @@ where {
         rel:sống_ở ?idx;
 		prs:tên_hiển_thị ?s;
         ?p ?idt.
-  	filter (?p = rel:mất_ngày && regex(?o, "^200"))
+  	filter (?p = rel:mất_ngày && regex(?o, "^2008"))
 }
 ***
-In ra những người trong tên có chữ "Galla", sinh ra tại "Bangladesh" mất ngày "2008-04-16"
-select ?s ?p ?o
+In ra những Event trong tên có từ Vietnam, được tổ chức tại "Kiribati" và diễn ra vào sau năm 2009
+select ?s ?lk1 ?p ?lk2 ?o
 where {
-  ?s ?p ?o;
-     a class:Person;
-     rel:sinh_ra_tại ?idx;
-     rel:bị_tai_nạn_vào_ngày ?idy.
+  ?id a class:Event;
+     ?lk1 ?idx;
+     ?lk2 ?idy;
+  	 prs:tên_hiển_thị ?s.
   ?idx a class:Country;
-     prs:tên_hiển_thị "Bangladesh".
+     prs:tên_hiển_thị ?p .
   ?idy a class:Time;
-     prs:tên_hiển_thị "2008-04-16".
-  filter (regex(?o, "Galla") && ?p = prs:tên_hiển_thị)
+     prs:tên_hiển_thị ?o.
+  filter (regex(?s, "Vietnam") && ?lk1 = rel:sẽ_được_tổ_chức_tại && ?lk2 = rel:diễn_ra_vào && ?p = "Kiribati" && strstarts(str(?o), "201"))
 }
 ***
 In ra tên của 20 nước có GDP cao nhất và GDP của nước đó

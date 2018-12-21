@@ -19,7 +19,7 @@ where {
 	filter (strstarts(str(?p), "http://btl/properties/"))
 }
 ***
-In thông tin 2 người đầu tiên tìm thấy sống ở Location "Okayama,_Japan"
+In thông tin 10 người đầu tiên tìm thấy sống ở Location "Okayama,_Japan"
 select ?s ?p ?o 
 where {
   { 
@@ -29,7 +29,7 @@ where {
       ?s a class:Person;
            rel:sống_ở ?idx.
 	} 
-	limit 2
+	limit 10
   }
   ?s ?p ?o.
   filter (strstarts(str(?p), "http://btl/properties/" ))
