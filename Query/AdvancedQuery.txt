@@ -1,36 +1,37 @@
-In ra những người sinh ra tại Austria nhưng lại sống ở Grenada
-select ?s 
+In ra những người sinh ra tại "Chile" nhưng lại sống ở "Cook_Islands" 
+select ?s
 where {
-	?idx rdf:type class:Country.
-	?idx prs:tên_hiển_thị "Austria".
-	?idy rdf:type class:Country.
-	?idy prs:tên_hiển_thị "Grenada".
-	?idz rel:sinh_ra_tại ?idx.
-	?idz rel:sống_ở ?idy.
-	?idz prs:tên_hiển_thị ?s.
+	?idx a class:Country;
+           prs:tên_hiển_thị "Chile".
+	?idy a class:Country;
+           prs:tên_hiển_thị "Cook_Islands".
+  	?idz a class:Person;
+           rel:sinh_ra_tại ?idx;
+           rel:sống_ở ?idy;
+           prs:tên_hiển_thị ?s.
 }
 ***
-In ra tên các chương trình được tài trợ bởi "Paige_Saifali_Barton" nhưng bị tạm hoãn tại "France"
+In ra tên các chương trình được tài trợ bởi "Liberty_Sitki_Figueroa" nhưng bị tạm hoãn tại "Chile"
 select ?s ?lk1 ?p ?lk2 ?o  
 where {
-  ?idx rdf:type class:Country.
-  ?idy rdf:type class:Event.
-  ?idz rdf:type class:Person.
-  ?idx ?lk1 ?idy.
-  ?idy ?lk2 ?idz.
-  ?idx prs:tên_hiển_thị ?s.
-  ?idy prs:tên_hiển_thị ?p.
-  ?idz prs:tên_hiển_thị ?o.
-  filter (?s = "France" && ?o = "Paige_Saifali_Barton" && ?lk1 = rel:tạm_hoãn && ?lk2 = rel:được_tài_trợ_bởi)
+  ?idz a class:Person;
+         prs:tên_hiển_thị ?o.
+  ?idy a class:Event;
+         ?lk2 ?idz;
+         prs:tên_hiển_thị ?p.
+  ?idx a class:Country;
+         prs:tên_hiển_thị ?s;
+         ?lk1 ?idy.
+  filter (?s = "Chile" && ?o = "Liberty_Sitki_Figueroa" && ?lk1 = rel:tạm_hoãn && ?lk2 = rel:được_tài_trợ_bởi)
 }
 ***
-In ra tên vầ ngày mất của những người đã đến cả nước Grenada và Liberia, mất năm 2005
+In ra tên vầ ngày mất của những người đã đến cả nước "Cook_Islands" và "Bulgaria", mất năm 2008
 select ?s ?p ?o
 where {
 	?idx a class:Country;
-		prs:tên_hiển_thị "Morocco".
+		prs:tên_hiển_thị "Cook_Islands".
 	?idy a class:Country; 
-		prs:tên_hiển_thị "Sweden".
+		prs:tên_hiển_thị "Bulgaria".
  	?idt a class:Time;
         prs:tên_hiển_thị ?o.
 	?idz a class:Person;
@@ -38,24 +39,24 @@ where {
         rel:sống_ở ?idx;
 		prs:tên_hiển_thị ?s;
         ?p ?idt.
-  	filter (?p = rel:mất_ngày && regex(?o, "^2005"))
+  	filter (?p = rel:mất_ngày && regex(?o, "^200"))
 }
 ***
-In ra những người trong tên có chữ "San", sinh ra tại là Spain mất ngày tại 2007-10-04
+In ra những người trong tên có chữ "Galla", sinh ra tại "Bangladesh" mất ngày "2008-04-16"
 select ?s ?p ?o
 where {
   ?s ?p ?o;
      a class:Person;
      rel:sinh_ra_tại ?idx;
-     rel:mất_ngày ?idy.
+     rel:bị_tai_nạn_vào_ngày ?idy.
   ?idx a class:Country;
-     prs:tên_hiển_thị "Spain".
+     prs:tên_hiển_thị "Bangladesh".
   ?idy a class:Time;
-     prs:tên_hiển_thị "2007-10-04".
-  filter (regex(?o, "San") && ?p = prs:tên_hiển_thị)
+     prs:tên_hiển_thị "2008-04-16".
+  filter (regex(?o, "Galla") && ?p = prs:tên_hiển_thị)
 }
 ***
-In ra tên của 50 nước có GDP cao nhất và GDP của nước đó
+In ra tên của 20 nước có GDP cao nhất và GDP của nước đó
 select ?s ?p ?o
 where {
   ?id rdf:type class:Country.
@@ -64,47 +65,47 @@ where {
   filter (?p = prs:GDP)
 }
  order by desc (?o) 
- limit 50
+ limit 20
 ***
-In ra mô tả của nơi mà cạnh tranh với Sault_Ste._Marie,_Canada; là nơi làm việc của Josie_(Fifi)_Shunichi_Murray; và đã hủy bỏ sự kiện International_Congress_of_the_Asia_Pacific_Society_of_Infection_Control_(ICAPSIC) 
+In ra mô tả của nơi tiếp giáp với "Pittsburgh,_United_States", quê hương của "Holly_Sadi_Ferguson", và là nời kết thúc của chùm sự kiện "Vietnam_Medi-Pharm_Expo_(MediPharm_Expo)"
 select ?s ?p ?o 
 where {
-  ?idx rdf:type class:Location.
-  ?idy rdf:type class:Location.
-  ?idz rdf:type class:Person.
-  ?idt rdf:type class:Event.
-  ?idx rel:cạnh_trạnh_với ?idy.
-  ?idx rel:là_nơi_làm_việc_của ?idz.
-  ?idx rel:huỷ_bỏ ?idt.
-  ?idx prs:tên_hiển_thị ?s.
-  ?idy prs:tên_hiển_thị 	"Sault_Ste._Marie,_Canada".
-  ?idz prs:tên_hiển_thị 	"Josie_(Fifi)_Shunichi_Murray".
-  ?idt prs:tên_hiển_thị "International_Congress_of_the_Asia_Pacific_Society_of_Infection_Control_(ICAPSIC)".
-  ?idx ?p ?o.
+  ?idy rdf:type class:Location;
+       prs:tên_hiển_thị "Pittsburgh,_United_States".
+  ?idz rdf:type class:Person;
+       prs:tên_hiển_thị "Holly_Sadi_Ferguson".
+  ?idt rdf:type class:Event;
+       prs:tên_hiển_thị "Vietnam_Medi-Pharm_Expo_(MediPharm_Expo)".
+  ?idx rdf:type class:Location;
+       rel:tiếp_giáp_với ?idy;
+       rel:là_quê_hương_của ?idz;
+       rel:là_nơi_kết_thúc_của ?idt;
+       prs:tên_hiển_thị ?s;
+       ?p ?o.
   filter (?p = prs:mô_tả)
 }
 ***
-In ra thông tin 3 người đầu tiên tìm thấy mà đá bóng cho câu lạc bộ ở cả 2 nước là Sweden và Italy nhưng không đá bóng tại Ivory_Coast
+In ra thông tin công ty đầu tiên tìm thấy mà là đối thủ của 2 công ty "Vodafone", "Yahoo!" nhưng không là đối thủ của "United_Nations"
 select ?s ?p ?o
 where {
   {
-  	select ?s where {
-  		{
- 	 		?s a class:Person;
-     	  		rel:đá_bóng_cho_CLB_ở ?idx;
-          		rel:đá_bóng_cho_CLB_ở ?idy.
- 			?idx a class:Country;
-       	  		prs:tên_hiển_thị "Sweden".
- 	 		?idy a class:Country;
-       	  		prs:tên_hiển_thị "Italy".
-       	}
-  		minus 
-  		{
-      		?s a class:Person;
-           		rel:đá_bóng_cho_CLB_ở ?idz.
-      		?idz a class:Country;
-           		prs:tên_hiển_thị "Ivory_Coast".
-    	}
+    select ?s where {
+      {
+        ?s a class:Organization;
+             rel:là_đối_thủ_của ?idx;
+             rel:là_đối_thủ_của ?idy.
+ 		?idx a class:Organization;
+             prs:tên_hiển_thị "Vodafone".
+ 	 	?idy a class:Organization;
+             prs:tên_hiển_thị "Yahoo!".
+      }
+      minus 
+      {
+        ?s a class:Organization;
+             rel:là_đối_thủ_của ?idz.
+        ?idz a class:Organization;
+             prs:tên_hiển_thị "United_Nations".
+      }
     }
     limit 3
   }
@@ -112,7 +113,7 @@ where {
   filter (strstarts(str(?p), "http://btl/properties/"))
 }
 ***
-In ra 3 người có tuổi cao nhất cùng với tuổi của họ, yêu quý nước Bhutan nhưng lại sống ở location Augusta,_United_States
+In ra 3 người có tuổi cao nhất cùng với tuổi của họ, yêu quý nước "China" nhưng lại sống ở location "Durban,_South_Africa"
 select ?s ?o
 where {
   ?id a class:Person;
@@ -121,42 +122,42 @@ where {
         prs:tên_hiển_thị ?s;
         prs:tuổi ?o.
   ?idx a class:Country;
-         prs:tên_hiển_thị "Bhutan".
+         prs:tên_hiển_thị "China".
   ?idy a class:Location;
-         prs:tên_hiển_thị "Augusta,_United_States".
+         prs:tên_hiển_thị "Durban,_South_Africa".
 }
 order by desc (?o)
 limit 3
 ***
-In ra tên của những người đã sống ở nhiều hơn 5 quốc gia nhưng lại tham gia ít hơn 100 event
+In ra tên của những người đã sống ở nhiều hơn 1 quốc gia nhưng lại tham gia ít 3
 select ?s ?p ?o
 where {
   {
-  	select ?s
-  	where {
-    	?s a class:Person;
-          rel:sống_ở ?idx.
-    	?idx a class:Country.
-    	}
+    select ?s
+    where {
+      ?s a class:Person;
+         rel:sống_ở ?idx.
+      ?idx a class:Country.
+    }
   	group by ?s 
-  	having (count(?idx) > 5)
-  	}
+  	having (count(?idx) > 1)
+  }
   minus
   {
     select ?s
   	where {
-    	?s a class:Person;
-          rel:tham_gia ?idx.
-    	?idx a class:Event.
-    	}
-  	group by ?s 
-  	having (count(?idx) < 100)
+      ?s a class:Person;
+         rel:tham_gia ?idx.
+      ?idx a class:Event.
     }
+  	group by ?s 
+  	having (count(?idx) > 3)
+  }
   ?s ?p ?o.
   filter ( ?p = prs:tên_hiển_thị )
-  }
+}
 ***
-In ra 3 nước đầu tiên tìm thấy cùng tham dự 1 sự kiện bất kỳ và cùng hợp tác với Sweden, trong đó GDP của nước thứ nhất lớn hơn nước thứ hai nhưng dân số lại nhỏ hơn nước thứ hai
+In ra 3 nước đầu tiên tìm thấy cùng tham dự 1 sự kiện bất kỳ và cùng hợp tác với "Republic_of_the_Congo", trong đó GDP của nước thứ nhất lớn hơn nước thứ hai nhưng dân số lại nhỏ hơn nước thứ hai
 select ?s ?o
 where {
   ?idx a class:Country;
@@ -173,8 +174,8 @@ where {
          prs:tên_hiển_thị ?o.
   ?k1 a class:Event.
   ?k2 a class:Country;
-        prs:tên_hiển_thị "Sweden".
-  filter (?gdp1 > ?gdp2 && ?ds1 < ?ds2 && ?s != "Sweden" && ?o != "Sweden")
+        prs:tên_hiển_thị "Republic_of_the_Congo".
+  filter (?gdp1 > ?gdp2 && ?ds1 < ?ds2)
   }
 limit 3
 ***

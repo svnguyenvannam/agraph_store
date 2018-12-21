@@ -65,8 +65,9 @@ public class DataCreator {
 	public void createRelationship() {
 		DataStoreder storeder = new DataStoreder(model);
 		Random rand = new Random();
-		if (numberRelationship + conn.size() > 5000000) numberRelationship = 5000000 - (int) conn.size(); 
-		int incomplete = numberRelationship - (int) conn.size();
+		int numberTripleEntity = (int) conn.size();
+		if (numberRelationship + numberTripleEntity > 5000000) numberRelationship = 5000000 - numberTripleEntity; 
+		int incomplete = numberRelationship;
 		while (incomplete > 0) {
 			
 			// Chọn 2 loại thực thể để tiến hành ghép nối
@@ -89,7 +90,7 @@ public class DataCreator {
 			// Cập nhật lại số triple cần thêm
 			if (model.size() >= 250000 || model.size() >= incomplete) {
 				store_model();
-				incomplete = numberRelationship - (int) conn.size();	
+				incomplete = numberRelationship + numberTripleEntity - (int) conn.size();
 			}
 		}
 	}

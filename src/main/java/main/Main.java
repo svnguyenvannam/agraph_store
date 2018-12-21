@@ -12,21 +12,31 @@ public class Main {
 	public static String severURL = Setting.SERVER_URL;
 	public static DatabaseConnecter databaseConnecter = DatabaseConnecter.getDatabaseConnecter(severURL, user, password);
 	public static AGRepositoryConnection conn;
-	public static void main(String[] args) {	
-		createAndGetQuery();
+	public static void main(String[] args) {
+		conn = databaseConnecter.getConnection("OOP_500000");
+		calTime(conn);
 	}
 	
 	public static void createAndGetQuery() {
 		conn = creatRepository("OOP_100", 100, 200);
 		calTime(conn);
+		databaseConnecter.closeConnection();
+		
 		conn = creatRepository("OOP_5000", 5000, 7000);
 		calTime(conn);
+		databaseConnecter.closeConnection();
+		
 		conn = creatRepository("OOP_60000", 60000, 80000);
 		calTime(conn);
+		databaseConnecter.closeConnection();
+		
 		conn = creatRepository("OOP_100000", 100000, 200000);
 		calTime(conn);
+		databaseConnecter.closeConnection();
+		
 		conn = creatRepository("OOP_500000", 500000, 3000000);
 		calTime(conn);
+		databaseConnecter.closeConnection();
 	}
 	
 	public static AGRepositoryConnection creatRepository(String repositoryName, int numberEntity, int numberRelationship) {
