@@ -2,7 +2,7 @@ package setting;
 
 import java.util.HashMap;
 
-public class Setting {
+public class Config {
 	public static final String SERVER_URL = "http://localhost:10035";
 	public static final String CATALOG_ID = "java-catalog";
 	public static final String REPOSITORY_ID = "BTL_OOP";

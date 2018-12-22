@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import setting.Setting;
+import setting.Config;
 
 /**
  * Đọc các Raw Data từ file text.Trả ra các Data đọc được dạng String[]
@@ -16,7 +16,7 @@ public class DataReader extends AFileReader{
 	private ArrayList<String>[] listEntity = new ArrayList[6];
 	private ArrayList<String>[] listDescription = new ArrayList[6];
 	private ArrayList<String>[][] listRelationship = new ArrayList[6][6];
-	private String[] str = Setting.str;
+	private String[] str = Config.str;
 	
 	public DataReader() {
 		this.getEntityAndDescription();
@@ -31,8 +31,8 @@ public class DataReader extends AFileReader{
 	 */
 	private void getEntityAndDescription() {
 		for (int i = 0; i < 6; i++) {
-			String pathEntity = Setting.DIR_DATA_PATH + "/Entity/" + str[i] + ".txt";
-			String pathDescription = Setting.DIR_DATA_PATH + "/Description/" + str[i] + ".txt";
+			String pathEntity = Config.DIR_DATA_PATH + "/Entity/" + str[i] + ".txt";
+			String pathDescription = Config.DIR_DATA_PATH + "/Description/" + str[i] + ".txt";
 			listEntity[i] = readEntityOrDescriptionOrRelationship(pathEntity);
 			listDescription[i] = readEntityOrDescriptionOrRelationship(pathDescription);
 		}
@@ -46,7 +46,7 @@ public class DataReader extends AFileReader{
 	private void getRelationship() {
 		for (int i = 0; i < 6; i++)
 		for (int j = 0; j < 6; j++) {
-			String pathRelationship = Setting.DIR_DATA_PATH + "/Relationship/" + str[i]+str[j] + ".txt";
+			String pathRelationship = Config.DIR_DATA_PATH + "/Relationship/" + str[i]+str[j] + ".txt";
 			if (exists(pathRelationship)) {
 				listRelationship[i][j] = readEntityOrDescriptionOrRelationship(pathRelationship);
 			} else listRelationship[i][j] = null;
