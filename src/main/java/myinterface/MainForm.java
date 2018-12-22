@@ -287,6 +287,7 @@ public class MainForm extends javax.swing.JFrame {
     
 
     private void queryRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_queryRunActionPerformed
+ 
         AGRepositoryConnection conn = null;        
         
         if (comboChooseDB.getSelectedIndex() == 0) {
@@ -342,7 +343,8 @@ public class MainForm extends javax.swing.JFrame {
                 myInterface.setTitle("OOP Project");
                 myInterface.setLocation(200, 100);
                 myInterface.setPreferredSize(new Dimension(2000, 1000));
-
+                myInterface.setResizable(false);
+                //myInterface.set
             }
         });
     }
