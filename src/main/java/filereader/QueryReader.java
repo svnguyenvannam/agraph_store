@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import query.Query;
-import setting.Setting;
+import setting.Config;
 
 public class QueryReader extends AFileReader {
 	private ArrayList<Query> listNormalQuery = new ArrayList<Query>(10);
@@ -16,9 +16,9 @@ public class QueryReader extends AFileReader {
 	}
 	
 	private void getNormalAndAdvancedQuery() {
-		String pathNormalQuery = Setting.DIR_QUERY_PATH + "/NormalQuery.txt";
+		String pathNormalQuery = Config.DIR_QUERY_PATH + "/NormalQuery.txt";
 		listNormalQuery = readQuery(pathNormalQuery);
-		String pathAdvancedQuery = Setting.DIR_QUERY_PATH + "/AdvancedQuery.txt";
+		String pathAdvancedQuery = Config.DIR_QUERY_PATH + "/AdvancedQuery.txt";
 		listAdvancedQuery = readQuery(pathAdvancedQuery);
 	}
 	

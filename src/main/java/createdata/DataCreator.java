@@ -10,7 +10,7 @@ import com.franz.agraph.repository.AGRepositoryConnection;
 
 import entity.AEntity;
 import filereader.DataReader;
-import setting.Setting;
+import setting.Config;
 
 /**
  * Class sinh dữ liệu từ dữ liệu đọc ở file data
@@ -24,8 +24,8 @@ public class DataCreator {
 	private ArrayList<String>[] listDescription;
 	private ArrayList<String>[][] listRelationship;
 	
-	private String[] str = Setting.str;
-	private HashMap<Integer, int[]> numberStr = Setting.numberStr;
+	private String[] str = Config.str;
+	private HashMap<Integer, int[]> numberStr = Config.numberStr;
 	private int numberRelationship, numberEntity;
 
 	public DataCreator(AGRepositoryConnection conn, int numberEntity, int numberRelationship) {

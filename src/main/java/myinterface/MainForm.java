@@ -348,7 +348,6 @@ public class MainForm extends javax.swing.JFrame {
                 myInterface.setPreferredSize(new Dimension(2000, 1000));
                 myInterface.setResizable(false);
                 myInterface.setDefaultCloseOperation(myInterface.EXIT_ON_CLOSE);
-
             }
         });
     }

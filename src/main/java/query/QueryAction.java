@@ -11,7 +11,7 @@ import org.eclipse.rdf4j.query.TupleQueryResult;
 import com.franz.agraph.repository.AGRepositoryConnection;
 
 import filereader.QueryReader;
-import setting.Setting;
+import setting.Config;
 
 /**
  * Cài đặt các query cơ bản và nâng cao theo yêu cầu
@@ -81,7 +81,7 @@ public class QueryAction {
             Value lk3 = bind.getValue("lk3");
             Value t = bind.getValue("t");
             if (s != null && !s.equals(x)) {
-                System.out.println("------------------");
+                str += "\n";
             }
             System.out.format("%s %s %s %s %s %s %s \n", removePrefix(s), removePrefix(lk1), removePrefix(p),
                     removePrefix(lk2), removePrefix(o), removePrefix(lk3), removePrefix(t));
@@ -104,9 +104,9 @@ public class QueryAction {
             return "";
         }
         String uri = uri_.toString();
-        uri = uri.replace(Setting.ENTITY_PREFIX, "");
-        uri = uri.replace(Setting.PROPERTIES_PREFIX, "");
-        uri = uri.replace(Setting.RELATIONSHIP_PREFIX, "");
+        uri = uri.replace(Config.ENTITY_PREFIX, "");
+        uri = uri.replace(Config.PROPERTIES_PREFIX, "");
+        uri = uri.replace(Config.RELATIONSHIP_PREFIX, "");
         if (uri.charAt(0) == '"') {
             int pos = uri.indexOf('^');
             uri = uri.substring(1, pos - 1);

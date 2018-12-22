@@ -3,13 +3,13 @@ import com.franz.agraph.repository.AGRepositoryConnection;
 
 import connection.DatabaseConnecter;
 import createdata.DataCreator;
-import setting.Setting;
+import setting.Config;
 import time.CalTime;
 
 public class Main {
-	public static String user = Setting.USERNAME;
-	public static String password = Setting.PASSWORD;
-	public static String severURL = Setting.SERVER_URL;
+	public static String user = Config.USERNAME;
+	public static String password = Config.PASSWORD;
+	public static String severURL = Config.SERVER_URL;
 	public static DatabaseConnecter databaseConnecter = DatabaseConnecter.getDatabaseConnecter(severURL, user, password);
 	public static AGRepositoryConnection conn;
 	public static void main(String[] args) {

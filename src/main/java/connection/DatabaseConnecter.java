@@ -5,7 +5,7 @@ import com.franz.agraph.repository.AGRepository;
 import com.franz.agraph.repository.AGRepositoryConnection;
 import com.franz.agraph.repository.AGServer;
 
-import setting.Setting;
+import setting.Config;
 
 /**
  * Kết nối với server theo server, repository, user, password đã cho trước. Nếu
@@ -30,10 +30,10 @@ public class DatabaseConnecter {
 
 	// Constructor
 	private DatabaseConnecter() {
-		this.serverURL = Setting.SERVER_URL;
-		this.user = Setting.USERNAME;
-		this.password = Setting.PASSWORD;
-		this.server = new AGServer(Setting.SERVER_URL, Setting.USERNAME, Setting.PASSWORD);
+		this.serverURL = Config.SERVER_URL;
+		this.user = Config.USERNAME;
+		this.password = Config.PASSWORD;
+		this.server = new AGServer(Config.SERVER_URL, Config.USERNAME, Config.PASSWORD);
 		this.catalog = this.server.getRootCatalog();
 	}
 
@@ -83,10 +83,10 @@ public class DatabaseConnecter {
 		myRepository.setDuplicateSuppressionPolicy("spo");
 		myRepository.initialize();
 		conn = myRepository.getConnection();
-		conn.setNamespace("class", Setting.CLASS_PREFIX);
-		conn.setNamespace("ent", Setting.ENTITY_PREFIX);
-		conn.setNamespace("prs", Setting.PROPERTIES_PREFIX);
-		conn.setNamespace("rel", Setting.RELATIONSHIP_PREFIX);
+		conn.setNamespace("class", Config.CLASS_PREFIX);
+		conn.setNamespace("ent", Config.ENTITY_PREFIX);
+		conn.setNamespace("prs", Config.PROPERTIES_PREFIX);
+		conn.setNamespace("rel", Config.RELATIONSHIP_PREFIX);
 	}
 
 	/**
