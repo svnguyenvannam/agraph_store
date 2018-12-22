@@ -93,6 +93,7 @@ public class MainForm extends javax.swing.JFrame {
         jScrollPane1.setViewportView(queryStatement);
 
         resultQuery.setColumns(20);
+        resultQuery.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         resultQuery.setLineWrap(true);
         resultQuery.setRows(5);
         resultQuery.setWrapStyleWord(true);
@@ -232,9 +233,7 @@ public class MainForm extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addComponent(queryRun)))
