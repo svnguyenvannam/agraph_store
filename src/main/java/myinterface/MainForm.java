@@ -341,7 +341,7 @@ public class MainForm extends javax.swing.JFrame {
                 resultQuery.append(calTime.calTimeAdvancedQuery(number));
             }
             
-            queryStatement.setText("");
+            
         }
 
         databaseConnecter.closeConnection();
