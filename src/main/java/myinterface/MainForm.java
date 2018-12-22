@@ -5,26 +5,23 @@
  */
 package myinterface;
 
-import com.franz.agraph.repository.AGRepositoryConnection;
-import java.awt.Dimension;
-import filereader.QueryReader;
-import java.util.ArrayList;
-import javax.swing.JOptionPane;
-import setting.Setting;
-import connection.*;
-import static main.Main.calTime;
-import static main.Main.conn;
-import static main.Main.creatRepository;
 import static main.Main.databaseConnecter;
 import static main.Main.password;
 import static main.Main.severURL;
 import static main.Main.user;
-import org.eclipse.rdf4j.model.Value;
-import org.eclipse.rdf4j.query.BindingSet;
+
+import java.awt.Dimension;
+import java.awt.Window;
+import java.util.ArrayList;
+
 import org.eclipse.rdf4j.query.TupleQueryResult;
-import query.QueryAction;
+
+import com.franz.agraph.repository.AGRepositoryConnection;
+
+import connection.DatabaseConnecter;
+import filereader.QueryReader;
 import query.Query;
-import time.CalTime;
+import query.QueryAction;
 
 /**
  *
@@ -351,7 +348,7 @@ public class MainForm extends javax.swing.JFrame {
                 myInterface.setPreferredSize(new Dimension(2000, 1000));
                 myInterface.setResizable(false);
                 myInterface.setDefaultCloseOperation(myInterface.EXIT_ON_CLOSE);
-                //myInterface.set
+
             }
         });
     }
