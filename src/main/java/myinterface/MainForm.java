@@ -13,7 +13,7 @@ import connection.DatabaseConnecter;
 import filereader.QueryReader;
 import query.Query;
 import query.QueryAction;
-import setting.Setting;
+import setting.Config;
 
 /**
  *
@@ -24,9 +24,9 @@ public class MainForm extends javax.swing.JFrame {
     ArrayList<Query> listNormalQuery;
     ArrayList<Query> listAdvancedQuery;
     QueryReader reader = new QueryReader();
-    public static String user = Setting.USERNAME;
-    public static String password = Setting.PASSWORD;
-    public static String severURL = Setting.SERVER_URL;
+    public static String user = Config.USERNAME;
+    public static String password = Config.PASSWORD;
+    public static String severURL = Config.SERVER_URL;
     public static DatabaseConnecter databaseConnecter = DatabaseConnecter.getDatabaseConnecter(severURL, user, password);
 
     /**
