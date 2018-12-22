@@ -43,16 +43,16 @@ public class QueryAction {
      *
      * @param number Số thứ tự câu truy vấn
      */
-    public void getResultNormalQuery(int number) {
+    public String getResultNormalQuery(int number) {
 //		listNormalQuery.get(number).printDescriptionQuery();
         TupleQueryResult result = getResult(listNormalQuery.get(number).Query, conn);
-//        printRows(result);
+        return printRows(result);
     }
 
-    public void getResultAdvancedQuery(int number) {
+    public String getResultAdvancedQuery(int number) {
 //		listAdvancedQuery.get(number).printDescriptionQuery();
         TupleQueryResult result = getResult(listAdvancedQuery.get(number).Query, conn);
-//		printRows(result);
+        return printRows(result);
     }
 
     public TupleQueryResult getResult(String query, AGRepositoryConnection conn) {
