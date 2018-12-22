@@ -14,6 +14,7 @@ import filereader.QueryReader;
 import query.Query;
 import query.QueryAction;
 import setting.Config;
+import time.CalTime;
 
 /**
  *
@@ -299,10 +300,35 @@ public class MainForm extends javax.swing.JFrame {
         } else if (comboChooseDB.getSelectedIndex() == 4) {
             conn = databaseConnecter.getConnection("500000_entity_1000000_relation");
         }
-
+        int number = comboChooseStatement.getSelectedIndex();
         QueryAction query = new QueryAction(conn);
-        TupleQueryResult result = query.getResult(queryStatement.getText(), conn);
-        resultQuery.setText(query.printRows(result));
+        CalTime calTime=new CalTime(conn);
+        if (nameQuery.getText().toString().equals("")) {
+            TupleQueryResult result = query.getResult(queryStatement.getText(), conn);
+            resultQuery.setText(query.printRows(result));
+        } else {
+            if (basicQuery.isSelected()) {
+                if(query.getResultNormalQuery(number).equals("")){
+                    resultQuery.append("Not found result !\n");
+                    return;
+                }else{
+                    resultQuery.append(query.getResultNormalQuery(number));
+                }
+                resultQuery.append(calTime.calTimeNormalQuery(number));
+            }
+            else if(advancedQuery.isSelected()){
+                if(query.getResultNormalQuery(number).equals("")){
+                    resultQuery.append("Not found result !\n");
+                    return;
+                }else{
+                    resultQuery.append(query.getResultAdvancedQuery(number));
+                }
+                resultQuery.append(calTime.calTimeAdvancedQuery(number));
+            }
+            
+            queryStatement.setText("");
+        }
+
         databaseConnecter.closeConnection();
     }//GEN-LAST:event_queryRunActionPerformed
 
