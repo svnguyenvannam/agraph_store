@@ -4,12 +4,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import query.Query;
 import setting.Setting;
-import setting.StructQuery;
 
 public class QueryReader extends AFileReader {
-	private ArrayList<StructQuery> listNormalQuery = new ArrayList<StructQuery>(10);
-	private ArrayList<StructQuery> listAdvancedQuery = new ArrayList<StructQuery>(10);
+	private ArrayList<Query> listNormalQuery = new ArrayList<Query>(10);
+	private ArrayList<Query> listAdvancedQuery = new ArrayList<Query>(10);
 	
 	public QueryReader() {
 		this.getNormalAndAdvancedQuery();
@@ -22,9 +22,9 @@ public class QueryReader extends AFileReader {
 		listAdvancedQuery = readQuery(pathAdvancedQuery);
 	}
 	
-	private ArrayList<StructQuery> readQuery(String path) {
+	private ArrayList<Query> readQuery(String path) {
 		file = new File(path);
-		ArrayList<StructQuery> listData = new ArrayList<StructQuery>(10);
+		ArrayList<Query> listData = new ArrayList<Query>(10);
 		try {
 			scanner = new Scanner(file);
 			while (scanner.hasNextLine())  {
@@ -35,12 +35,12 @@ public class QueryReader extends AFileReader {
 					if (line.replaceAll(" ", "").replaceAll("\t", "").equals("***")) break;
 					quer += line+"\n";
 				}
-				listData.add(new StructQuery(des, quer));
+				listData.add(new Query(des, quer));
 			}
 		} catch (Exception e) { e.printStackTrace(); }
 		return listData;
 	}
 	
-	public ArrayList<StructQuery> getListNormalQuery() {return listNormalQuery;}
-	public ArrayList<StructQuery> getListAdvancedQuery() {return listAdvancedQuery;}
+	public ArrayList<Query> getListNormalQuery() {return listNormalQuery;}
+	public ArrayList<Query> getListAdvancedQuery() {return listAdvancedQuery;}
 }

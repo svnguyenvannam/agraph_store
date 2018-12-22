@@ -2,13 +2,13 @@ package time;
 
 import com.franz.agraph.repository.AGRepositoryConnection;
 
-import query.Query;
+import query.QueryAction;
 
 public class CalTime {
-	private Query query;
+	private QueryAction query;
 	
 	public CalTime(AGRepositoryConnection conn) {
-		this.query = new Query(conn);
+		this.query = new QueryAction(conn);
 	}
 	
 	/**

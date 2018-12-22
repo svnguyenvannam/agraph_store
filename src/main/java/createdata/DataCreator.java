@@ -39,10 +39,10 @@ public class DataCreator {
 	 * Sinh các thực thể có trong tập EntityData Vòng for đầu để duyệt tất cả các
 	 * thực thể như Person, Event ... Vòng for thứ hai duyệt tất cả dữ liệu đã đọc
 	 * được của mỗi thực thể đang xét để sinh dữ liệu tương ứng. Mỗi dữ liệu sau khi
-	 * sinh được đưa luôn lên server
+	 * sinh được đưa vào model. Khi model đủ 250000 triple sẽ đưa lên server
 	 */
 	public void createData() {
-		EntityCreator creator = new EntityCreator();
+		SingleEntityCreator creator = new SingleEntityCreator();
 		Random rand = new Random();
 		for (int i = 0; i < 6; i++)
 		for (int count = 0; count < numberStr.get(numberEntity)[i]; count++) {
@@ -59,8 +59,6 @@ public class DataCreator {
 	/**
 	 * Tạo ngẫu nhiên quan hệ bằng cách chọn ngẫu nhiên các thực thể và liên kết 
 	 * giữa chúng để tiến hành ghép nối
-	 * @param numberTriple   : số lượng triple cần tạo
-	 * @param repositoryName : repository dùng để lưu dữ liệu
 	 */
 	public void createRelationship() {
 		DataStoreder storeder = new DataStoreder(model);

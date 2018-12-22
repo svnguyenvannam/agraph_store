@@ -11,7 +11,6 @@ import filereader.QueryReader;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import setting.Setting;
-import setting.StructQuery;
 import connection.*;
 import static main.Main.calTime;
 import static main.Main.conn;
@@ -23,6 +22,7 @@ import static main.Main.user;
 import org.eclipse.rdf4j.model.Value;
 import org.eclipse.rdf4j.query.BindingSet;
 import org.eclipse.rdf4j.query.TupleQueryResult;
+import query.QueryAction;
 import query.Query;
 import time.CalTime;
 
@@ -32,8 +32,8 @@ import time.CalTime;
  */
 public class MainForm extends javax.swing.JFrame {
 
-    ArrayList<StructQuery> listNormalQuery;
-    ArrayList<StructQuery> listAdvancedQuery;
+    ArrayList<Query> listNormalQuery;
+    ArrayList<Query> listAdvancedQuery;
     QueryReader reader = new QueryReader();
 
     /**
@@ -302,7 +302,7 @@ public class MainForm extends javax.swing.JFrame {
             conn = databaseConnecter.getConnection("500000_entity_1000000_relation");
         }
         
-        Query query =new Query(conn);
+        QueryAction query =new QueryAction(conn);
         TupleQueryResult result = query.getResult(queryStatement.getText(), conn);
         resultQuery.setText(query.printRows(result));
         databaseConnecter.closeConnection();

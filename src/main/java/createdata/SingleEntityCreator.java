@@ -9,7 +9,7 @@ import entity.Person;
 import entity.Time;
 import setting.RandomProperties;
 
-public class EntityCreator {
+public class SingleEntityCreator {
 	private String label;
 	private String description;
 	private String name;
