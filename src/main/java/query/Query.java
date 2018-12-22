@@ -71,7 +71,7 @@ public class Query {
      */
     public String printRows(TupleQueryResult result) {
         Value x = null;
-        String str = null;
+        String str = "";
         while (result.hasNext()) {
             BindingSet bind = result.next();
             Value s = bind.getValue("s");
