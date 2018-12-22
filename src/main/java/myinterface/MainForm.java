@@ -76,6 +76,8 @@ public class MainForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
         comboChooseStatement.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         comboChooseStatement.setForeground(new java.awt.Color(0, 51, 204));
         comboChooseStatement.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "query 1 ", "query 2 ", "query 3 ", "query 4 ", "query 5 ", "query 6 ", "query 7 ", "query 8 ", "query 9 ", "query 10 " }));
@@ -287,7 +289,11 @@ public class MainForm extends javax.swing.JFrame {
     
 
     private void queryRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_queryRunActionPerformed
- 
+        if(queryStatement.getText().equals("")){
+            resultQuery.setText("You must select query");
+            return;
+        }
+        resultQuery.setText("");
         AGRepositoryConnection conn = null;        
         
         if (comboChooseDB.getSelectedIndex() == 0) {
@@ -344,6 +350,7 @@ public class MainForm extends javax.swing.JFrame {
                 myInterface.setLocation(200, 100);
                 myInterface.setPreferredSize(new Dimension(2000, 1000));
                 myInterface.setResizable(false);
+                myInterface.setDefaultCloseOperation(myInterface.EXIT_ON_CLOSE);
                 //myInterface.set
             }
         });
