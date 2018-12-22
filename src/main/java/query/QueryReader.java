@@ -1,10 +1,10 @@
-package filereader;
+package query;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import query.Query;
+import filereader.AFileReader;
 import setting.Config;
 
 public class QueryReader extends AFileReader {

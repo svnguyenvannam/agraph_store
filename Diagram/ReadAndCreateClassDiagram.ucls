@@ -28,8 +28,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="filereader.DataReader" project="agraph_store" 
-    file="/agraph_store/src/main/java/filereader/DataReader.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="4" language="java" name="createdata.DataReader" project="agraph_store" 
+    file="/agraph_store/src/main/java/createdata/DataReader.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1059" y="239"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -46,8 +46,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="filereader.QueryReader" project="agraph_store" 
-    file="/agraph_store/src/main/java/filereader/QueryReader.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="6" language="java" name="query.QueryReader" project="agraph_store" 
+    file="/agraph_store/src/main/java/query/QueryReader.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1089" y="569"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -65,29 +65,29 @@
     </display>  
   </class>  
   <dependency id="8">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="4"/>  
-  </dependency>  
-  <dependency id="9">    
     <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="6"/>  
   </dependency>  
-  <generalization id="10">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="5"/>  
-  </generalization>  
-  <association id="11">    
+  <association id="9">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="12" name="storeder">        
+      <attribute id="10" name="storeder">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="13" minimum="0" maximum="1">        
+      <multiplicity id="11" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
+  <dependency id="12">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <generalization id="13">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
   <dependency id="14">    
     <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="3"/>  

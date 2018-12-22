@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import org.eclipse.rdf4j.query.TupleQueryResult;
 import com.franz.agraph.repository.AGRepositoryConnection;
 import connection.DatabaseConnecter;
-import filereader.QueryReader;
 import query.Query;
 import query.QueryAction;
+import query.QueryReader;
 import setting.Config;
 import time.CalTime;
 
@@ -22,9 +22,6 @@ import time.CalTime;
  */
 public class MainForm extends javax.swing.JFrame {
 
-    ArrayList<Query> listNormalQuery;
-    ArrayList<Query> listAdvancedQuery;
-    QueryReader reader = new QueryReader();
     public static String user = Config.USERNAME;
     public static String password = Config.PASSWORD;
     public static String severURL = Config.SERVER_URL;
@@ -261,8 +258,10 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_basicQueryActionPerformed
 
     private void comboChooseStatementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboChooseStatementActionPerformed
-        listNormalQuery = reader.getListNormalQuery();
-        listAdvancedQuery = reader.getListAdvancedQuery();
+    	QueryReader reader = new QueryReader();
+    	ArrayList<Query> listNormalQuery = reader.getListNormalQuery();
+        ArrayList<Query> listAdvancedQuery = reader.getListAdvancedQuery();
+        
         if (basicQuery.isSelected()) {
             for (int i = 0; i < 10; i++) {
                 if (comboChooseStatement.getSelectedIndex() == i) {
@@ -367,7 +366,7 @@ public class MainForm extends javax.swing.JFrame {
                 myInterface.setTitle("OOP Project");
                 myInterface.setLocation(200, 100);
                 myInterface.setPreferredSize(new Dimension(2000, 1000));
-                myInterface.setResizable(false);
+//                myInterface.setResizable(false);
                 myInterface.setDefaultCloseOperation(myInterface.EXIT_ON_CLOSE);
             }
         });

@@ -10,7 +10,6 @@ import org.eclipse.rdf4j.query.TupleQueryResult;
 
 import com.franz.agraph.repository.AGRepositoryConnection;
 
-import filereader.QueryReader;
 import setting.Config;
 
 /**

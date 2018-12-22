@@ -1,9 +1,10 @@
-package filereader;
+package createdata;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import filereader.AFileReader;
 import setting.Config;
 
 /**
