@@ -5,23 +5,15 @@
  */
 package myinterface;
 
-import static main.Main.databaseConnecter;
-import static main.Main.password;
-import static main.Main.severURL;
-import static main.Main.user;
-
 import java.awt.Dimension;
-import java.awt.Window;
 import java.util.ArrayList;
-
 import org.eclipse.rdf4j.query.TupleQueryResult;
-
 import com.franz.agraph.repository.AGRepositoryConnection;
-
 import connection.DatabaseConnecter;
 import filereader.QueryReader;
 import query.Query;
 import query.QueryAction;
+import setting.Setting;
 
 /**
  *
@@ -32,14 +24,16 @@ public class MainForm extends javax.swing.JFrame {
     ArrayList<Query> listNormalQuery;
     ArrayList<Query> listAdvancedQuery;
     QueryReader reader = new QueryReader();
+    public static String user = Setting.USERNAME;
+    public static String password = Setting.PASSWORD;
+    public static String severURL = Setting.SERVER_URL;
+    public static DatabaseConnecter databaseConnecter = DatabaseConnecter.getDatabaseConnecter(severURL, user, password);
 
     /**
      * Creates new form MainForm
      */
     public MainForm() {
         initComponents();
-        DatabaseConnecter databaseConnecter = DatabaseConnecter.getDatabaseConnecter(severURL, user, password);
-
     }
 
     /**
@@ -157,6 +151,7 @@ public class MainForm extends javax.swing.JFrame {
 
         nameQuery.setColumns(20);
         nameQuery.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
+        nameQuery.setForeground(new java.awt.Color(0, 0, 255));
         nameQuery.setLineWrap(true);
         nameQuery.setRows(5);
         nameQuery.setWrapStyleWord(true);
@@ -283,29 +278,29 @@ public class MainForm extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_comboChooseStatementActionPerformed
-    
+
 
     private void queryRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_queryRunActionPerformed
-        if(queryStatement.getText().equals("")){
+        if (queryStatement.getText().equals("")) {
             resultQuery.setText("You must select query");
             return;
         }
         resultQuery.setText("");
-        AGRepositoryConnection conn = null;        
-        
+        AGRepositoryConnection conn = null;
+
         if (comboChooseDB.getSelectedIndex() == 0) {
-            conn = databaseConnecter.getConnection("100_entity_200_relation");                        
-        }else if(comboChooseDB.getSelectedIndex()==1){
+            conn = databaseConnecter.getConnection("100_entity_200_relation");
+        } else if (comboChooseDB.getSelectedIndex() == 1) {
             conn = databaseConnecter.getConnection("5000_entity_7000_relation");
-        }else if(comboChooseDB.getSelectedIndex()==2){
+        } else if (comboChooseDB.getSelectedIndex() == 2) {
             conn = databaseConnecter.getConnection("60000_entity_80000_relation");
-        }else if(comboChooseDB.getSelectedIndex()==3){
+        } else if (comboChooseDB.getSelectedIndex() == 3) {
             conn = databaseConnecter.getConnection("100000_entity_200000_relation");
-        }else if(comboChooseDB.getSelectedIndex()==4){
+        } else if (comboChooseDB.getSelectedIndex() == 4) {
             conn = databaseConnecter.getConnection("500000_entity_1000000_relation");
         }
-        
-        QueryAction query =new QueryAction(conn);
+
+        QueryAction query = new QueryAction(conn);
         TupleQueryResult result = query.getResult(queryStatement.getText(), conn);
         resultQuery.setText(query.printRows(result));
         databaseConnecter.closeConnection();
