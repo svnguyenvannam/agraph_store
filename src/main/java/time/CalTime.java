@@ -1,5 +1,7 @@
 package time;
 
+import org.eclipse.rdf4j.query.TupleQueryResult;
+
 import com.franz.agraph.repository.AGRepositoryConnection;
 
 import query.QueryAction;
@@ -37,5 +39,14 @@ public class CalTime {
 		//System.out.format("Runtime = %d\n", runTime);
                 str=str+"\nTotal execution time = "+ runTime+"ms"+"\n" ;
                 return str;
+	}
+	
+	public String calTime(String Query) {
+		long startTime = System.currentTimeMillis();
+		TupleQueryResult result = query.getResult(Query);
+		long endTime = System.currentTimeMillis();
+		
+		long runTime = endTime - startTime;
+		return ("\nTotal execution time = "+ runTime+"ms"+"\n") ;
 	}
 }

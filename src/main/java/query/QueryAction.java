@@ -44,17 +44,17 @@ public class QueryAction {
      */
     public String getResultNormalQuery(int number) {
 //		listNormalQuery.get(number).printDescriptionQuery();
-        TupleQueryResult result = getResult(listNormalQuery.get(number).Query, conn);
+        TupleQueryResult result = getResult(listNormalQuery.get(number).Query);
         return printRows(result);
     }
 
     public String getResultAdvancedQuery(int number) {
 //		listAdvancedQuery.get(number).printDescriptionQuery();
-        TupleQueryResult result = getResult(listAdvancedQuery.get(number).Query, conn);
+        TupleQueryResult result = getResult(listAdvancedQuery.get(number).Query);
         return printRows(result);
     }
 
-    public TupleQueryResult getResult(String query, AGRepositoryConnection conn) {
+    public TupleQueryResult getResult(String query) {
         TupleQuery tupleQuery = conn.prepareTupleQuery(QueryLanguage.SPARQL, query);
         TupleQueryResult result = tupleQuery.evaluate();
         return result;
