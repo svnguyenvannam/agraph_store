@@ -1,53 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<class-diagram version="1.2.2" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
-  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+<class-diagram version="1.2.2" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
+  realizations="true" associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
   <package id="1" language="java" name="connection" project="agraph_store" file="/agraph_store/src/main/java/connection" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="696" y="217"/>    
+    <position height="-1" width="-1" x="653" y="221"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
   <package id="2" language="java" name="createdata" project="agraph_store" file="/agraph_store/src/main/java/createdata" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="337" y="295"/>    
+    <position height="-1" width="-1" x="217" y="220"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
   <package id="3" language="java" name="filereader" project="agraph_store" file="/agraph_store/src/main/java/filereader" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="125" y="387"/>    
+    <position height="-1" width="-1" x="334" y="383"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
   <package id="4" language="java" name="time" project="agraph_store" file="/agraph_store/src/main/java/time" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="381" y="116"/>    
+    <position height="-1" width="-1" x="410" y="119"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
   <package id="5" language="java" name="setting" project="agraph_store" file="/agraph_store/src/main/java/setting" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="541" y="393"/>    
+    <position height="-1" width="-1" x="526" y="384"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
   <package id="6" language="java" name="query" project="agraph_store" file="/agraph_store/src/main/java/query" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="343" y="212"/>    
+    <position height="-1" width="-1" x="408" y="216"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
   <package id="7" language="java" name="entity" project="agraph_store" file="/agraph_store/src/main/java/entity" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="273" y="385"/>    
+    <position height="-1" width="-1" x="146" y="382"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
   <package id="8" language="java" name="myinterface" project="agraph_store" 
     file="/agraph_store/src/main/java/myinterface" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="537" y="63"/>    
+    <position height="-1" width="-1" x="527" y="66"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
   <dependency id="9">    
-    <end type="SOURCE" refId="8"/>    
+    <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="5"/>  
   </dependency>  
   <dependency id="10">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="1"/>  
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="3"/>  
   </dependency>  
   <dependency id="11">    
     <end type="SOURCE" refId="8"/>    
@@ -55,35 +55,35 @@
   </dependency>  
   <dependency id="12">    
     <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="7"/>  
+    <end type="TARGET" refId="5"/>  
   </dependency>  
   <dependency id="13">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="3"/>  
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="5"/>  
   </dependency>  
   <dependency id="14">    
     <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="5"/>  
   </dependency>  
   <dependency id="15">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="5"/>  
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="4"/>  
   </dependency>  
   <dependency id="16">    
     <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="5"/>  
+    <end type="TARGET" refId="7"/>  
   </dependency>  
   <dependency id="17">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="3"/>  
-  </dependency>  
-  <dependency id="18">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="6"/>  
   </dependency>  
+  <dependency id="18">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
   <dependency id="19">    
     <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="4"/>  
+    <end type="TARGET" refId="1"/>  
   </dependency>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    

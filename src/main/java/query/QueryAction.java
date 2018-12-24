@@ -20,21 +20,8 @@ import setting.Config;
 public class QueryAction {
 
     private AGRepositoryConnection conn;
-    private ArrayList<Query> listNormalQuery;
-    private ArrayList<Query> listAdvancedQuery;
-
     public QueryAction(AGRepositoryConnection conn) {
         this.conn = conn;
-        this.getListQuery();
-    }
-
-    /**
-     * Đọc query từ file text bằng đối tượng QueryReader
-     */
-    private void getListQuery() {
-        QueryReader reader = new QueryReader();
-        listNormalQuery = reader.getListNormalQuery();
-        listAdvancedQuery = reader.getListAdvancedQuery();
     }
 
     /**
@@ -42,18 +29,7 @@ public class QueryAction {
      *
      * @param number Số thứ tự câu truy vấn
      */
-    public String getResultNormalQuery(int number) {
-//		listNormalQuery.get(number).printDescriptionQuery();
-        TupleQueryResult result = getResult(listNormalQuery.get(number).Query);
-        return printRows(result);
-    }
-
-    public String getResultAdvancedQuery(int number) {
-//		listAdvancedQuery.get(number).printDescriptionQuery();
-        TupleQueryResult result = getResult(listAdvancedQuery.get(number).Query);
-        return printRows(result);
-    }
-
+  
     public TupleQueryResult getResult(String query) {
         TupleQuery tupleQuery = conn.prepareTupleQuery(QueryLanguage.SPARQL, query);
         TupleQueryResult result = tupleQuery.evaluate();

@@ -9,7 +9,7 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import org.eclipse.rdf4j.query.TupleQueryResult;
 import com.franz.agraph.repository.AGRepositoryConnection;
-import connection.DatabaseConnecter;
+import connection.ServerConnection;
 import javax.swing.JOptionPane;
 import query.Query;
 import query.QueryAction;
@@ -26,7 +26,7 @@ public class MainForm extends javax.swing.JFrame {
     public static String user = Config.USERNAME;
     public static String password = Config.PASSWORD;
     public static String severURL = Config.SERVER_URL;
-    public static DatabaseConnecter databaseConnecter = DatabaseConnecter.getDatabaseConnecter(severURL, user, password);
+    public static ServerConnection databaseConnecter = ServerConnection.getDatabaseConnecter(severURL, user, password);
 
     /**
      * Creates new form MainForm
@@ -325,31 +325,10 @@ public class MainForm extends javax.swing.JFrame {
         int number = comboChooseStatement.getSelectedIndex();
         QueryAction query = new QueryAction(conn);
         CalTime calTime = new CalTime(conn);
-//        if (nameQuery.getText().toString().equals("")) {
-//            TupleQueryResult result = query.getResult(queryStatement.getText());
-//            resultQuery.setText(query.printRows(result));
-              String result = calTime.calTime(queryStatement.getText());
-              if (result.startsWith("\n"))
-                  result = "Not found result !".concat(result);
-              resultQuery.setText(result);
-//        } else {
-//            if (basicQuery.isSelected()) {
-//                if (query.getResult(queryStatement.getText()).equals("")) {
-//                    resultQuery.append("Not found result !\n");
-//                } else {                   
-//                    resultQuery.append(calTime.calTime(queryStatement.getText()));
-//                }
-//                
-//            } else if (advancedQuery.isSelected()) {
-//                if (query.getResult(queryStatement.getText()).equals("")) {
-//                    resultQuery.append("Not found result !\n");
-//                } else {
-//                    
-//                }                
-//            }
-//            resultQuery.append(calTime.calTime(queryStatement.getText()));
-
-//        }
+	    String result = calTime.calTime(queryStatement.getText());
+	    if (result.startsWith("\n"))
+	        result = "Not found result !".concat(result);
+	    resultQuery.setText(result);
 
         databaseConnecter.closeConnection();
     }//GEN-LAST:event_queryRunActionPerformed
