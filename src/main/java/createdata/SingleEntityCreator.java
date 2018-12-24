@@ -12,7 +12,7 @@ import setting.RandomProperties;
 public class SingleEntityCreator {
 	private String id;	
 	private String name;
-        private String description;
+    private String description;
 	private RandomProperties r = new RandomProperties();
 	
 	public AEntity createEntity(String id, String name, String description) {
