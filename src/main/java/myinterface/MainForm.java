@@ -33,7 +33,8 @@ public class MainForm extends javax.swing.JFrame {
      */
     public MainForm() {
         initComponents();
-
+        resultQuery.setEditable(false);
+        nameQuery.setEditable(false);
     }
 
     /**
@@ -325,31 +326,12 @@ public class MainForm extends javax.swing.JFrame {
         int number = comboChooseStatement.getSelectedIndex();
         QueryAction query = new QueryAction(conn);
         CalTime calTime = new CalTime(conn);
-//        if (nameQuery.getText().toString().equals("")) {
-//            TupleQueryResult result = query.getResult(queryStatement.getText());
-//            resultQuery.setText(query.printRows(result));
-              String result = calTime.calTime(queryStatement.getText());
-              if (result.startsWith("\n"))
-                  result = "Not found result !".concat(result);
-              resultQuery.setText(result);
-//        } else {
-//            if (basicQuery.isSelected()) {
-//                if (query.getResult(queryStatement.getText()).equals("")) {
-//                    resultQuery.append("Not found result !\n");
-//                } else {                   
-//                    resultQuery.append(calTime.calTime(queryStatement.getText()));
-//                }
-//                
-//            } else if (advancedQuery.isSelected()) {
-//                if (query.getResult(queryStatement.getText()).equals("")) {
-//                    resultQuery.append("Not found result !\n");
-//                } else {
-//                    
-//                }                
-//            }
-//            resultQuery.append(calTime.calTime(queryStatement.getText()));
 
-//        }
+        String result = calTime.calTime(queryStatement.getText());
+        if (result.startsWith("\n")) {
+            result = "Not found result !".concat(result);
+        }
+        resultQuery.setText(result);
 
         databaseConnecter.closeConnection();
     }//GEN-LAST:event_queryRunActionPerformed

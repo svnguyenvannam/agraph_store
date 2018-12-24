@@ -37,23 +37,6 @@ public class QueryAction {
         listAdvancedQuery = reader.getListAdvancedQuery();
     }
 
-    /**
-     * Nhận vào số i và in ra kết quả câu truy vấn đơn giản thứ i
-     *
-     * @param number Số thứ tự câu truy vấn
-     */
-    public String getResultNormalQuery(int number) {
-//		listNormalQuery.get(number).printDescriptionQuery();
-        TupleQueryResult result = getResult(listNormalQuery.get(number).Query);
-        return printRows(result);
-    }
-
-    public String getResultAdvancedQuery(int number) {
-//		listAdvancedQuery.get(number).printDescriptionQuery();
-        TupleQueryResult result = getResult(listAdvancedQuery.get(number).Query);
-        return printRows(result);
-    }
-
     public TupleQueryResult getResult(String query) {
         TupleQuery tupleQuery = conn.prepareTupleQuery(QueryLanguage.SPARQL, query);
         TupleQueryResult result = tupleQuery.evaluate();
