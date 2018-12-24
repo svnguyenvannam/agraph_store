@@ -79,7 +79,7 @@ public class QueryAction {
             Value o = bind.getValue("o");
             Value lk3 = bind.getValue("lk3");
             Value t = bind.getValue("t");
-            if (s != null && !s.equals(x)) {
+            if (s != null && !s.equals(x) && x!=null) {
                 str += "\n";
             }
 

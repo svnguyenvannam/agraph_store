@@ -326,25 +326,24 @@ public class MainForm extends javax.swing.JFrame {
         QueryAction query = new QueryAction(conn);
         CalTime calTime = new CalTime(conn);
         if (nameQuery.getText().toString().equals("")) {
-            //TupleQueryResult result = query.getResult(queryStatement.getText(), conn);
-            resultQuery.setText(query.printRows(result));
+//            TupleQueryResult result = query.getResult(queryStatement.getText());
+//            resultQuery.setText(query.printRows(result));
+              String result = calTime.calTime(queryStatement.getText());
+              resultQuery.setText(result);
         } else {
             if (basicQuery.isSelected()) {
                 if (query.getResultNormalQuery(number).equals("")) {
                     resultQuery.append("Not found result !\n");
-                } else {
-                    resultQuery.append(query.getResultNormalQuery(number));
+                } else {                   
+                    resultQuery.append(calTime.calTime(queryStatement.getText()));
                 }
-                resultQuery.append("\n\n------------------------------------");
-                resultQuery.append(calTime.calTimeNormalQuery(number));
+                
             } else if (advancedQuery.isSelected()) {
                 if (query.getResultAdvancedQuery(number).equals("")) {
                     resultQuery.append("Not found result !\n");
                 } else {
-                    resultQuery.append(query.getResultAdvancedQuery(number));
-                }
-                resultQuery.append("\n\n------------------------------------");
-                resultQuery.append(calTime.calTimeAdvancedQuery(number));
+                    resultQuery.append(calTime.calTime(queryStatement.getText()));
+                }                
             }
 
         }
