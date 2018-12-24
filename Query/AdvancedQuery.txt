@@ -1,17 +1,18 @@
-In ra những người sinh ra tại "Chile" nhưng lại sống ở "Cook_Islands" 
-select ?s
+In ra những người có quốc tịch ở một nơi nhưng sống ở nơi khác
+select ?s ?nationality ?home
 where {
 	?idx a class:Country;
-           prs:tên_hiển_thị "Philippines".
+           prs:tên_hiển_thị ?nationality.
 	?idy a class:Country;
-           prs:tên_hiển_thị "Serbia".
+           prs:tên_hiển_thị ?home.
   	?idz a class:Person;
-           rel:sinh_ra_tại ?idx;
+           rel:﻿có_quốc_tịch ?idx;
            rel:sống_ở ?idy;
            prs:tên_hiển_thị ?s.
+  filter(?nationality!=?home)
 }
 ***
-In ra tên các chương trình bị "Chile" tạm hoãn và đã gây thiệt hại lớn cho "Apple_Inc."
+In ra tên các chương trình bị một nước tạm hoãn và đã gây thiệt hại lớn cho "Amazon.com"
 select ?s ?lk1 ?p ?lk2 ?o  
 where {
   ?idz a class:Organization;
@@ -22,16 +23,16 @@ where {
   ?idx a class:Country;
          prs:tên_hiển_thị ?s;
          ?lk1 ?idy.
-  filter (?s = "Chile" && ?o = "Apple_Inc." && ?lk1 = rel:tạm_hoãn && ?lk2 = rel:gây_thiệt_hải_lớn_cho)
+  filter (?o = "Amazon.com" && ?lk1=rel:tạm_hoãn && ?lk2 = rel:gây_thiệt_hải_lớn_cho)
 }
 ***
-In ra tên vầ ngày mất của những người đã đến cả nước "Cook_Islands" và "Bulgaria", mất năm 2008
+In ra tên và ngày mất của những người đã đến cả nước "Madagascar" và "Togo", mất sau năm 1990
 select ?s ?p ?o
 where {
 	?idx a class:Country;
-		prs:tên_hiển_thị "Cook_Islands".
+		prs:tên_hiển_thị "Madagascar".
 	?idy a class:Country; 
-		prs:tên_hiển_thị "Bulgaria".
+		prs:tên_hiển_thị "Togo".
  	?idt a class:Time;
         prs:tên_hiển_thị ?o.
 	?idz a class:Person;
@@ -39,10 +40,10 @@ where {
         rel:sống_ở ?idx;
 		prs:tên_hiển_thị ?s;
         ?p ?idt.
-  	filter (?p = rel:mất_ngày && regex(?o, "^(2008)"))
+  	filter (?p = rel:mất_ngày && regex(?o, "^((199[0..9])|2)") )
 }
 ***
-In ra những Event trong tên có từ Vietnam, được tổ chức tại "Kiribati" và diễn ra vào sau năm 2009
+In ra những Event trong tên có từ Vietnam, được tổ chức đầu tiên tại "Australia" và diễn ra vào sau năm 2009
 select ?s ?lk1 ?p ?lk2 ?o
 where {
   ?id a class:Event;
@@ -53,7 +54,7 @@ where {
      prs:tên_hiển_thị ?p .
   ?idy a class:Time;
      prs:tên_hiển_thị ?o.
-  filter (regex(?s, "Vietnam") && ?lk1 = rel:sẽ_được_tổ_chức_tại && ?lk2 = rel:diễn_ra_vào && ?p = "Kiribati" && strstarts(str(?o), "201"))
+  filter (regex(?s, "Vietnam") && ?lk1 = rel:được_tổ_chức_đầu_tiên_tại && ?lk2 = rel:diễn_ra_vào && ?p = "Australia" && strstarts(str(?o), "201"))
 }
 ***
 In ra tên của 20 nước có GDP cao nhất và GDP của nước đó
@@ -67,13 +68,13 @@ where {
  order by desc (?o) 
  limit 20
 ***
-In ra mô tả của nơi tiếp giáp với "Pittsburgh,_United_States", trực thuộc "Georgetown,_Guyana", và là nời kết thúc của chùm sự kiện "Vietnam_Medi-Pharm_Expo_(MediPharm_Expo)"
-select ?s ?p ?o
+In ra mô tả của nơi tiếp giáp với "Wichita,_United_States", trực thuộc "Tainan,Taiwan", và là nời kết thúc của chùm sự kiện "Vietnam_Medi-Pharm_Expo_(MediPharm_Expo)"
+select ?s ?p ?o 
 where {
   ?idy rdf:type class:Location;
-       prs:tên_hiển_thị "Pittsburgh,_United_States".
+       prs:tên_hiển_thị "Wichita,_United_States".
   ?idz rdf:type class:Location;
-       prs:tên_hiển_thị "Georgetown,_Guyana".
+       prs:tên_hiển_thị "Tainan,Taiwan".
   ?idt rdf:type class:Event;
        prs:tên_hiển_thị "Vietnam_Medi-Pharm_Expo_(MediPharm_Expo)".
   ?idx rdf:type class:Location;
@@ -113,7 +114,7 @@ where {
   filter (strstarts(str(?p), "http://btl/properties/"))
 }
 ***
-In ra 3 người có tuổi cao nhất cùng với tuổi của họ, yêu quý nước "China" nhưng lại sống ở location "Durban,_South_Africa"
+In ra 3 người có tuổi cao nhất cùng với tuổi của họ, yêu quý nước "Falkland_Islands" nhưng lại sống ở location "Nicosia,_Cyprus"
 select ?s ?o
 where {
   ?id a class:Person;
@@ -122,14 +123,14 @@ where {
         prs:tên_hiển_thị ?s;
         prs:tuổi ?o.
   ?idx a class:Country;
-         prs:tên_hiển_thị "China".
+         prs:tên_hiển_thị "Falkland_Islands".
   ?idy a class:Location;
-         prs:tên_hiển_thị "Durban,_South_Africa".
+         prs:tên_hiển_thị "Nicosia,_Cyprus".
 }
 order by desc (?o)
 limit 3
 ***
-In ra tên của những người đã sống ở nhiều hơn 1 quốc gia nhưng lại tham gia ít 3
+In ra tên của những người đã sống ở nhiều hơn 1 quốc gia nhưng lại tham gia ít hơn 3 event
 select ?s ?p ?o
 where {
   {

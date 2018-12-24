@@ -23,7 +23,7 @@ public class CalTime {
 		
 		long runTime = endTime - startTime;
 		System.out.format("Runtime = %d\n", runTime);
-                str=str+"\nTotal execution Time = "+ runTime+"\n";
+                str=str+"\nTotal execution time = "+ runTime+"\n";
                 return str;
 	}
 	
@@ -35,7 +35,7 @@ public class CalTime {
 		
 		long runTime = endTime - startTime;
 		System.out.format("Runtime = %d\n", runTime);
-                str=str+"\nTotal execution Time = "+ runTime + "\n";
+                str=str+"\nTotal execution time = "+ runTime + "\n";
                 return str;
 	}
 }

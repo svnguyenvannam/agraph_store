@@ -1,33 +1,33 @@
-In ra thông tin của person "Rose_Somchai_Lock"
+In ra thông tin của person "Penelope_Shinichi_Gilbert"
 select ?s ?p ?o 
 where {
 	?s a class:Person;
-		prs:tên_hiển_thị "Rose_Somchai_Lock";
+		prs:tên_hiển_thị "Penelope_Shinichi_Gilbert";
 		?p ?o . 
 	filter (strstarts(str(?p), "http://btl/properties/" ))
 }
 ***        
-In ra thông tin các sự kiện "International_Conference_on_Petroleum_and_Petrochemical_Engineering_(ICPPE)" sẽ được tổ chức tại "India"
-select ?s ?p ?o
+In ra thông tin sự kiện "APPLE_SPECIAL_EVENT" được tổ chức đầu tiên tại "Norway"
+select ?s ?p ?o  
 where {
   	?idx a class:Country;
-		prs:tên_hiển_thị "India".
+		prs:tên_hiển_thị "Norway".
 	?s a class:Event;
-		prs:tên_hiển_thị "International_Conference_on_Petroleum_and_Petrochemical_Engineering_(ICPPE)";
-		rel:sẽ_được_tổ_chức_tại ?idx;
+		prs:tên_hiển_thị "APPLE_SPECIAL_EVENT";
+		rel:được_tổ_chức_đầu_tiên_tại ?idx;
 		?p ?o .
 	filter (strstarts(str(?p), "http://btl/properties/"))
 }
 ***
-In thông tin 10 người đầu tiên tìm thấy sống ở Location "Okayama,_Japan"
+In thông tin 10 người đầu tiên sinh ra tại Location "Chongjin,_North_Korea"
 select ?s ?p ?o 
 where {
   { 
-    select ?s where {
+    select ?s ?p ?o  where {
       ?idx a class:Location;
-           prs:tên_hiển_thị "Okayama,_Japan".
+           prs:tên_hiển_thị "Chongjin,_North_Korea".
       ?s a class:Person;
-           rel:sống_ở ?idx.
+           rel:﻿sinh_ra_tại ?idx.
 	} 
 	limit 10
   }
@@ -35,21 +35,21 @@ where {
   filter (strstarts(str(?p), "http://btl/properties/" ))
 } 
 ***
-In ra số nơi mà công ty "Nintendo" phá sản
+In ra số nơi mà công ty "Heineken_Brewery" phá sản
 select (count(?o) as ?s) 
 where {
   ?idx a class:Location;
        prs:tên_hiển_thị ?o . 
   ?idy a class:Organization;
-       prs:tên_hiển_thị "Nintendo";
+       prs:tên_hiển_thị "Heineken_Brewery";
        rel:phá_sản_tại ?idx . 
 } 
 ***
-In ra số người sống ở Location "Toronto,_Canada"
+In ra số người sống ở Location "Iloilo_City,_Philippines"
 select (count(?idy) as ?s)
 where {
   ?idx a class:Location;
-       prs:tên_hiển_thị "Toronto,_Canada" . 
+       prs:tên_hiển_thị "Iloilo_City,_Philippines" . 
   ?idy a class:Person;
        rel:sống_ở ?idx . 
 }
@@ -64,21 +64,22 @@ where {
   filter (?ds < 100000 && ?gdp > 5000 && strstarts(str(?p),"http://btl/properties/"))
 }
 ***
-In ra những người tên bắt đầu bằng "Rose" và kết thúc là "Black"
+In ra những người tên bắt đầu bằng "Pen" và kết thúc là "Smith"
+
 select ?s ?p ?o
 where {
   ?s a class:Person;
        ?p ?o.
-  filter (?p = prs:tên_hiển_thị && regex(?o, "^(Rose)[\\w\\d\\s]*(Black)$"))
+  filter (?p = prs:tên_hiển_thị && regex(?o, "^(Pen)[\\w\\d\\s]*(Smith)$"))
 }
 ***
-In ra thông tin 5 sự kiện đầu tiên tìm thấy bị hoãn vào 2017-01-31
+In ra thông tin 5 sự kiện đầu tiên tìm thấy bị hoãn vào 2001-09-28
 select ?s ?p ?o 
 where {
   {
-    select ?s where {	
+    select ?s  where {	
       ?idx a class:Time;
-           prs:tên_hiển_thị "2017-01-31".
+           prs:tên_hiển_thị "2001-09-28".
       ?s a class:Event;
            rel:bị_hoãn_vào ?idx.	
     }
@@ -86,7 +87,7 @@ where {
   }
   ?s ?p ?o.
   filter (strstarts(str(?p), "http://btl/properties"))
-} 
+}
 ***
 In ra số lượng các sự kiện được lưu trong csdl
 select (count(?idx) as ?s) 
@@ -94,7 +95,7 @@ where {
 	?idx a class:Event.
 }
 ***
-In ra tên hiển thị của những người có số lượng relationship >= 13 cùng với số lượng relationship của người đó
+#In ra tên hiển thị của 500 người đầu tiên có số lượng relationship >= 13 cùng với số lượng relationship của người đó
 select ?s (count(?_p) as ?p)
 where {
   ?o a class:Person;
@@ -104,4 +105,5 @@ where {
   }
 group by ?s 
 having (count(?_p) >= 13)
+LIMIT 500
 ***

@@ -29,6 +29,8 @@ public class DataReader extends AFileReader{
 	 * Dữ liệu sẽ được lưu vào 1 mảng 2 chiều
 	 * Chiều thứ nhất là 6 loại Entity 
 	 * Chiều thứ hai là 150 text tương ứng với mỗi loại 
+         * 
+         * vd: listEntity[0]="Manh, Nam, Trung...";
 	 */
 	private void getEntityAndDescription() {
 		for (int i = 0; i < 6; i++) {
@@ -43,6 +45,8 @@ public class DataReader extends AFileReader{
 	 * Đọc dữ liệu từ file relationship, lưu vào 1 mảng 3 chiều
 	 * Chiều thứ nhất và thứ 2 tương ứng với 2 entity
 	 * Chiều thứ 3 tương ứng với 10 text relationship mỗi 2 loại tương ứng
+         * 
+         * Vd: listRelationship[0][0]="den tham, lam anh huong..."
 	 */
 	private void getRelationship() {
 		for (int i = 0; i < 6; i++)

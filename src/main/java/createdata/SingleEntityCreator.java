@@ -10,13 +10,13 @@ import entity.Time;
 import setting.RandomProperties;
 
 public class SingleEntityCreator {
-	private String label;
-	private String description;
+	private String id;	
 	private String name;
+        private String description;
 	private RandomProperties r = new RandomProperties();
 	
-	public AEntity createEntity(String label, String name, String description) {
-		this.label = label;
+	public AEntity createEntity(String id, String name, String description) {
+		this.id = id;
 		this.name = name;
 		this.description = description;
 		return (createEntity());
@@ -24,19 +24,19 @@ public class SingleEntityCreator {
 	
 	public AEntity createEntity() {
 		AEntity ent;
-		if (label.startsWith("Person")) {
+		if (id.startsWith("Person")) {
 			ent = createPerson();
 		} else
-		if (label.startsWith("Country")) {
-			ent = createConutry();
+		if (id.startsWith("Country")) {
+			ent = createCountry();
 		} else
-		if (label.startsWith("Location")) {
+		if (id.startsWith("Location")) {
 			ent = createLocation();
 		} else
-		if (label.startsWith("Organization")) {
+		if (id.startsWith("Organization")) {
 			ent = createOrganization();
 		} else
-		if (label.startsWith("Time")) {
+		if (id.startsWith("Time")) {
 			ent = createTime();
 		} else
 			ent = createEvent();
@@ -57,7 +57,7 @@ public class SingleEntityCreator {
 	 * @param p : Thực thể Person sau khi được tạo ngẫu nhiên
 	 */
 	private Person createPerson() {
-		Person p = new Person (label, name, description);
+		Person p = new Person (id, name, description);
 		p = (Person) create(p);
 		p.setNgaySinh(r.getRandomDate());
 		p.setTuoi(r.getRandomInt(100));
@@ -69,7 +69,7 @@ public class SingleEntityCreator {
 	 * @return p : Thực thể Organization sau khi được tạo ngẫu nhiên 
 	 */
 	private Organization createOrganization() {
-		Organization p = new Organization(label, name, description);
+		Organization p = new Organization(id, name, description);
 		p = (Organization) create(p);
 		p.setNgayThanhLap(r.getRandomDate());
 		return p;
@@ -79,7 +79,7 @@ public class SingleEntityCreator {
 	 * @return p : Thực thể Location sau khi được tạo ngẫu nhiên 
 	 */
 	private Location createLocation() {
-		Location p = new Location(label, name, description);
+		Location p = new Location(id, name, description);
 		p = (Location) create(p);
 		p.setToaDo(r.getRandomToaDo());
 		return p;
@@ -88,8 +88,8 @@ public class SingleEntityCreator {
 	/**
 	 * @return p : Thực thể Country sau khi được tạo ngẫu nhiên
 	 */
-	private Country createConutry() {
-		Country p = new Country(label, name, description);
+	private Country createCountry() {
+		Country p = new Country(id, name, description);
 		p = (Country) create(p);
 		p.setDanSo(r.getRandomInt(9000000));
 		p.setGdp(r.getRandomInt(50000));
@@ -101,7 +101,7 @@ public class SingleEntityCreator {
 	 * @return p : Thực thể Event sau khi được tạo ngẫu nhiên 
 	 */
 	private Event createEvent() {
-		Event p = new Event(label, name, description);
+		Event p = new Event(id, name, description);
 		p = (Event) create(p);
 		return p;
 	}
@@ -110,7 +110,7 @@ public class SingleEntityCreator {
 	 * @return p : Thực thể Time sau khi được tạo ngẫu nhiên
 	 */
 	private Time createTime() {
-		Time p = new Time(label, name, description);
+		Time p = new Time(id, name, description);
 		p = (Time) create(p);
 		return p;
 	}

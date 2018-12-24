@@ -325,19 +325,19 @@ public class MainForm extends javax.swing.JFrame {
             if (basicQuery.isSelected()) {
                 if(query.getResultNormalQuery(number).equals("")){
                     resultQuery.append("Not found result !\n");
-                    return;
                 }else{
                     resultQuery.append(query.getResultNormalQuery(number));
                 }
+                resultQuery.append("\n\n------------------------------------");
                 resultQuery.append(calTime.calTimeNormalQuery(number));
             }
             else if(advancedQuery.isSelected()){
-                if(query.getResultNormalQuery(number).equals("")){
+                if(query.getResultAdvancedQuery(number).equals("")){
                     resultQuery.append("Not found result !\n");
-                    return;
                 }else{
                     resultQuery.append(query.getResultAdvancedQuery(number));
                 }
+                resultQuery.append("\n\n------------------------------------");
                 resultQuery.append(calTime.calTimeAdvancedQuery(number));
             }
             
