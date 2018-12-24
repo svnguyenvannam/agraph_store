@@ -20,22 +20,10 @@ import setting.Config;
 public class QueryAction {
 
     private AGRepositoryConnection conn;
-    private ArrayList<Query> listNormalQuery;
-    private ArrayList<Query> listAdvancedQuery;
-
     public QueryAction(AGRepositoryConnection conn) {
         this.conn = conn;
-        this.getListQuery();
     }
 
-    /**
-     * Đọc query từ file text bằng đối tượng QueryReader
-     */
-    private void getListQuery() {
-        QueryReader reader = new QueryReader();
-        listNormalQuery = reader.getListNormalQuery();
-        listAdvancedQuery = reader.getListAdvancedQuery();
-    }
 
     public TupleQueryResult getResult(String query) {
         TupleQuery tupleQuery = conn.prepareTupleQuery(QueryLanguage.SPARQL, query);

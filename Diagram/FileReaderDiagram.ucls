@@ -3,7 +3,7 @@
   realizations="true" associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
   <class id="1" language="java" name="createdata.DataCreator" project="agraph_store" 
     file="/agraph_store/src/main/java/createdata/DataCreator.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="496" y="349"/>    
+    <position height="-1" width="-1" x="210" y="419"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -12,7 +12,7 @@
   </class>  
   <class id="2" language="java" name="createdata.DataReader" project="agraph_store" 
     file="/agraph_store/src/main/java/createdata/DataReader.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="157" y="239"/>    
+    <position height="-1" width="-1" x="536" y="145"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -21,7 +21,7 @@
   </class>  
   <class id="3" language="java" name="createdata.DataStoreder" project="agraph_store" 
     file="/agraph_store/src/main/java/createdata/DataStoreder.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="203" y="468"/>    
+    <position height="-1" width="-1" x="177" y="128"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -30,7 +30,7 @@
   </class>  
   <class id="4" language="java" name="createdata.SingleEntityCreator" project="agraph_store" 
     file="/agraph_store/src/main/java/createdata/SingleEntityCreator.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="772" y="322"/>    
+    <position height="-1" width="-1" x="489" y="474"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -40,9 +40,11 @@
   <association id="5">    
     <end type="SOURCE" refId="1" navigable="false">      
       <attribute id="6" name="storeder">        
-        <position height="17" width="49" x="320" y="385"/>      
+        <position height="17" width="49" x="137" y="229"/>      
       </attribute>      
-      <multiplicity id="7" minimum="0" maximum="1"/>    
+      <multiplicity id="7" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-26" y="-340"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  

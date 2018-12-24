@@ -9,7 +9,7 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import org.eclipse.rdf4j.query.TupleQueryResult;
 import com.franz.agraph.repository.AGRepositoryConnection;
-import connection.DatabaseConnecter;
+import connection.ServerConnection;
 import javax.swing.JOptionPane;
 import query.Query;
 import query.QueryAction;
@@ -26,7 +26,7 @@ public class MainForm extends javax.swing.JFrame {
     public static String user = Config.USERNAME;
     public static String password = Config.PASSWORD;
     public static String severURL = Config.SERVER_URL;
-    public static DatabaseConnecter databaseConnecter = DatabaseConnecter.getDatabaseConnecter(severURL, user, password);
+    public static ServerConnection databaseConnecter = ServerConnection.getDatabaseConnecter(severURL, user, password);
 
     /**
      * Creates new form MainForm
@@ -332,7 +332,6 @@ public class MainForm extends javax.swing.JFrame {
             result = "Not found result !".concat(result);
         }
         resultQuery.setText(result);
-
         databaseConnecter.closeConnection();
     }//GEN-LAST:event_queryRunActionPerformed
 
