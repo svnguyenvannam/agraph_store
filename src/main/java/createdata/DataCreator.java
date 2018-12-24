@@ -16,8 +16,7 @@ import setting.Config;
  */
 public class DataCreator {
 	private AGRepositoryConnection conn;
-	private TreeModel model = new TreeModel();
-	private DataStoreder storeder = new DataStoreder(model);
+	private DataStoreder storeder = new DataStoreder(new TreeModel());
 	
 	private ArrayList<String>[] listEntity;
 	private ArrayList<String>[] listDescription;
@@ -50,7 +49,7 @@ public class DataCreator {
 			String description = listDescription[i].get(rand.nextInt(listDescription[i].size()));
 			AEntity newEntity = creator.createEntity(id, name, description);
 			storeder.storeEntity(newEntity.getListProperties());
-			if (model.size() > 250000) store_model();
+			if (storeder.getModel().size() > 250000) store_model();
 		}
 		store_model();
 	}
@@ -60,7 +59,6 @@ public class DataCreator {
 	 * giữa chúng để tiến hành ghép nối
 	 */
 	public void createRelationship() {
-		DataStoreder storeder = new DataStoreder(model);
 		Random rand = new Random();
 		int numberTripleEntity = (int) conn.size();
 		if (numberRelationship + numberTripleEntity > 5000000) numberRelationship = 5000000 - numberTripleEntity; 
@@ -85,7 +83,7 @@ public class DataCreator {
 			
 			// Kiểm tra nếu model vướt quá 50000 hoặc bằng số triple cần thêm thì add vào repository
 			// Cập nhật lại số triple cần thêm
-			if (model.size() >= 250000 || model.size() >= incomplete) {
+			if (storeder.getModel().size() >= 250000 || storeder.getModel().size() >= incomplete) {
 				store_model();
 				incomplete = numberRelationship + numberTripleEntity - (int) conn.size();
 			}
@@ -101,14 +99,14 @@ public class DataCreator {
 	
 	private void store_model() {
 		print();
-		conn.add(model);
-		model.clear();
+		conn.add(storeder.getModel());
+		storeder.getModel().clear();
 		print();
 		System.out.println("----------------------------------------------");
 	}
 
 	void print() {
 		System.out.println(conn.size());
-		System.out.println(model.size());
+		System.out.println(storeder.getModel().size());
 	}
 }

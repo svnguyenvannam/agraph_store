@@ -15,8 +15,8 @@ import setting.Config;
  */
 public class DataStoreder {
 
-    TreeModel model;
-    ValueFactory vf;
+    private TreeModel model;
+    private ValueFactory vf;
 
     public DataStoreder(TreeModel model) {
         this.model = model;
@@ -48,7 +48,7 @@ public class DataStoreder {
                 o = vf.createLiteral((Integer) value);
             }
             model.add(dinhDanh, p, o);
-        });
+        });	
     }
 
     public void storeRelationship(String ent1, String relationship, String ent2) {
@@ -56,5 +56,9 @@ public class DataStoreder {
         IRI p = vf.createIRI(Config.RELATIONSHIP_PREFIX, relationship);
         IRI o = vf.createIRI(Config.ENTITY_PREFIX, ent2);
         model.add(s, p, o);
+    }
+    
+    public TreeModel getModel() {
+    	return model;
     }
 }

@@ -3,7 +3,7 @@
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
   <package id="1" language="java" name="connection" project="agraph_store" file="/agraph_store/src/main/java/connection" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="710" y="209"/>    
+    <position height="-1" width="-1" x="696" y="217"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
   <package id="2" language="java" name="createdata" project="agraph_store" file="/agraph_store/src/main/java/createdata" 
@@ -18,17 +18,17 @@
   </package>  
   <package id="4" language="java" name="time" project="agraph_store" file="/agraph_store/src/main/java/time" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="388" y="117"/>    
+    <position height="-1" width="-1" x="381" y="116"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
   <package id="5" language="java" name="setting" project="agraph_store" file="/agraph_store/src/main/java/setting" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="537" y="385"/>    
+    <position height="-1" width="-1" x="541" y="393"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
   <package id="6" language="java" name="query" project="agraph_store" file="/agraph_store/src/main/java/query" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="338" y="210"/>    
+    <position height="-1" width="-1" x="343" y="212"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
   <package id="7" language="java" name="entity" project="agraph_store" file="/agraph_store/src/main/java/entity" 
