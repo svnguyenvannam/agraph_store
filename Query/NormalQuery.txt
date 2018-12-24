@@ -1,22 +1,23 @@
 In ra thông tin của person "Penelope_Shinichi_Gilbert"
 select ?s ?p ?o 
 where {
-	?s a class:Person;
-		prs:tên_hiển_thị "Penelope_Shinichi_Gilbert";
-		?p ?o . 
-	filter (strstarts(str(?p), "http://btl/properties/" ))
+  ?s a class:Person;
+       prs:tên_hiển_thị "Penelope_Shinichi_Gilbert";
+       ?p ?o . 
+  filter (strstarts(str(?p), "http://btl/properties/" ))
 }
+
 ***        
 In ra thông tin sự kiện "APPLE_SPECIAL_EVENT" được tổ chức đầu tiên tại "Norway"
 select ?s ?p ?o  
 where {
-  	?idx a class:Country;
-		prs:tên_hiển_thị "Norway".
-	?s a class:Event;
-		prs:tên_hiển_thị "APPLE_SPECIAL_EVENT";
-		rel:được_tổ_chức_đầu_tiên_tại ?idx;
-		?p ?o .
-	filter (strstarts(str(?p), "http://btl/properties/"))
+  ?idx a class:Country;
+         prs:tên_hiển_thị "Norway".
+  ?s a class:Event;
+       prs:tên_hiển_thị "APPLE_SPECIAL_EVENT";       
+       rel:được_tổ_chức_đầu_tiên_tại ?idx;
+       ?p ?o .
+  filter (strstarts(str(?p), "http://btl/properties/"))
 }
 ***
 In thông tin 10 người đầu tiên sinh ra tại Location "Chongjin,_North_Korea"

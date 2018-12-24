@@ -99,16 +99,8 @@ public class DataCreator {
 		listRelationship = reader.getListRelationshipData();
 	}
 	
-	private void store_model() {
-		print();
+	private void store_model() {		
 		conn.add(model);
-		model.clear();
-		print();
-		System.out.println("----------------------------------------------");
-	}
-
-	void print() {
-		System.out.println(conn.size());
-		System.out.println(model.size());
-	}
+		model.clear();		
+	}	
 }

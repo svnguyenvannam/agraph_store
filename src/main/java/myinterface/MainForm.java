@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import org.eclipse.rdf4j.query.TupleQueryResult;
 import com.franz.agraph.repository.AGRepositoryConnection;
 import connection.DatabaseConnecter;
+import javax.swing.JOptionPane;
 import query.Query;
 import query.QueryAction;
 import query.QueryReader;
@@ -32,7 +33,7 @@ public class MainForm extends javax.swing.JFrame {
      */
     public MainForm() {
         initComponents();
-        
+
     }
 
     /**
@@ -148,6 +149,11 @@ public class MainForm extends javax.swing.JFrame {
         comboChooseDB.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         comboChooseDB.setForeground(new java.awt.Color(0, 51, 204));
         comboChooseDB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "100_entity_200_relation", "5000_entity_7000_relation", "60000_entity_80000_relation", "100000_entity_200000_relation", "500000_entity_1000000_relation" }));
+        comboChooseDB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboChooseDBActionPerformed(evt);
+            }
+        });
 
         nameQuery.setColumns(20);
         nameQuery.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
@@ -225,11 +231,11 @@ public class MainForm extends javax.swing.JFrame {
                         .addComponent(basicQuery)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(advancedQuery)
-                        .addGap(39, 39, 39)
+                        .addGap(51, 51, 51)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(comboChooseDB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(comboChooseStatement, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -274,10 +280,10 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_basicQueryActionPerformed
 
     private void comboChooseStatementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboChooseStatementActionPerformed
-    	QueryReader reader = new QueryReader();
-    	ArrayList<Query> listNormalQuery = reader.getListNormalQuery();
+        QueryReader reader = new QueryReader();
+        ArrayList<Query> listNormalQuery = reader.getListNormalQuery();
         ArrayList<Query> listAdvancedQuery = reader.getListAdvancedQuery();
-        
+
         if (basicQuery.isSelected()) {
             for (int i = 0; i < 10; i++) {
                 if (comboChooseStatement.getSelectedIndex() == i) {
@@ -298,7 +304,7 @@ public class MainForm extends javax.swing.JFrame {
 
     private void queryRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_queryRunActionPerformed
         if (queryStatement.getText().equals("")) {
-            resultQuery.setText("You must select query");
+            JOptionPane.showMessageDialog(null, "You must have query statement.");
             return;
         }
         resultQuery.setText("");
@@ -315,33 +321,32 @@ public class MainForm extends javax.swing.JFrame {
         } else if (comboChooseDB.getSelectedIndex() == 4) {
             conn = databaseConnecter.getConnection("500000_entity_1000000_relation");
         }
+
         int number = comboChooseStatement.getSelectedIndex();
         QueryAction query = new QueryAction(conn);
-        CalTime calTime=new CalTime(conn);
+        CalTime calTime = new CalTime(conn);
         if (nameQuery.getText().toString().equals("")) {
             TupleQueryResult result = query.getResult(queryStatement.getText(), conn);
             resultQuery.setText(query.printRows(result));
         } else {
             if (basicQuery.isSelected()) {
-                if(query.getResultNormalQuery(number).equals("")){
+                if (query.getResultNormalQuery(number).equals("")) {
                     resultQuery.append("Not found result !\n");
-                }else{
+                } else {
                     resultQuery.append(query.getResultNormalQuery(number));
                 }
                 resultQuery.append("\n\n------------------------------------");
                 resultQuery.append(calTime.calTimeNormalQuery(number));
-            }
-            else if(advancedQuery.isSelected()){
-                if(query.getResultAdvancedQuery(number).equals("")){
+            } else if (advancedQuery.isSelected()) {
+                if (query.getResultAdvancedQuery(number).equals("")) {
                     resultQuery.append("Not found result !\n");
-                }else{
+                } else {
                     resultQuery.append(query.getResultAdvancedQuery(number));
                 }
                 resultQuery.append("\n\n------------------------------------");
                 resultQuery.append(calTime.calTimeAdvancedQuery(number));
             }
-            
-            
+
         }
 
         databaseConnecter.closeConnection();
@@ -351,6 +356,10 @@ public class MainForm extends javax.swing.JFrame {
         nameQuery.setText("");
         queryStatement.setText("");
     }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void comboChooseDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboChooseDBActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboChooseDBActionPerformed
 
     /**
      * @param args the command line arguments
@@ -387,7 +396,7 @@ public class MainForm extends javax.swing.JFrame {
                 myInterface.setTitle("OOP Project");
                 myInterface.setLocation(200, 100);
                 myInterface.setPreferredSize(new Dimension(2000, 1000));
-//                myInterface.setResizable(false);
+                myInterface.setResizable(false);
                 myInterface.setDefaultCloseOperation(myInterface.EXIT_ON_CLOSE);
             }
         });

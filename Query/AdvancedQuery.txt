@@ -1,14 +1,14 @@
 In ra những người có quốc tịch ở một nơi nhưng sống ở nơi khác
 select ?s ?nationality ?home
 where {
-	?idx a class:Country;
-           prs:tên_hiển_thị ?nationality.
-	?idy a class:Country;
-           prs:tên_hiển_thị ?home.
-  	?idz a class:Person;
-           rel:﻿có_quốc_tịch ?idx;
-           rel:sống_ở ?idy;
-           prs:tên_hiển_thị ?s.
+  ?idx a class:Country;
+         prs:tên_hiển_thị ?nationality.
+  ?idy a class:Country;
+         prs:tên_hiển_thị ?home.
+  ?idz a class:Person;
+         rel:﻿có_quốc_tịch ?idx;
+         rel:sống_ở ?idy;
+         prs:tên_hiển_thị ?s.
   filter(?nationality!=?home)
 }
 ***
@@ -29,18 +29,18 @@ where {
 In ra tên và ngày mất của những người đã đến cả nước "Madagascar" và "Togo", mất sau năm 1990
 select ?s ?p ?o
 where {
-	?idx a class:Country;
-		prs:tên_hiển_thị "Madagascar".
-	?idy a class:Country; 
-		prs:tên_hiển_thị "Togo".
- 	?idt a class:Time;
-        prs:tên_hiển_thị ?o.
-	?idz a class:Person;
-		rel:sống_ở ?idy; 
-        rel:sống_ở ?idx;
-		prs:tên_hiển_thị ?s;
-        ?p ?idt.
-  	filter (?p = rel:mất_ngày && regex(?o, "^((199[0..9])|2)") )
+  ?idx a class:Country;
+         prs:tên_hiển_thị "Madagascar".
+  ?idy a class:Country; 
+         prs:tên_hiển_thị "Togo".
+  ?idt a class:Time;
+         prs:tên_hiển_thị ?o.
+  ?idz a class:Person;
+         rel:sống_ở ?idy; 
+         rel:sống_ở ?idx;
+         prs:tên_hiển_thị ?s;
+         ?p ?idt.
+  filter (?p = rel:mất_ngày && regex(?o, "^((199[0..9])|2)") )
 }
 ***
 In ra những Event trong tên có từ Vietnam, được tổ chức đầu tiên tại "Australia" và diễn ra vào sau năm 2009

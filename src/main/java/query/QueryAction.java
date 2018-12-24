@@ -82,8 +82,7 @@ public class QueryAction {
             if (s != null && !s.equals(x)) {
                 str += "\n";
             }
-            System.out.format("%s %s %s %s %s %s %s \n", removePrefix(s), removePrefix(lk1), removePrefix(p),
-                    removePrefix(lk2), removePrefix(o), removePrefix(lk3), removePrefix(t));
+
             x = s;
             str = str + removePrefix(s) + " " + removePrefix(lk1) + " " + removePrefix(p) + " "
                     + removePrefix(lk2) + " " + removePrefix(o) + " " + removePrefix(lk3) + " " + removePrefix(t) + "\n";
