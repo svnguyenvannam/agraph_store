@@ -326,7 +326,7 @@ public class MainForm extends javax.swing.JFrame {
         QueryAction query = new QueryAction(conn);
         CalTime calTime = new CalTime(conn);
         if (nameQuery.getText().toString().equals("")) {
-            TupleQueryResult result = query.getResult(queryStatement.getText(), conn);
+            //TupleQueryResult result = query.getResult(queryStatement.getText(), conn);
             resultQuery.setText(query.printRows(result));
         } else {
             if (basicQuery.isSelected()) {
