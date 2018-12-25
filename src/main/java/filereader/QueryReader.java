@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import query.Query;
+import setting.Query;
 
 public class QueryReader extends AFileReader<Query> {
 

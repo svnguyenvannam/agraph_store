@@ -23,11 +23,11 @@
   </package>  
   <package id="5" language="java" name="setting" project="agraph_store" file="/agraph_store/src/main/java/setting" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="526" y="384"/>    
+    <position height="-1" width="-1" x="527" y="381"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="6" language="java" name="query" project="agraph_store" file="/agraph_store/src/main/java/query" 
-    binary="false" corner="BOTTOM_RIGHT">    
+  <package id="6" language="java" name="queryaction" project="agraph_store" 
+    file="/agraph_store/src/main/java/queryaction" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="408" y="216"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
@@ -42,48 +42,52 @@
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
   <dependency id="9">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="5"/>  
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="1"/>  
   </dependency>  
   <dependency id="10">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="3"/>  
-  </dependency>  
-  <dependency id="11">    
     <end type="SOURCE" refId="8"/>    
     <end type="TARGET" refId="6"/>  
   </dependency>  
-  <dependency id="12">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="5"/>  
-  </dependency>  
-  <dependency id="13">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="5"/>  
-  </dependency>  
-  <dependency id="14">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="5"/>  
-  </dependency>  
-  <dependency id="15">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="4"/>  
-  </dependency>  
-  <dependency id="16">    
+  <dependency id="11">    
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="7"/>  
   </dependency>  
-  <dependency id="17">    
+  <dependency id="12">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="6"/>  
   </dependency>  
-  <dependency id="18">    
+  <dependency id="13">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="14">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="15">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="16">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="17">    
     <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="3"/>  
   </dependency>  
+  <dependency id="18">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
   <dependency id="19">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="20">    
     <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="1"/>  
+    <end type="TARGET" refId="4"/>  
   </dependency>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    

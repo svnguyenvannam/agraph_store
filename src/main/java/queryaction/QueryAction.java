@@ -1,4 +1,6 @@
-package query;
+package queryaction;
+
+import java.util.ArrayList;
 
 import org.eclipse.rdf4j.model.Value;
 import org.eclipse.rdf4j.query.BindingSet;
@@ -8,7 +10,9 @@ import org.eclipse.rdf4j.query.TupleQueryResult;
 
 import com.franz.agraph.repository.AGRepositoryConnection;
 
-import setting.Config;
+import filereader.QueryReader;
+import setting.entityCollection;
+import setting.Query;
 
 /**
  * Cài đặt các query cơ bản và nâng cao theo yêu cầu
@@ -16,21 +20,18 @@ import setting.Config;
  * @author toanloi
  */
 public class QueryAction {
-
-    private AGRepositoryConnection conn;
-    public QueryAction(AGRepositoryConnection conn) {
-        this.conn = conn;
+    
+    public QueryAction() {
+    	
     }
 
-
-    public TupleQueryResult getResult(String query) {
+    public TupleQueryResult getResult(String query, AGRepositoryConnection conn) {
         TupleQuery tupleQuery = conn.prepareTupleQuery(QueryLanguage.SPARQL, query);
         TupleQueryResult result = tupleQuery.evaluate();
         return result;
     }
 
     /**
-     * 
      * @param result
      * @return kết quả của câu truy vấn
      */
@@ -46,10 +47,7 @@ public class QueryAction {
             Value o = bind.getValue("o");
             Value lk3 = bind.getValue("lk3");
             Value t = bind.getValue("t");
-            if (s != null && !s.equals(x) && x!=null) {
-                str += "\n";
-            }
-
+            if (s != null && !s.equals(x) && x!=null) { str += "\n"; }
             x = s;
             str = str + removePrefix(s) + " " + removePrefix(lk1) + " " + removePrefix(p) + " "
                     + removePrefix(lk2) + " " + removePrefix(o) + " " + removePrefix(lk3) + " " + removePrefix(t) + "\n";
@@ -65,17 +63,29 @@ public class QueryAction {
      * @return String URI sau khi đã clear các prefix
      */
     private static String removePrefix(Value uri_) {
-        if (uri_ == null) {
-            return "";
-        }
+        if (uri_ == null) { return ""; }
         String uri = uri_.toString();
-        uri = uri.replace(Config.ENTITY_PREFIX, "");
-        uri = uri.replace(Config.PROPERTIES_PREFIX, "");
-        uri = uri.replace(Config.RELATIONSHIP_PREFIX, "");
+        uri = uri.replace(entityCollection.ENTITY_PREFIX, "");
+        uri = uri.replace(entityCollection.PROPERTIES_PREFIX, "");
+        uri = uri.replace(entityCollection.RELATIONSHIP_PREFIX, "");
         if (uri.charAt(0) == '"') {
             int pos = uri.indexOf('^');
             uri = uri.substring(1, pos - 1);
         }
         return uri.replace("_", " ");
+    }
+    
+    public ArrayList<Query> getListAdvancedQuery() {
+		String pathAdvancedQuery = entityCollection.DIR_QUERY_PATH + "/AdvancedQuery.txt";
+		QueryReader reader = new QueryReader(pathAdvancedQuery);
+		ArrayList<Query> listAdvancedQuery = reader.readFile();
+		return listAdvancedQuery;
+	}	
+    
+    public ArrayList<Query> getListNormalQuery() {	
+		String pathNormalQuery = entityCollection.DIR_QUERY_PATH + "/NormalQuery.txt";
+		QueryReader reader = new QueryReader(pathNormalQuery);
+		ArrayList<Query> listNormalQuery = reader.readFile();
+		return listNormalQuery;
     }
 }

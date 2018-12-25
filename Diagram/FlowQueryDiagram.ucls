@@ -19,8 +19,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="query.Query" project="agraph_store" 
-    file="/agraph_store/src/main/java/query/Query.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="3" language="java" name="setting.Query" project="agraph_store" 
+    file="/agraph_store/src/main/java/setting/Query.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="736" y="260"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -28,8 +28,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="query.QueryAction" project="agraph_store" 
-    file="/agraph_store/src/main/java/query/QueryAction.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="4" language="java" name="queryaction.QueryAction" project="agraph_store" 
+    file="/agraph_store/src/main/java/queryaction/QueryAction.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="508" y="488"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -37,16 +37,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="5" language="java" name="query.QueryReader" project="agraph_store" 
-    file="/agraph_store/src/main/java/query/QueryReader.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="525" y="126"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="6" language="java" name="filereader.AFileReader" project="agraph_store" 
+  <class id="5" language="java" name="filereader.AFileReader" project="agraph_store" 
     file="/agraph_store/src/main/java/filereader/AFileReader.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="738" y="103"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -55,7 +46,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="connection.ServerConnection" project="agraph_store" 
+  <class id="6" language="java" name="connection.ServerConnection" project="agraph_store" 
     file="/agraph_store/src/main/java/connection/ServerConnection.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="198" y="424"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -64,65 +55,37 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <dependency id="8">    
+  <dependency id="7">    
     <bendpoint x="407" y="232"/>    
     <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="3"/>  
   </dependency>  
-  <association id="9">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="10" name="listNormalQuery">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="11" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
-    <display labels="false" multiplicity="false"/>  
-  </association>  
-  <dependency id="12">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="5"/>  
-  </dependency>  
-  <dependency id="13">    
+  <dependency id="8">    
     <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="2"/>  
   </dependency>  
-  <association id="14">    
+  <association id="9">    
     <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="15" name="queryAction">        
+      <attribute id="10" name="queryAction">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="16" minimum="0" maximum="1">        
+      <multiplicity id="11" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="false" multiplicity="false"/>  
   </association>  
-  <association id="17">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="18" name="serverConnection">        
-        <position height="17" width="97" x="110" y="239"/>      
-      </attribute>      
-      <multiplicity id="19" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
-    <display labels="true" multiplicity="false"/>  
-  </association>  
-  <association id="20">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="21" name="serverConnection">        
+  <association id="12">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="13" name="serverConnection">        
         <position height="17" width="95" x="247" y="570"/>      
       </attribute>      
-      <multiplicity id="22" minimum="0" maximum="1">        
+      <multiplicity id="14" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
+    <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="false"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

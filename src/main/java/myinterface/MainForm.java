@@ -10,10 +10,9 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import com.franz.agraph.repository.AGRepositoryConnection;
 import connection.ServerConnection;
-import query.Query;
-import query.QueryAction;
-import query.QueryReader;
-import setting.Config;
+import queryaction.QueryAction;
+import setting.entityCollection;
+import setting.Query;
 import time.CalTime;
 
 /**
@@ -23,9 +22,9 @@ import time.CalTime;
 public class MainForm extends javax.swing.JFrame {
 
 
-    public static String user = Config.USERNAME;
-    public static String password = Config.PASSWORD;
-    public static String severURL = Config.SERVER_URL;
+    public static String user = entityCollection.USERNAME;
+    public static String password = entityCollection.PASSWORD;
+    public static String severURL = entityCollection.SERVER_URL;
     public static ServerConnection databaseConnecter = ServerConnection.getDatabaseConnecter(severURL, user, password);
 
     /**
@@ -281,22 +280,22 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_basicQueryActionPerformed
 
     private void comboChooseStatementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboChooseStatementActionPerformed
-        QueryReader reader = new QueryReader();
+        QueryAction reader = new QueryAction();
         ArrayList<Query> listNormalQuery = reader.getListNormalQuery();
         ArrayList<Query> listAdvancedQuery = reader.getListAdvancedQuery();
 
         if (basicQuery.isSelected()) {
             for (int i = 0; i < 10; i++) {
                 if (comboChooseStatement.getSelectedIndex() == i) {
-                    nameQuery.setText(listNormalQuery.get(i).Description);
-                    queryStatement.setText(listNormalQuery.get(i).Query);
+                    nameQuery.setText(listNormalQuery.get(i).queryDescription);
+                    queryStatement.setText(listNormalQuery.get(i).querySyntax);
                 }
             }
         } else if (advancedQuery.isSelected()) {
             for (int i = 0; i < 10; i++) {
                 if (comboChooseStatement.getSelectedIndex() == i) {
-                    nameQuery.setText(listAdvancedQuery.get(i).Description);
-                    queryStatement.setText(listAdvancedQuery.get(i).Query);
+                    nameQuery.setText(listAdvancedQuery.get(i).queryDescription);
+                    queryStatement.setText(listAdvancedQuery.get(i).querySyntax);
                 }
             }
         }
@@ -324,10 +323,10 @@ public class MainForm extends javax.swing.JFrame {
         }
 
         int number = comboChooseStatement.getSelectedIndex();
-        QueryAction query = new QueryAction(conn);
+        QueryAction query = new QueryAction();
         CalTime calTime = new CalTime(conn);
 
-        String result = calTime.calTime(queryStatement.getText());
+        String result = calTime.calTime(queryStatement.getText(), conn);
         if (result.startsWith("\n")) {
             result = "Not found result !".concat(result);
         }

@@ -2,7 +2,7 @@ package setting;
 
 import java.util.HashMap;
 
-public class Config {
+public class entityCollection {
 	public static final String SERVER_URL = "http://localhost:10035";
 	public static final String CATALOG_ID = "java-catalog";
 	public static final String REPOSITORY_ID = "BTL_OOP";
@@ -20,13 +20,13 @@ public class Config {
 	public static final String DEFAULT_LINK = "https://vi.wikipedia.org/wiki/";
 	
 	private static final int[] x1 = {10, 10, 10, 10, 10, 50};
-	private static final int[] x2 = {100, 100, 100, 100, 100, 4500};
+	private static final int[] x2 = {100, 100, 100, 100, 100, 4500};    //entityCollection
 	private static final int[] x3 = {220, 220, 220, 220, 220, 58900};
 	private static final int[] x4 = {220, 220, 220, 220, 220, 98900};
 	private static final int[] x5 = {220, 220, 220, 220, 220, 498900};
 
-	public static final String[] str = { "Time", "Organization", "Location", "Event", "Country", "Person"};
-	public static final HashMap<Integer, int[]> numberStr =  new HashMap<Integer, int[]>(){{
+	public static final String[] strNameEntity = { "Time", "Organization", "Location", "Event", "Country", "Person"};
+	public static final HashMap<Integer, int[]> entityCollection =  new HashMap<Integer, int[]>(){{
 		put(100, x1);
 		put(5000, x2);
 		put(60000, x3);

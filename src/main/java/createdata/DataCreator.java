@@ -9,7 +9,8 @@ import org.eclipse.rdf4j.model.impl.TreeModel;
 import com.franz.agraph.repository.AGRepositoryConnection;
 
 import entity.AEntity;
-import setting.Config;
+import filereader.DataReader;
+import setting.entityCollection;
 
 /**
  * Class sinh dữ liệu từ dữ liệu đọc ở file data
@@ -22,15 +23,16 @@ public class DataCreator {
 	private ArrayList<String>[] listDescription;
 	private ArrayList<String>[][] listRelationship;
 	
-	private String[] str = Config.str;
-	private HashMap<Integer, int[]> numberStr = Config.numberStr;
+	private String[] str = entityCollection.strNameEntity;
+	private HashMap<Integer, int[]> numberStr = entityCollection.entityCollection;
 	private int numberRelationship, numberEntity;
 
 	public DataCreator(AGRepositoryConnection conn, int numberEntity, int numberRelationship) {
 		this.conn = conn;
 		this.numberRelationship = numberRelationship;
 		this.numberEntity = numberEntity;
-		this.getListData();
+		this.getEntityAndDescription();
+		this.getRelationship();
 	}
 
 	/**
@@ -90,13 +92,45 @@ public class DataCreator {
 		}
 	}
 	
-	private void getListData() {
-		DataReader reader = new DataReader();
-		listEntity = reader.getListEntity();
-		listDescription = reader.getListDescriptionData();
-		listRelationship = reader.getListRelationshipData();
+	/**
+	 * Đọc dữ liệu entity và mô tả
+	 * Dữ liệu sẽ được lưu vào 1 mảng 2 chiều
+	 * Chiều thứ nhất là 6 loại Entity 
+	 * Chiều thứ hai là 150 text tương ứng với mỗi loại 
+         * 
+         * vd: listEntity[0]="Manh, Nam, Trung...";
+	 */
+	private void getEntityAndDescription() {
+		filereader.DataReader reader = new filereader.DataReader();
+		for (int i = 0; i < 6; i++) {
+			String pathEntity = entityCollection.DIR_DATA_PATH + "/Entity/" + str[i] + ".txt";
+			reader.setPath(pathEntity);
+			listEntity[i]= reader.readFile();
+			
+			String pathDescription = entityCollection.DIR_DATA_PATH + "/Description/" + str[i] + ".txt";
+			reader.setPath(pathDescription);
+			listDescription[i] = reader.readFile();
+		}
 	}
 	
+	/**
+	 * Đọc dữ liệu từ file relationship, lưu vào 1 mảng 3 chiều
+	 * Chiều thứ nhất và thứ 2 tương ứng với 2 entity
+	 * Chiều thứ 3 tương ứng với 10 text relationship mỗi 2 loại tương ứng
+         * 
+         * Vd: listRelationship[0][0]="den tham, lam anh huong..."
+	 */
+	private void getRelationship() {
+		DataReader reader = new DataReader();
+		for (int i = 0; i < 6; i++)
+		for (int j = 0; j < 6; j++) {
+			String pathRelationship = entityCollection.DIR_DATA_PATH + "/Relationship/" + str[i]+str[j] + ".txt";
+			reader.setPath(pathRelationship);
+			if (reader.exists()) { 
+				listRelationship[i][j] = reader.readFile();
+			} else listRelationship[i][j] = null;
+		}
+	}
         
 	private void store_model() {
 		conn.add(storeder.getModel());
