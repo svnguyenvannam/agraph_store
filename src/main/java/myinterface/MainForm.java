@@ -7,7 +7,6 @@ package myinterface;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
-import org.eclipse.rdf4j.query.TupleQueryResult;
 import com.franz.agraph.repository.AGRepositoryConnection;
 import connection.ServerConnection;
 import javax.swing.JOptionPane;

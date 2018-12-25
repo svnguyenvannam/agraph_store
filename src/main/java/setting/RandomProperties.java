@@ -25,16 +25,16 @@ public class RandomProperties {
 		else return "Nữ";
 	}
 	
-	public int getRandomInt(int Min, int Max) {
+	public int getRandomNumber(int Min, int Max) {
 		return Min + random.nextInt(Max - Min);
 	}
 	
-	public int getRandomInt(int Max) {
+	public int getRandomNumber(int Max) {
 		return random.nextInt(Max);
 	}
 	
 	public String getRandomToaDo() {
-		return String.format("x = %d,%d  y = %d,%d", getRandomInt(180), 
-				getRandomInt(100), getRandomInt(180), getRandomInt(100));
+		return String.format("x = %d,%d  y = %d,%d", getRandomNumber(180), 
+				getRandomNumber(100), getRandomNumber(180), getRandomNumber(100));
 	}
 }

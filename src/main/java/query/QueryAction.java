@@ -74,10 +74,10 @@ public class QueryAction {
         uri = uri.replace(Config.ENTITY_PREFIX, "");
         uri = uri.replace(Config.PROPERTIES_PREFIX, "");
         uri = uri.replace(Config.RELATIONSHIP_PREFIX, "");
-//        if (uri.charAt(0) == '"') {
-//            int pos = uri.indexOf('^');
-//            uri = uri.substring(1, pos - 1);
-//        }
+        if (uri.charAt(0) == '"') {
+            int pos = uri.indexOf('^');
+            uri = uri.substring(1, pos - 1);
+        }
         return uri.replace("_", " ");
     }
 }

@@ -60,7 +60,7 @@ public class SingleEntityCreator {
 		Person p = new Person (id, name, description);
 		p = (Person) create(p);
 		p.setNgaySinh(r.getRandomDate());
-		p.setTuoi(r.getRandomInt(100));
+		p.setTuoi(r.getRandomNumber(100));
 		p.setGioiTinh(r.getRandomGioiTinh());
 		return p;
 	}
@@ -91,9 +91,9 @@ public class SingleEntityCreator {
 	private Country createCountry() {
 		Country p = new Country(id, name, description);
 		p = (Country) create(p);
-		p.setDanSo(r.getRandomInt(9000000));
-		p.setGdp(r.getRandomInt(50000));
-		p.setDienTich(r.getRandomInt(1000000));
+		p.setDanSo(r.getRandomNumber(9000000));
+		p.setGdp(r.getRandomNumber(50000));
+		p.setDienTich(r.getRandomNumber(1000000));
 		return p;
 	}
 	
