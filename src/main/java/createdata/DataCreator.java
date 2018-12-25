@@ -10,7 +10,7 @@ import com.franz.agraph.repository.AGRepositoryConnection;
 
 import entity.AEntity;
 import filereader.DataReader;
-import setting.entityCollection;
+import setting.Config;
 
 /**
  * Class sinh dữ liệu từ dữ liệu đọc ở file data
@@ -23,8 +23,8 @@ public class DataCreator {
 	private ArrayList<String>[] listDescription;
 	private ArrayList<String>[][] listRelationship;
 	
-	private String[] str = entityCollection.strNameEntity;
-	private HashMap<Integer, int[]> numberStr = entityCollection.entityCollection;
+	private String[] str = Config.strNameEntity;
+	private HashMap<Integer, int[]> numberStr = Config.entityCollection;
 	private int numberRelationship, numberEntity;
 
 	public DataCreator(AGRepositoryConnection conn, int numberEntity, int numberRelationship) {
@@ -103,11 +103,11 @@ public class DataCreator {
 	private void getEntityAndDescription() {
 		filereader.DataReader reader = new filereader.DataReader();
 		for (int i = 0; i < 6; i++) {
-			String pathEntity = entityCollection.DIR_DATA_PATH + "/Entity/" + str[i] + ".txt";
+			String pathEntity = Config.DIR_DATA_PATH + "/Entity/" + str[i] + ".txt";
 			reader.setPath(pathEntity);
 			listEntity[i]= reader.readFile();
 			
-			String pathDescription = entityCollection.DIR_DATA_PATH + "/Description/" + str[i] + ".txt";
+			String pathDescription = Config.DIR_DATA_PATH + "/Description/" + str[i] + ".txt";
 			reader.setPath(pathDescription);
 			listDescription[i] = reader.readFile();
 		}
@@ -124,7 +124,7 @@ public class DataCreator {
 		DataReader reader = new DataReader();
 		for (int i = 0; i < 6; i++)
 		for (int j = 0; j < 6; j++) {
-			String pathRelationship = entityCollection.DIR_DATA_PATH + "/Relationship/" + str[i]+str[j] + ".txt";
+			String pathRelationship = Config.DIR_DATA_PATH + "/Relationship/" + str[i]+str[j] + ".txt";
 			reader.setPath(pathRelationship);
 			if (reader.exists()) { 
 				listRelationship[i][j] = reader.readFile();

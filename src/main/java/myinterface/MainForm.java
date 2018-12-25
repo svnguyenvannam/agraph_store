@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 import com.franz.agraph.repository.AGRepositoryConnection;
 import connection.ServerConnection;
 import queryaction.QueryAction;
-import setting.entityCollection;
+import setting.Config;
 import setting.Query;
 
 /**
@@ -21,9 +21,9 @@ import setting.Query;
 public class MainForm extends javax.swing.JFrame {
 
 
-    public static String user = entityCollection.USERNAME;
-    public static String password = entityCollection.PASSWORD;
-    public static String severURL = entityCollection.SERVER_URL;
+    public static String user = Config.USERNAME;
+    public static String password = Config.PASSWORD;
+    public static String severURL = Config.SERVER_URL;
     public static ServerConnection databaseConnecter = ServerConnection.getDatabaseConnecter(severURL, user, password);
 
     /**

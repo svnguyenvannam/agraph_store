@@ -15,7 +15,7 @@ public class RandomProperties {
 	}
 	
 	public String getRandomLink(String dinhDanh) {
-		String link = entityCollection.DEFAULT_LINK + dinhDanh;
+		String link = Config.DEFAULT_LINK + dinhDanh;
 		return link;
 	}
 	

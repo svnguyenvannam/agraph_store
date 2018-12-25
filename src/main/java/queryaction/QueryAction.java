@@ -11,7 +11,7 @@ import org.eclipse.rdf4j.query.TupleQueryResult;
 import com.franz.agraph.repository.AGRepositoryConnection;
 
 import filereader.QueryReader;
-import setting.entityCollection;
+import setting.Config;
 import setting.Query;
 
 /**
@@ -65,9 +65,9 @@ public class QueryAction {
     private static String removePrefix(Value uri_) {
         if (uri_ == null) { return ""; }
         String uri = uri_.toString();
-        uri = uri.replace(entityCollection.ENTITY_PREFIX, "");
-        uri = uri.replace(entityCollection.PROPERTIES_PREFIX, "");
-        uri = uri.replace(entityCollection.RELATIONSHIP_PREFIX, "");
+        uri = uri.replace(Config.ENTITY_PREFIX, "");
+        uri = uri.replace(Config.PROPERTIES_PREFIX, "");
+        uri = uri.replace(Config.RELATIONSHIP_PREFIX, "");
         if (uri.charAt(0) == '"') {
             int pos = uri.indexOf('^');
             uri = uri.substring(1, pos - 1);
@@ -76,14 +76,14 @@ public class QueryAction {
     }
     
     public ArrayList<Query> getListAdvancedQuery() {
-		String pathAdvancedQuery = entityCollection.DIR_QUERY_PATH + "/AdvancedQuery.txt";
+		String pathAdvancedQuery = Config.DIR_QUERY_PATH + "/AdvancedQuery.txt";
 		QueryReader reader = new QueryReader(pathAdvancedQuery);
 		ArrayList<Query> listAdvancedQuery = reader.readFile();
 		return listAdvancedQuery;
 	}	
     
     public ArrayList<Query> getListNormalQuery() {	
-		String pathNormalQuery = entityCollection.DIR_QUERY_PATH + "/NormalQuery.txt";
+		String pathNormalQuery = Config.DIR_QUERY_PATH + "/NormalQuery.txt";
 		QueryReader reader = new QueryReader(pathNormalQuery);
 		ArrayList<Query> listNormalQuery = reader.readFile();
 		return listNormalQuery;
