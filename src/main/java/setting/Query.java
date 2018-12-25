@@ -1,4 +1,4 @@
-package query;
+package setting;
 
 public class Query {
 

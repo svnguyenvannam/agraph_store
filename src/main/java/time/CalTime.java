@@ -7,10 +7,10 @@ import com.franz.agraph.repository.AGRepositoryConnection;
 import query.QueryAction;
 
 public class CalTime {
-	private QueryAction queryAction;
+	private QueryAction queryAction = new QueryAction();
 
 	public CalTime(AGRepositoryConnection conn) {
-		this.queryAction = new QueryAction(conn);
+		
 	}
 
 	/**
@@ -19,11 +19,11 @@ public class CalTime {
 	 * @param number Số thứ tự câu truy ấn cần tính
 	 */
 
-	public String calTime(String Query) {
+	public String calTime(String Query, AGRepositoryConnection conn) {
 		String str = "";
 
 		long startTime = System.currentTimeMillis();
-		TupleQueryResult result = queryAction.getResult(Query);
+		TupleQueryResult result = queryAction.getResult(Query, conn);
 		long endTime = System.currentTimeMillis();
 		long runTime = endTime - startTime;
 
