@@ -1,15 +1,15 @@
 In ra những người có quốc tịch ở một nơi nhưng sống ở nơi khác
-select ?s ?nationality ?home
+select ?s ?p ?o
 where {
   ?idx a class:Country;
-         prs:tên_hiển_thị ?nationality.
+         prs:tên_hiển_thị ?p.
   ?idy a class:Country;
-         prs:tên_hiển_thị ?home.
+         prs:tên_hiển_thị ?o.
   ?idz a class:Person;
          rel:﻿có_quốc_tịch ?idx;
          rel:sống_ở ?idy;
          prs:tên_hiển_thị ?s.
-  filter(?nationality!=?home)
+  filter(?p!=?o)
 }
 ***
 In ra tên các chương trình bị một nước tạm hoãn và đã gây thiệt hại lớn cho "Amazon.com"
