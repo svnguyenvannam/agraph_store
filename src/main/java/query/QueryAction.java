@@ -1,7 +1,5 @@
 package query;
 
-import java.util.ArrayList;
-
 import org.eclipse.rdf4j.model.Value;
 import org.eclipse.rdf4j.query.BindingSet;
 import org.eclipse.rdf4j.query.QueryLanguage;
