@@ -16,7 +16,6 @@ import connection.ServerConnection;
 import queryaction.QueryAction;
 import setting.Config;
 import setting.Query;
-import time.CalTime;
 
 /**
  *
@@ -327,9 +326,8 @@ public class MainForm extends javax.swing.JFrame {
 
         int number = comboChooseStatement.getSelectedIndex();
         QueryAction query = new QueryAction();
-        CalTime calTime = new CalTime(conn);
 
-        String result = calTime.calTime(queryStatement.getText(), conn);
+        String result = query.calTime(queryStatement.getText(), conn);
         if (result.startsWith("\n")) {
             result = "Not found result !".concat(result);
         }
