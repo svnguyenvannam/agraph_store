@@ -8,6 +8,7 @@ public class QueryReader {
 	private ArrayList<Query> listNormalQuery = new ArrayList<Query>(10);
 	private ArrayList<Query> listAdvancedQuery = new ArrayList<Query>(10);
 	
+        //constructor
 	public QueryReader() {
 		this.getNormalAndAdvancedQuery();
 	}

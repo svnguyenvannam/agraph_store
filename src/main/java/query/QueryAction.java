@@ -22,12 +22,7 @@ public class QueryAction {
         this.conn = conn;
     }
 
-    /**
-     * Nhận vào số i và in ra kết quả câu truy vấn đơn giản thứ i
-     *
-     * @param number Số thứ tự câu truy vấn
-     */
-  
+
     public TupleQueryResult getResult(String query) {
         TupleQuery tupleQuery = conn.prepareTupleQuery(QueryLanguage.SPARQL, query);
         TupleQueryResult result = tupleQuery.evaluate();
@@ -35,11 +30,9 @@ public class QueryAction {
     }
 
     /**
-     * In ra kết quả trong truy vấn ?s ?p ?o
-     *
-     * @param query : Truy vấn truyền vào, phải là truy vấn dạng select ?s ?p ?o
-     * @param conn : Đối tượng AGRepositoryConnection dùng để kết nối với
-     * Repository
+     * 
+     * @param result
+     * @return kết quả của câu truy vấn
      */
     public String printRows(TupleQueryResult result) {
         Value x = null;
@@ -69,7 +62,7 @@ public class QueryAction {
      * Xóa các prefix của các URI trước khi in ra
      *
      * @param uri_ : Value chứa URI truyền vào
-     * @return String URI sau khi đã làm sạch các prefix
+     * @return String URI sau khi đã clear các prefix
      */
     private static String removePrefix(Value uri_) {
         if (uri_ == null) {
@@ -79,10 +72,10 @@ public class QueryAction {
         uri = uri.replace(Config.ENTITY_PREFIX, "");
         uri = uri.replace(Config.PROPERTIES_PREFIX, "");
         uri = uri.replace(Config.RELATIONSHIP_PREFIX, "");
-        if (uri.charAt(0) == '"') {
-            int pos = uri.indexOf('^');
-            uri = uri.substring(1, pos - 1);
-        }
+//        if (uri.charAt(0) == '"') {
+//            int pos = uri.indexOf('^');
+//            uri = uri.substring(1, pos - 1);
+//        }
         return uri.replace("_", " ");
     }
 }
