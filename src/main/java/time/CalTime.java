@@ -4,7 +4,7 @@ import org.eclipse.rdf4j.query.TupleQueryResult;
 
 import com.franz.agraph.repository.AGRepositoryConnection;
 
-import query.QueryAction;
+import queryaction.QueryAction;
 
 public class CalTime {
 	private QueryAction queryAction = new QueryAction();

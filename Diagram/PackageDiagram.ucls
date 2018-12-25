@@ -23,11 +23,11 @@
   </package>  
   <package id="5" language="java" name="setting" project="agraph_store" file="/agraph_store/src/main/java/setting" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="526" y="384"/>    
+    <position height="-1" width="-1" x="527" y="381"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="6" language="java" name="query" project="agraph_store" file="/agraph_store/src/main/java/query" 
-    binary="false" corner="BOTTOM_RIGHT">    
+  <package id="6" language="java" name="queryaction" project="agraph_store" 
+    file="/agraph_store/src/main/java/queryaction" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="408" y="216"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
@@ -78,10 +78,14 @@
     <end type="TARGET" refId="3"/>  
   </dependency>  
   <dependency id="18">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="19">    
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="3"/>  
   </dependency>  
-  <dependency id="19">    
+  <dependency id="20">    
     <end type="SOURCE" refId="8"/>    
     <end type="TARGET" refId="4"/>  
   </dependency>  

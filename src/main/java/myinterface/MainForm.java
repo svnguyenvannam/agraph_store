@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 import com.franz.agraph.repository.AGRepositoryConnection;
 
 import connection.ServerConnection;
-import query.QueryAction;
+import queryaction.QueryAction;
 import setting.Config;
 import setting.Query;
 import time.CalTime;
