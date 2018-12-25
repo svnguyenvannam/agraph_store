@@ -88,4 +88,21 @@ public class QueryAction {
 		ArrayList<Query> listNormalQuery = reader.readFile();
 		return listNormalQuery;
     }
+    
+    /**
+	 * Tính thời gian chạy câu truy vấn thứ i đồng thời in kết quả ra màn hình
+	 * @param number Số thứ tự câu truy ấn cần tính
+	 */
+	public String calTime(String Query, AGRepositoryConnection conn) {
+		String str = "";
+
+		long startTime = System.currentTimeMillis();
+		TupleQueryResult result = getResult(Query, conn);
+		long endTime = System.currentTimeMillis();
+		long runTime = endTime - startTime;
+
+		str += printRows(result) + "\n\n------------------------------------" + "\nTotal execution time = "
+				+ runTime + "ms" + "\n";
+		return (str);
+	}
 }
