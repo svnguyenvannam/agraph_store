@@ -1,13 +1,10 @@
 package query;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Scanner;
 
-import filereader.AFileReader;
 import setting.Config;
 
-public class QueryReader extends AFileReader {
+public class QueryReader {
 	private ArrayList<Query> listNormalQuery = new ArrayList<Query>(10);
 	private ArrayList<Query> listAdvancedQuery = new ArrayList<Query>(10);
 	
@@ -16,40 +13,18 @@ public class QueryReader extends AFileReader {
 		this.getNormalAndAdvancedQuery();
 	}
 	
-        /**
-         * Đưa toàn bộ dữ liệu truy vấn của 2 file vào 2 ArrayList tương ứng
-         */
-	private void getNormalAndAdvancedQuery() {
+	public void getNormalAndAdvancedQuery() {
+		filereader.QueryReader reader = new filereader.QueryReader();
+		
 		String pathNormalQuery = Config.DIR_QUERY_PATH + "/NormalQuery.txt";
-		listNormalQuery = readQuery(pathNormalQuery);
+		reader.setPath(pathNormalQuery);
+		listNormalQuery = reader.readFile();
+		
 		String pathAdvancedQuery = Config.DIR_QUERY_PATH + "/AdvancedQuery.txt";
-		listAdvancedQuery = readQuery(pathAdvancedQuery);
-	}
+		reader.setPath(pathAdvancedQuery);
+		listAdvancedQuery = reader.readFile();
+	}	
 	
-        /**
-         * Đọc dữ liệu từ các file truy vấn 
-         * @param path: đường dẫn đến các file truy vấn
-         * @return: danh sách các truy vấn dưới dạng ArrayList
-         */
-	private ArrayList<Query> readQuery(String path) {
-		file = new File(path);
-		ArrayList<Query> listData = new ArrayList<Query>(10);
-		try {
-			scanner = new Scanner(file);
-			while (scanner.hasNextLine())  {
-				String des = scanner.nextLine();
-				String quer = "";
-				while (true) {
-					String line = scanner.nextLine();
-					if (line.replaceAll(" ", "").replaceAll("\t", "").equals("***")) break;
-					quer += line+"\n";
-				}
-				listData.add(new Query(des, quer));
-			}
-		} catch (Exception e) { e.printStackTrace(); }
-		return listData;
-	}
-	     
 	public ArrayList<Query> getListNormalQuery() {return listNormalQuery;}
 	public ArrayList<Query> getListAdvancedQuery() {return listAdvancedQuery;}
 }

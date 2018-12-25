@@ -1,10 +1,7 @@
 package createdata;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Scanner;
 
-import filereader.AFileReader;
 import setting.Config;
 
 /**
@@ -13,7 +10,7 @@ import setting.Config;
  * miêu tả của chúng.
  */
 
-public class DataReader extends AFileReader{
+public class DataReader{
 	private ArrayList<String>[] listEntity = new ArrayList[6];
 	private ArrayList<String>[] listDescription = new ArrayList[6];
 	private ArrayList<String>[][] listRelationship = new ArrayList[6][6];
@@ -33,11 +30,15 @@ public class DataReader extends AFileReader{
          * vd: listEntity[0]="Manh, Nam, Trung...";
 	 */
 	private void getEntityAndDescription() {
+		filereader.DataReader reader = new filereader.DataReader();
 		for (int i = 0; i < 6; i++) {
 			String pathEntity = Config.DIR_DATA_PATH + "/Entity/" + str[i] + ".txt";
+			reader.setPath(pathEntity);
+			listEntity[i]= reader.readFile();
+			
 			String pathDescription = Config.DIR_DATA_PATH + "/Description/" + str[i] + ".txt";
-			listEntity[i] = readEntityOrDescriptionOrRelationship(pathEntity);
-			listDescription[i] = readEntityOrDescriptionOrRelationship(pathDescription);
+			reader.setPath(pathDescription);
+			listDescription[i] = reader.readFile();
 		}
 	}
 
@@ -49,30 +50,15 @@ public class DataReader extends AFileReader{
          * Vd: listRelationship[0][0]="den tham, lam anh huong..."
 	 */
 	private void getRelationship() {
+		filereader.DataReader reader = new filereader.DataReader();
 		for (int i = 0; i < 6; i++)
 		for (int j = 0; j < 6; j++) {
 			String pathRelationship = Config.DIR_DATA_PATH + "/Relationship/" + str[i]+str[j] + ".txt";
-			if (exists(pathRelationship)) {
-				listRelationship[i][j] = readEntityOrDescriptionOrRelationship(pathRelationship);
+			reader.setPath(pathRelationship);
+			if (reader.exists()) { 
+				listRelationship[i][j] = reader.readFile();
 			} else listRelationship[i][j] = null;
 		}
-	}
-	
-	/**
-	 * Đọc file Entity, Description hoặc Relationship
-	 * @param path Đường dẫn đến file cần đọc
-	 * @return ArrayList chứa dữ liệu đọc được
-	 */
-	private ArrayList<String> readEntityOrDescriptionOrRelationship(String path) {
-		file = new File(path);
-		ArrayList<String> listData = new ArrayList<String>();
-		try {
-			scanner = new Scanner(file);
-			while (scanner.hasNextLine())  {
-				listData.add(scanner.nextLine().replace(" ", "_"));
-			}
-		} catch (Exception e) { e.printStackTrace(); }
-		return listData;
 	}
 	
 	public ArrayList<String>[] getListEntity() {return listEntity;}

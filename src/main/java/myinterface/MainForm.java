@@ -7,9 +7,9 @@ package myinterface;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import com.franz.agraph.repository.AGRepositoryConnection;
 import connection.ServerConnection;
-import javax.swing.JOptionPane;
 import query.Query;
 import query.QueryAction;
 import query.QueryReader;
@@ -21,6 +21,7 @@ import time.CalTime;
  * @author manh_vu
  */
 public class MainForm extends javax.swing.JFrame {
+
 
     public static String user = Config.USERNAME;
     public static String password = Config.PASSWORD;
