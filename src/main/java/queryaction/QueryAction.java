@@ -20,9 +20,9 @@ import setting.Query;
  * @author toanloi
  */
 public class QueryAction {
-    
+
     public QueryAction() {
-    	
+
     }
 
     public TupleQueryResult getResult(String query, AGRepositoryConnection conn) {
@@ -47,7 +47,9 @@ public class QueryAction {
             Value o = bind.getValue("o");
             Value lk3 = bind.getValue("lk3");
             Value t = bind.getValue("t");
-            if (s != null && !s.equals(x) && x!=null) { str += "\n"; }
+            if (s != null && !s.equals(x) && x != null) {
+                str += "\n";
+            }
             x = s;
             str = str + removePrefix(s) + " " + removePrefix(lk1) + " " + removePrefix(p) + " "
                     + removePrefix(lk2) + " " + removePrefix(o) + " " + removePrefix(lk3) + " " + removePrefix(t) + "\n";
@@ -63,7 +65,9 @@ public class QueryAction {
      * @return String URI sau khi đã clear các prefix
      */
     private static String removePrefix(Value uri_) {
-        if (uri_ == null) { return ""; }
+        if (uri_ == null) {
+            return "";
+        }
         String uri = uri_.toString();
         uri = uri.replace(Config.ENTITY_PREFIX, "");
         uri = uri.replace(Config.PROPERTIES_PREFIX, "");
@@ -74,35 +78,36 @@ public class QueryAction {
         }
         return uri.replace("_", " ");
     }
-    
+
     public ArrayList<Query> getListAdvancedQuery() {
-		String pathAdvancedQuery = Config.DIR_QUERY_PATH + "/AdvancedQuery.txt";
-		QueryReader reader = new QueryReader(pathAdvancedQuery);
-		ArrayList<Query> listAdvancedQuery = reader.readFile();
-		return listAdvancedQuery;
-	}	
-    
-    public ArrayList<Query> getListNormalQuery() {	
-		String pathNormalQuery = Config.DIR_QUERY_PATH + "/NormalQuery.txt";
-		QueryReader reader = new QueryReader(pathNormalQuery);
-		ArrayList<Query> listNormalQuery = reader.readFile();
-		return listNormalQuery;
+        String pathAdvancedQuery = Config.DIR_QUERY_PATH + "/AdvancedQuery.txt";
+        QueryReader reader = new QueryReader(pathAdvancedQuery);
+        ArrayList<Query> listAdvancedQuery = reader.readFile();
+        return listAdvancedQuery;
     }
-    
+
+    public ArrayList<Query> getListNormalQuery() {
+        String pathNormalQuery = Config.DIR_QUERY_PATH + "/NormalQuery.txt";
+        QueryReader reader = new QueryReader(pathNormalQuery);
+        ArrayList<Query> listNormalQuery = reader.readFile();
+        return listNormalQuery;
+    }
+
     /**
-	 * Tính thời gian chạy câu truy vấn thứ i đồng thời in kết quả ra màn hình
-	 * @param number Số thứ tự câu truy ấn cần tính
-	 */
-	public String calTime(String Query, AGRepositoryConnection conn) {
-		String str = "";
+     * Tính thời gian chạy câu truy vấn thứ i đồng thời in kết quả ra màn hình
+     *
+     * @param number Số thứ tự câu truy ấn cần tính
+     */
+    public String calTime(String Query, AGRepositoryConnection conn) {
+        String str = "";
 
-		long startTime = System.currentTimeMillis();
-		TupleQueryResult result = getResult(Query, conn);
-		long endTime = System.currentTimeMillis();
-		long runTime = endTime - startTime;
+        long startTime = System.currentTimeMillis();
+        TupleQueryResult result = getResult(Query, conn);
+        long endTime = System.currentTimeMillis();
+        long runTime = endTime - startTime;
 
-		str += printRows(result) + "\n\n------------------------------------" + "\nTotal execution time = "
-				+ runTime + "ms" + "\n";
-		return (str);
-	}
+        str += printRows(result) + "\n\n------------------------------------" + "\nTotal execution time = "
+                + runTime + "ms" + "\n";
+        return (str);
+    }
 }

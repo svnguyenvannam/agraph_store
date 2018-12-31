@@ -12,8 +12,8 @@ import setting.RandomProperties;
 public class SingleEntityCreator {
 	private String id;	
 	private String name;
-    private String description;
-	private RandomProperties r = new RandomProperties();
+        private String description;
+	private RandomProperties rand = new RandomProperties();
 	
 	public AEntity createEntity(String id, String name, String description) {
 		this.id = id;
@@ -48,8 +48,8 @@ public class SingleEntityCreator {
 	 * @param p: 1 thưc thể bất kỳ
 	 */
 	private AEntity create(AEntity p) {
-		p.setNgayThang(r.getRandomDate()); 
-		p.setLink(r.getRandomLink(p.getDinhDanh()));
+		p.setNgayThang(rand.getRandomDate()); 
+		p.setLink(rand.getRandomLink(p.getDinhDanh()));
 		return p;
 	}
 	
@@ -59,9 +59,9 @@ public class SingleEntityCreator {
 	private Person createPerson() {
 		Person p = new Person (id, name, description);
 		p = (Person) create(p);
-		p.setNgaySinh(r.getRandomDate());
-		p.setTuoi(r.getRandomNumber(100));
-		p.setGioiTinh(r.getRandomGioiTinh());
+		p.setNgaySinh(rand.getRandomDate());
+		p.setTuoi(rand.getRandomNumber(100));
+		p.setGioiTinh(rand.getRandomGioiTinh());
 		return p;
 	}
 	
@@ -71,7 +71,7 @@ public class SingleEntityCreator {
 	private Organization createOrganization() {
 		Organization p = new Organization(id, name, description);
 		p = (Organization) create(p);
-		p.setNgayThanhLap(r.getRandomDate());
+		p.setNgayThanhLap(rand.getRandomDate());
 		return p;
 	}
 	
@@ -81,7 +81,7 @@ public class SingleEntityCreator {
 	private Location createLocation() {
 		Location p = new Location(id, name, description);
 		p = (Location) create(p);
-		p.setToaDo(r.getRandomToaDo());
+		p.setToaDo(rand.getRandomToaDo());
 		return p;
 	}
 	
@@ -91,9 +91,9 @@ public class SingleEntityCreator {
 	private Country createCountry() {
 		Country p = new Country(id, name, description);
 		p = (Country) create(p);
-		p.setDanSo(r.getRandomNumber(9000000));
-		p.setGdp(r.getRandomNumber(50000));
-		p.setDienTich(r.getRandomNumber(1000000));
+		p.setDanSo(rand.getRandomNumber(9000000));
+		p.setGdp(rand.getRandomNumber(50000));
+		p.setDienTich(rand.getRandomNumber(1000000));
 		return p;
 	}
 	

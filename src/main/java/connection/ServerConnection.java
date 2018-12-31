@@ -4,7 +4,6 @@ import com.franz.agraph.repository.AGCatalog;
 import com.franz.agraph.repository.AGRepository;
 import com.franz.agraph.repository.AGRepositoryConnection;
 import com.franz.agraph.repository.AGServer;
-
 import setting.Config;
 
 /**
@@ -90,9 +89,8 @@ public class ServerConnection {
 	}
 
 	/**
-	 * Thoát khỏi phiên làm việc, đồng thời đóng repo	sitory
-	 * @param conn : Kết nối với DB hiện tại
-	 */
+         * Thoát khỏi phiên làm việc, đồng thời đóng repository
+         */
 	public void closeConnection() {
 		if (conn == null) return;
 		conn.close();
